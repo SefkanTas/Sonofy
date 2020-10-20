@@ -1,10 +1,14 @@
 package github.com.kazetavi.sonofy.adapters;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +19,8 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.models.Publication;
+
+import static android.content.ContentValues.TAG;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
 
@@ -35,10 +41,17 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PublicationViewHolder holder, int position) {
-        Publication publication = publications.get(position);
+        final Publication publication = publications.get(position);
         holder.titreTextView.setText(publication.getTitre());
         Picasso.get().load(publication.getMiniatureUrl()).into(holder.miniatureImageView);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

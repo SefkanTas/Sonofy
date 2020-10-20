@@ -44,6 +44,12 @@ public class Publication {
                 .toString();
     }
 
+    public String getVideoUrl(){
+        return new StringBuilder("https://www.youtube.com/watch?v=")
+                .append(this.videoId)
+                .toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Publication{");
