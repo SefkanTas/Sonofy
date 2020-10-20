@@ -2,34 +2,37 @@ package github.com.kazetavi.sonofy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+import github.com.kazetavi.sonofy.adapters.PublicationAdapter;
+import github.com.kazetavi.sonofy.models.Publication;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton newPublicationButton;
+    private RecyclerView publicationRecyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
-    private ImageView miniatureImageView;
+    List<Publication> publications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,33 +40,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         newPublicationButton = findViewById(R.id.newPublicationButton);
-        miniatureImageView = findViewById(R.id.miniatureImageView);
 
-        Bundle extras = getIntent().getExtras();
+        publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
 
-        if(extras != null){
-            String videoId = extras.getString("VIDEO");
-            StringBuilder imgLink = new StringBuilder("https://img.youtube.com/vi/")
-                    .append(videoId)
-                    .append("/mqdefault.jpg");
-            Picasso.get().load(imgLink.toString()).into(miniatureImageView);
-        }
-        /*else {
-            Picasso.get().load("https://img.youtube.com/vi/L8YQ3w_5Gr0/0.jpg").into(miniatureImageView);
-            "https://img.youtube.com/vi/553_WqA9-Qs/0.jpg"
-            mnN6eSya8yQ
-        }*/
+        layoutManager = new LinearLayoutManager(this);
+        publicationRecyclerView.setLayoutManager(layoutManager);
 
-       /* Firestore db = FirestoreClient.getFirestore();
-        CollectionReference colRef = db.collection("publication");
-        Log.d("SEFKAN COLREF", colRef.toString());
-
-*/
+        publications = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
-        ////Read
         db.collection("publications")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -71,19 +57,20 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d("SEFKAN", document.getId() + " => " + document.getData());
+                                String uid = document.getId();
+                                String titre = document.getData().get("titre").toString();
+                                String videoId = document.getData().get("video_id").toString();
+                                publications.add(new Publication(uid, titre, videoId));
                             }
-                        } else {
-                            //Log.w("SEFKAN", "Error getting documents.", task.getException());
+                            adapter = new PublicationAdapter(publications);
+                            publicationRecyclerView.setAdapter(adapter);
                         }
                     }
                 });
-        ////Read
 
         newPublicationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("SEFKAN", "onClick: testest");
                 Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);
                 startActivity(intent);
             }
