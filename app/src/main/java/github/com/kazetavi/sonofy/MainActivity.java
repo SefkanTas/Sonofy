@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,8 +10,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             String videoId = extras.getString("VIDEO");
             StringBuilder imgLink = new StringBuilder("https://img.youtube.com/vi/")
                     .append(videoId)
-                    .append("/0.jpg");
+                    .append("/mqdefault.jpg");
             Picasso.get().load(imgLink.toString()).into(miniatureImageView);
         }
         /*else {
@@ -41,7 +54,31 @@ public class MainActivity extends AppCompatActivity {
             mnN6eSya8yQ
         }*/
 
+       /* Firestore db = FirestoreClient.getFirestore();
+        CollectionReference colRef = db.collection("publication");
+        Log.d("SEFKAN COLREF", colRef.toString());
 
+*/
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+        ////Read
+        db.collection("publications")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d("SEFKAN", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w("SEFKAN", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        ////Read
 
         newPublicationButton.setOnClickListener(new View.OnClickListener() {
             @Override
