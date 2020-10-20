@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,7 +15,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
                                 String uid = document.getId();
                                 String titre = document.getData().get("titre").toString();
                                 String videoId = document.getData().get("video_id").toString();
-                                publications.add(new Publication(uid, titre, videoId));
+                                long likeCount = (long) document.getData().get("like_count");
+                                long dislikeCount = (long) document.getData().get("dislike_count");
+                                publications.add(new Publication(uid, titre, videoId, likeCount, dislikeCount));
                             }
                             adapter = new PublicationAdapter(publications);
                             publicationRecyclerView.setAdapter(adapter);

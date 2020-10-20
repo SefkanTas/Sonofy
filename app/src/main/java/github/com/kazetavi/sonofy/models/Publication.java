@@ -5,16 +5,22 @@ public class Publication {
     private String uid;
     private String titre;
     private String videoId;
-    private int likes;
-    private int dislikes;
+    private Long likeCount;
+    private Long dislikeCount;
 
 
     public Publication(String uid, String titre, String videoId) {
         this.uid = uid;
         this.titre = titre;
         this.videoId = videoId;
-        this.likes = 0;
-        this.dislikes = 0;
+        this.likeCount = 0L;
+        this.dislikeCount = 0L;
+    }
+
+    public Publication(String uid, String titre, String videoId, Long likes, Long dislikes) {
+        this(uid, titre, videoId);
+        this.likeCount = likes;
+        this.dislikeCount = dislikes;
     }
 
     public String getUid() {
@@ -29,12 +35,12 @@ public class Publication {
         return videoId;
     }
 
-    public int getLikes() {
-        return likes;
+    public Long getLikeCount() {
+        return likeCount;
     }
 
-    public int getDislikes() {
-        return dislikes;
+    public Long getDislikeCount() {
+        return dislikeCount;
     }
 
     public String getMiniatureUrl(){
@@ -56,8 +62,8 @@ public class Publication {
         sb.append("uid='").append(uid).append('\'');
         sb.append(", titre='").append(titre).append('\'');
         sb.append(", videoId='").append(videoId).append('\'');
-        sb.append(", likes=").append(likes);
-        sb.append(", dislikes=").append(dislikes);
+        sb.append(", likes=").append(likeCount);
+        sb.append(", dislikes=").append(dislikeCount);
         sb.append('}');
         return sb.toString();
     }

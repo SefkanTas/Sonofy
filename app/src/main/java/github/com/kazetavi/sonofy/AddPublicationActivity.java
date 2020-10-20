@@ -55,18 +55,14 @@ public class AddPublicationActivity extends AppCompatActivity {
                     videoId +
                     "/mqdefault.jpg";
 
-            //"https://i.ytimg.com/vi/2OEL4P1Rz04mqdefault.jpg"
-
             URL url = null;
             HttpURLConnection connection;
             try {
-                Log.d("SEFKAN", "mon url : " + urlString);
                 url = new URL(urlString);
                 connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
                 code = connection.getResponseCode();
-                Log.d("SEFKAN", "fin execture : " + String.valueOf(code));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,14 +75,12 @@ public class AddPublicationActivity extends AppCompatActivity {
             super.onPostExecute(o);
             //progressBar.setVisibility(View.GONE);
 
-            Log.d("SEFKAN_CODE_TEST_CODE", "onPostExecture : " + String.valueOf(code));
-
-            Log.d("SEFKAN", "titre " + titreMusiqueEditText.getText() + "\n id : " + youtubeVideoIdEditText.getText());
-
             if(code == 200){
                 Map<String, Object> publication = new HashMap<>();
                 publication.put("titre", titre);
                 publication.put("video_id", videoId);
+                publication.put("like_count", 0);
+                publication.put("dislike_count", 0);
 
                 // Add a new document with a generated ID
                 db.collection("publications")
@@ -94,13 +88,13 @@ public class AddPublicationActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                //Log.d("SEFKAN", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                //Log.w("SEFKAN", "Error adding document", e);
+                                //Log.w(TAG, "Error adding document", e);
                             }
                         });
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
@@ -115,7 +109,6 @@ public class AddPublicationActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,10 +121,6 @@ public class AddPublicationActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-
-
-
-        //publierButton.setOnClickListener(addPublicationListenner);
         publierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,17 +2,23 @@ package github.com.kazetavi.sonofy.adapters;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,14 +26,14 @@ import java.util.List;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.models.Publication;
 
-import static android.content.ContentValues.TAG;
-
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
 
     private List<Publication> publications;
+    FirebaseFirestore db;
 
     public PublicationAdapter(List<Publication> publications) {
         this.publications = publications;
+        db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -40,10 +46,12 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PublicationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final PublicationViewHolder holder, int position) {
         final Publication publication = publications.get(position);
         holder.titreTextView.setText(publication.getTitre());
         Picasso.get().load(publication.getMiniatureUrl()).into(holder.miniatureImageView);
+        holder.likeCountTextView.setText(publication.getLikeCount().toString());
+        holder.dislikeCountTextView.setText(publication.getDislikeCount().toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +60,41 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
                 view.getContext().startActivity(intent);
             }
         });
+
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference docRef = db.collection("publications")
+                        .document(publication.getUid());
+                docRef.update("like_count", FieldValue.increment(1));
+
+            }
+        });
+
+        holder.dislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference docRef = db.collection("publications")
+                        .document(publication.getUid());
+                docRef.update("dislike_count", FieldValue.increment(1));
+
+            }
+        });
+
+        final DocumentReference pubRef = db.collection("publications")
+                .document(publication.getUid());
+
+        pubRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value != null && value.exists()){
+                    holder.likeCountTextView.setText(value.get("like_count").toString());
+                    holder.dislikeCountTextView.setText(value.get("dislike_count").toString());
+                }
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -63,11 +105,20 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
 
         TextView titreTextView;
         ImageView miniatureImageView;
+        TextView likeCountTextView;
+        TextView dislikeCountTextView;
+
+        LinearLayout likeButton;
+        LinearLayout dislikeButton;
 
         public PublicationViewHolder(View v) {
             super(v);
             this.titreTextView = v.findViewById(R.id.titrePublicationTextView);
             this.miniatureImageView = v.findViewById(R.id.miniaturePublicationImageView);
+            this.likeCountTextView = v.findViewById(R.id.likeCountTextView);
+            this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView);
+            this.likeButton = v.findViewById(R.id.likeButton);
+            this.dislikeButton = v.findViewById(R.id.dislikeButton);
         }
     }
 
