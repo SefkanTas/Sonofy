@@ -12,5 +12,13 @@ android:
 
 before_install:
    - chmod +x gradlew
+
+addons:
+  sonarcloud:
+    organization: "parisnanterre"
+    token:
+      secure: "vyBYcpajtZaY0UrJiS3HeRHoDC/ndQ5EJu/WH4br3zBY/tlHW1kEOH2TPFQUjlMVOQA4UwczxsMmyAomfS5d31Ax6AuZoSDNgnuqyzWG7EVfGGOShoeHNpad8MDeiE6n+PFjhPvPWvwxdMTKvX0EcoyelCQiFjsGQng2wi8jE7yJE1GgHpLQXfGoPHQnT+mAFigM59My5kKlKYeXxPaf+WyvBNnzJkGZmDozY5yjzANtfvapZLRmbHaAnfX6GPTOE/h7xDAtfbYciBeGNffpxYBL5NvF9FM5JlC2GvSmP81bW4qWI9CrkcV+XrF4bE9sBaZul0P2fu1meiJR1KnV1OnWAQfZ0gDjtbBo7GZpDnOh2D6rtih4nchzL2cxD/R20Dk+9IE6FHuQWTzQz1uDiKHUVU80a6x+FlsBoDJaVkIrecFX2nmAkMVKQ916a4B7NuSe/xT5RVLcu68Ke+thJXBpGQtKdsuKcoNCpBY6q8izDSh6tlt+KbCTOYNrLRiOizwlf0peC/U+QYCLGAUKebUA/3IhoPlQBpRrCOhZDz/b6d3CR5yp2OEcBr8xw1wDr9gYm9fUkNi0npOHzf8maSAcW3BcH0LIAuF5MfKcpFxU+KXY5zAx8kJju814tKyfSN/7LsixUD43JL66idVV+p4ViUMqeQZCpOmxtSSrcS8="
+
 script:
   - ./gradlew build
+  - ./gradlew sonarqube
