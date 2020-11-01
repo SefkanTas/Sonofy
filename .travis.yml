@@ -26,5 +26,3 @@ deploy:
   prerelease: true
   overwrite: true
   target_commitish: $TRAVIS_COMMIT
-  on:
-    tags: true
