@@ -1,30 +1,30 @@
 language: android
 dist: trusty
-
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-29.0.3
-    - android-29
-    - extra-android-m2repository
-
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-29.0.3
+  - android-29
+  - extra-android-m2repository
 before_install:
-   - chmod +x gradlew
+- openssl aes-256-cbc -K $encrypted_fac2a951edbf_key -iv $encrypted_fac2a951edbf_iv
+  -in sonofy.jks.enc -out .\\sonofy.jks -d
+- chmod +x gradlew
 script:
-  - ./gradlew build
-  - ./gradlew assembleDebug
-
+- "./gradlew build"
+- "./gradlew assembleDebug"
 deploy:
   provider: releases
-  api-key: $GITHUB_API_KEY
-  file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk
+  api-key: "$GITHUB_API_KEY"
+  file: "$TRAVIS_BUILD_DIR/app/build/outputs/apk/debug/app-debug.apk"
   skip_cleanup: true
   name: dev-build-$TRAVIS_TAG
-  body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date +'%F %T %Z').
+  body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date
+    +'%F %T %Z').
   prerelease: true
   overwrite: true
-  target_commitish: $TRAVIS_COMMIT
+  target_commitish: "$TRAVIS_COMMIT"
   on:
     branch: travis_apk
