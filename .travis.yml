@@ -26,3 +26,5 @@ deploy:
   prerelease: true
   overwrite: true
   target_commitish: $TRAVIS_COMMIT
+  on:
+    branch: travis_apk
