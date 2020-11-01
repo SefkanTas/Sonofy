@@ -9,9 +9,8 @@ android:
   - android-29
   - extra-android-m2repository
 before_install:
-- openssl aes-256-cbc -K $encrypted_fac2a951edbf_key -iv $encrypted_fac2a951edbf_iv
-  -in sonofy.jks.enc -out .\\sonofy.jks -d
-- chmod +x gradlew
+  - openssl aes-256-cbc -k "$secret_keystore_decrypt" -in sonofy.jks.enc -out sonofy.jks -d
+  - chmod +x gradlew
 script:
 - "./gradlew build"
 - "./gradlew assembleRelease"
@@ -28,3 +27,6 @@ deploy:
   target_commitish: "$TRAVIS_COMMIT"
   on:
     branch: travis_apk
+env:
+  global:
+    secure: u1gnCcn2EXak4x2iW7Afg8tyM4D5iiwwWMPU70UjFkwa1/isjc8nyL6CdgLHrsBbwTkV9H3bwroqWcHi8QxkejEgJOq0eNfvKVJ8YQXJUG0UdyWWzyFYvFWaB5TyLQDwxQPrmQDDZ6h0o2r9IWCCoOwmRq7snd83wytoRMQmQyrUldWFWKbQJUGEmdrPZp2kh6PSsJdBVQkcFpmg+RvjtmHSTZEnLQf4CnTkzZGbtkD0O2DVeFYPy+toRn72Op7gkhxqfgjsNtpcfZEeiosb+yMLnC1TYDIKf0DHzBXhxVfJMZes1hHS2SUMN9UJzqORcAOw9MiZx1lq7mhlBUtwAGYbDPrJhg30CJi7rFGx1Sjbpyr38cXI/fWRqP6fId7CFRRQGEDB2v0ovRlYTHtu7engaeo3aoV8QqbRkq6+iPEnAlNu4rW0TSTuR+s9OOsJubvVNFMSgataSj6oL0dcVUFqJhC5+mXduai+WRYmWxPnIlMY97LlLCtJ+GXty6/t7G1OW4pQ+F+yto1tXRVHB7tFCO5n1mYXY8sXL4w86s4LXaelvfTjx8eyGPIpxH27TiYX1S9G01Iidjz5yIT9AA3RNdxdjyNbxs70hD2dYUWDvyUtfn4ldk4RPrNKT7Hoi+KjxzBVJIcBfjeqPB+URtRapIhxfItFDxl/aFv0S+s=
