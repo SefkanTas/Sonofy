@@ -19,14 +19,14 @@ deploy:
   api-key: "$GITHUB_API_KEY"
   file: "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
   skip_cleanup: true
-  name: dev-build-$TRAVIS_TAG
+  name: $TRAVIS_TAG
   body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date
     +'%F %T %Z').
-  prerelease: true
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
     branch: travis_apk
+    tags: true
 env:
   global:
     secure: u1gnCcn2EXak4x2iW7Afg8tyM4D5iiwwWMPU70UjFkwa1/isjc8nyL6CdgLHrsBbwTkV9H3bwroqWcHi8QxkejEgJOq0eNfvKVJ8YQXJUG0UdyWWzyFYvFWaB5TyLQDwxQPrmQDDZ6h0o2r9IWCCoOwmRq7snd83wytoRMQmQyrUldWFWKbQJUGEmdrPZp2kh6PSsJdBVQkcFpmg+RvjtmHSTZEnLQf4CnTkzZGbtkD0O2DVeFYPy+toRn72Op7gkhxqfgjsNtpcfZEeiosb+yMLnC1TYDIKf0DHzBXhxVfJMZes1hHS2SUMN9UJzqORcAOw9MiZx1lq7mhlBUtwAGYbDPrJhg30CJi7rFGx1Sjbpyr38cXI/fWRqP6fId7CFRRQGEDB2v0ovRlYTHtu7engaeo3aoV8QqbRkq6+iPEnAlNu4rW0TSTuR+s9OOsJubvVNFMSgataSj6oL0dcVUFqJhC5+mXduai+WRYmWxPnIlMY97LlLCtJ+GXty6/t7G1OW4pQ+F+yto1tXRVHB7tFCO5n1mYXY8sXL4w86s4LXaelvfTjx8eyGPIpxH27TiYX1S9G01Iidjz5yIT9AA3RNdxdjyNbxs70hD2dYUWDvyUtfn4ldk4RPrNKT7Hoi+KjxzBVJIcBfjeqPB+URtRapIhxfItFDxl/aFv0S+s=
