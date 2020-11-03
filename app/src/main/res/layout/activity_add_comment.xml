@@ -132,4 +132,37 @@
             android:text="0" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/sendComment"
+        android:layout_width="397dp"
+        android:layout_height="718dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints">
+
+
+        <EditText
+            android:id="@+id/comment_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:hint="Enter Comment"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
+
+
+        <Button
+            android:id="@+id/comment_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="post comment" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

@@ -52,6 +52,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         Picasso.get().load(publication.getMiniatureUrl()).into(holder.miniatureImageView);
         holder.likeCountTextView.setText(publication.getLikeCount().toString());
         holder.dislikeCountTextView.setText(publication.getDislikeCount().toString());
+        holder.commentsCountTextView.setText(publication.getNumComments().toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +81,16 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
 
             }
         });
+        holder.commentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference docRef = db.collection("publications")
+                        .document(publication.getUid());
+                docRef.update("comments_count", FieldValue.increment(1));
+
+            }
+        });
+
 
         final DocumentReference pubRef = db.collection("publications")
                 .document(publication.getUid());
@@ -90,6 +101,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
                 if(value != null && value.exists()){
                     holder.likeCountTextView.setText(value.get("like_count").toString());
                     holder.dislikeCountTextView.setText(value.get("dislike_count").toString());
+                    holder.commentsCountTextView.setText(value.get("comments_count").toString());
                 }
             }
         });
@@ -107,9 +119,11 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         ImageView miniatureImageView;
         TextView likeCountTextView;
         TextView dislikeCountTextView;
+        TextView commentsCountTextView;
 
         LinearLayout likeButton;
         LinearLayout dislikeButton;
+        LinearLayout commentsButton;
 
         public PublicationViewHolder(View v) {
             super(v);
@@ -117,8 +131,10 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             this.miniatureImageView = v.findViewById(R.id.miniaturePublicationImageView);
             this.likeCountTextView = v.findViewById(R.id.likeCountTextView);
             this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView);
+            this.commentsButton = v.findViewById(R.id.commentsCountTextView);
             this.likeButton = v.findViewById(R.id.likeButton);
             this.dislikeButton = v.findViewById(R.id.dislikeButton);
+            this.commentsButton = v.findViewById(R.id.commentsButton);
         }
     }
 

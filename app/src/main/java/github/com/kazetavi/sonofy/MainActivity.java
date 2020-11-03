@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
                                 String videoId = document.getData().get("video_id").toString();
                                 long likeCount = (long) document.getData().get("like_count");
                                 long dislikeCount = (long) document.getData().get("dislike_count");
-                                publications.add(new Publication(uid, titre, videoId, likeCount, dislikeCount));
+                                long comm = (long) document.getData().get("comments_count");
+                                publications.add(new Publication(uid, titre, videoId, likeCount, dislikeCount, comm));
                             }
                             adapter = new PublicationAdapter(publications);
                             publicationRecyclerView.setAdapter(adapter);
