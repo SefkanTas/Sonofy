@@ -25,7 +25,7 @@ deploy:
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
-    branch: travis_apk
+    branch: master
     tags: true
 env:
   global:
