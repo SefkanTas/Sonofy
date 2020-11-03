@@ -1,17 +1,16 @@
 language: android
 dist: trusty
-
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-29.0.3
-    - android-29
-    - extra-android-m2repository
-
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-29.0.3
+  - android-29
+  - extra-android-m2repository
 before_install:
-   - chmod +x gradlew
+  - openssl aes-256-cbc -k "$secret_keystore_decrypt" -in sonofy.jks.enc -out sonofy.jks -d
+  - chmod +x gradlew
 
 addons:
   sonarcloud:
@@ -20,5 +19,25 @@ addons:
       secure: "vyBYcpajtZaY0UrJiS3HeRHoDC/ndQ5EJu/WH4br3zBY/tlHW1kEOH2TPFQUjlMVOQA4UwczxsMmyAomfS5d31Ax6AuZoSDNgnuqyzWG7EVfGGOShoeHNpad8MDeiE6n+PFjhPvPWvwxdMTKvX0EcoyelCQiFjsGQng2wi8jE7yJE1GgHpLQXfGoPHQnT+mAFigM59My5kKlKYeXxPaf+WyvBNnzJkGZmDozY5yjzANtfvapZLRmbHaAnfX6GPTOE/h7xDAtfbYciBeGNffpxYBL5NvF9FM5JlC2GvSmP81bW4qWI9CrkcV+XrF4bE9sBaZul0P2fu1meiJR1KnV1OnWAQfZ0gDjtbBo7GZpDnOh2D6rtih4nchzL2cxD/R20Dk+9IE6FHuQWTzQz1uDiKHUVU80a6x+FlsBoDJaVkIrecFX2nmAkMVKQ916a4B7NuSe/xT5RVLcu68Ke+thJXBpGQtKdsuKcoNCpBY6q8izDSh6tlt+KbCTOYNrLRiOizwlf0peC/U+QYCLGAUKebUA/3IhoPlQBpRrCOhZDz/b6d3CR5yp2OEcBr8xw1wDr9gYm9fUkNi0npOHzf8maSAcW3BcH0LIAuF5MfKcpFxU+KXY5zAx8kJju814tKyfSN/7LsixUD43JL66idVV+p4ViUMqeQZCpOmxtSSrcS8="
 
 script:
-  - ./gradlew build
+  - "./gradlew build"
   - ./gradlew sonarqube
+  - "./gradlew assembleRelease"
+
+deploy:
+  provider: releases
+  api-key: "$GITHUB_API_KEY"
+  file: "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
+  skip_cleanup: true
+  name: $TRAVIS_TAG
+  body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date
+    +'%F %T %Z').
+  overwrite: true
+  target_commitish: "$TRAVIS_COMMIT"
+  on:
+    branch: master
+    tags: true
+
+env:
+  global:
+    secure: u1gnCcn2EXak4x2iW7Afg8tyM4D5iiwwWMPU70UjFkwa1/isjc8nyL6CdgLHrsBbwTkV9H3bwroqWcHi8QxkejEgJOq0eNfvKVJ8YQXJUG0UdyWWzyFYvFWaB5TyLQDwxQPrmQDDZ6h0o2r9IWCCoOwmRq7snd83wytoRMQmQyrUldWFWKbQJUGEmdrPZp2kh6PSsJdBVQkcFpmg+RvjtmHSTZEnLQf4CnTkzZGbtkD0O2DVeFYPy+toRn72Op7gkhxqfgjsNtpcfZEeiosb+yMLnC1TYDIKf0DHzBXhxVfJMZes1hHS2SUMN9UJzqORcAOw9MiZx1lq7mhlBUtwAGYbDPrJhg30CJi7rFGx1Sjbpyr38cXI/fWRqP6fId7CFRRQGEDB2v0ovRlYTHtu7engaeo3aoV8QqbRkq6+iPEnAlNu4rW0TSTuR+s9OOsJubvVNFMSgataSj6oL0dcVUFqJhC5+mXduai+WRYmWxPnIlMY97LlLCtJ+GXty6/t7G1OW4pQ+F+yto1tXRVHB7tFCO5n1mYXY8sXL4w86s4LXaelvfTjx8eyGPIpxH27TiYX1S9G01Iidjz5yIT9AA3RNdxdjyNbxs70hD2dYUWDvyUtfn4ldk4RPrNKT7Hoi+KjxzBVJIcBfjeqPB+URtRapIhxfItFDxl/aFv0S+s=
+
