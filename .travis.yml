@@ -20,7 +20,6 @@ addons:
 
 script:
   - "./gradlew build"
-  - ./gradlew sonarqube
   - "./gradlew assembleRelease"
 
 deploy:
