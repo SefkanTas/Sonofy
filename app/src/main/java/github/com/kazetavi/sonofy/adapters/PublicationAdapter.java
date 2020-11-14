@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.models.Publication;
+import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
 

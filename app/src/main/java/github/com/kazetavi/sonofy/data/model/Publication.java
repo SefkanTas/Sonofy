@@ -1,4 +1,4 @@
-package github.com.kazetavi.sonofy.models;
+package github.com.kazetavi.sonofy.data.model;
 
 public class Publication {
 
