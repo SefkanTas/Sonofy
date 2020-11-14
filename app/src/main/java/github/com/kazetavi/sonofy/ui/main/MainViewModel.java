@@ -41,7 +41,6 @@ public class MainViewModel extends ViewModel {
                                 long likeCount = (long) document.getData().get("like_count");
                                 long dislikeCount = (long) document.getData().get("dislike_count");
                                 publicationsList.add(new Publication(uid, titre, videoId, likeCount, dislikeCount));
-                                Log.d("SEFKAN", "for " + publicationsList.toString());
                             }
                             publications.setValue(publicationsList);
                         }

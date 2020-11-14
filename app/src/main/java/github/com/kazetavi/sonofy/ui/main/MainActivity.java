@@ -1,6 +1,5 @@
 package github.com.kazetavi.sonofy.ui.main;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,20 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import github.com.kazetavi.sonofy.AddPublicationActivity;
+import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.adapters.PublicationAdapter;
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -35,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    //List<Publication> publications;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this);
         publicationRecyclerView.setLayoutManager(layoutManager);
-
 
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
