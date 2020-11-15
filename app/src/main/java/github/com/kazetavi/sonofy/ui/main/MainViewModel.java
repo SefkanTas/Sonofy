@@ -3,21 +3,29 @@ package github.com.kazetavi.sonofy.ui.main;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class MainViewModel extends ViewModel {
+
+    private final String TAG = this.getClass().getSimpleName();
+
     MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
 
     MutableLiveData<List<Publication>> getPublications(){
@@ -25,23 +33,15 @@ public class MainViewModel extends ViewModel {
     }
 
     void loadPublications(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         final List<Publication> publicationsList = new ArrayList<>();
 
-        db.collection("publications")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        PublicationFirestore.getAllPublicationsCollectionDesc()
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String uid = document.getId();
-                                String titre = document.getData().get("titre").toString();
-                                String videoId = document.getData().get("video_id").toString();
-                                long likeCount = (long) document.getData().get("like_count");
-                                long dislikeCount = (long) document.getData().get("dislike_count");
-                                publicationsList.add(new Publication(uid, titre, videoId, likeCount, dislikeCount));
-                            }
+                    public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        publicationsList.clear();
+                        for(QueryDocumentSnapshot doc : value){
+                            publicationsList.add(doc.toObject(Publication.class));
                             publications.setValue(publicationsList);
                         }
                     }

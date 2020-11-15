@@ -16,7 +16,6 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.adapters.PublicationAdapter;
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         publicationRecyclerView.setLayoutManager(layoutManager);
 
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
 
         mainViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
             @Override

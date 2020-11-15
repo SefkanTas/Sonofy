@@ -19,13 +19,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
+
 
 public class AddPublicationViewModel extends ViewModel {
 
     private final String TAG = this.getClass().getSimpleName();
 
     final OkHttpClient client = new OkHttpClient();
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private MutableLiveData<Boolean> isPublicationSaved = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
@@ -38,16 +41,15 @@ public class AddPublicationViewModel extends ViewModel {
         return isLoading;
     }
 
+    /**
+     * Sauvegarde une publication dans Firestore (notre base de données)
+     * @param titre
+     * @param videoId
+     */
     void savePublication(String titre, String videoId){
-        Map<String, Object> publication = new HashMap<>();
-        publication.put("titre", titre);
-        publication.put("video_id", videoId);
-        publication.put("like_count", 0);
-        publication.put("dislike_count", 0);
-
+        Publication publication = new Publication(titre, videoId);
         Log.d(TAG, "savePublication: saving publication : " + titre);
-        db.collection("publications")
-                .add(publication)
+        PublicationFirestore.createPublication(publication)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -62,6 +64,11 @@ public class AddPublicationViewModel extends ViewModel {
                 });
     }
 
+    /**
+     * Vérifie si la vidéo existe et fait appel savePublication pour créer la publication
+     * @param titre
+     * @param videoId
+     */
     void addPublication(String titre, String videoId){
         isLoading.postValue(true);
         final String fTitre = titre;
@@ -69,32 +76,34 @@ public class AddPublicationViewModel extends ViewModel {
         String videoUrl = "https://i.ytimg.com/vi/" + videoId + "/mqdefault.jpg";
 
         Log.d(TAG, "addPublication: fetching video : " + videoUrl);
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(videoUrl)
                 .build();
 
+        // Vérifie si la musique existe, en utilisant le lien
+        // et les codes http
         client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                Log.w(TAG, "onFailure: requestFailed");
-                isLoading.postValue(false);
-            }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 response.code();
                 if(response.code() == 200){
                     savePublication(fTitre, fVideoId);
                     isPublicationSaved.postValue(true);
-                    Log.d(TAG, "client.onResponse: code 200");
+                    Log.d(TAG, "client.onResponse: code is 200 : " + request.urlString());
                 }
                 else {
                     isPublicationSaved.postValue(false);
-                    Log.d(TAG, "client.onResponse: code not 200");
+                    Log.d(TAG, "client.onResponse: code is not 200 : " + request.urlString());
                 }
                 isLoading.postValue(false);
-
             }
+
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.w(TAG, "onFailure: requestFailed");
+                isLoading.postValue(false);
+            }
+
         });
     }
 }
