@@ -1,13 +1,18 @@
 package  github.com.kazetavi.sonofy.auth.ui.login;
 
 import android.app.Activity;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,9 +23,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModel;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModelFactory;
+import github.com.kazetavi.sonofy.auth.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,7 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final TextView new_count = findViewById(R.id.register);
+        final TextView mdpo = findViewById(R.id.mdpoublie);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -108,9 +123,46 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = usernameEditText.toString().trim();
+                String mdp = passwordEditText.toString().trim();
+
+                if(TextUtils.isEmpty(email)){
+                    usernameEditText.setError("Email requis");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(mdp)){
+                    passwordEditText.setError("Mot de passe requis");
+                    return;
+                }
+
+                if(mdp.length() < 8){
+                    passwordEditText.setError("Votre mot de passe doit faire au minimum 8 caractères");
+                    return;
+                }
                 loadingProgressBar.setVisibility(View.VISIBLE);
+                auth.signInWithEmailAndPassword(email, mdp).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this,"Connexion réussie", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        }else{
+                            Toast.makeText(LoginActivity.this,"Erreur ! " + task.getException(), Toast.LENGTH_SHORT).show();
+                            loadingProgressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
+                /* a changer*/
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+
+        new_count.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
     }

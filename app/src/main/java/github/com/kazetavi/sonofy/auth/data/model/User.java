@@ -1,14 +1,18 @@
 package github.com.kazetavi.sonofy.auth.data.model;
 
+import android.widget.TextView;
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
-public class LoggedInUser {
+public class User {
 
     private String userId;
     private String displayName;
+    private String email;
+    private String role;
 
-    public LoggedInUser(String userId, String displayName) {
+    public User(String userId, String displayName) {
         this.userId = userId;
         this.displayName = displayName;
     }
