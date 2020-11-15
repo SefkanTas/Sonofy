@@ -40,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         uEmail = findViewById(R.id.mail_user);
         uMdp = findViewById(R.id.password_user);
         prgB = findViewById(R.id.progressBar2);
+        inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
