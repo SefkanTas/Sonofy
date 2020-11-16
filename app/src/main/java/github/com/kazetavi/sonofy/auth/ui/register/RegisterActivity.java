@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.auth.data.model.User;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginActivity;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText uPrenom, uNom, uPseudo, uEmail,uMdp;
     private TextView LoginBtn;
     private Button inscription;
@@ -34,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         uPrenom = findViewById(R.id.prenom_user);
         uNom = findViewById(R.id.nom_user);
         uPseudo = findViewById(R.id.pseudo_user);
@@ -48,11 +52,11 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
 
-        inscription.setOnClickListener(new View.OnClickListener() {
+        inscription.setOnClickListener(this);
+               /* new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = uEmail.toString().trim();
-                String mdp = uMdp.toString().trim();
+
 
                 if(TextUtils.isEmpty(email)){
                     uEmail.setError("Email requis");
@@ -86,7 +90,88 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
 
-        });
+        });*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.inscription) {
+            registerUser();
+        }
+    }
+
+    private void registerUser() {
+        final String email = uEmail.getText().toString().trim();
+        String mdp = uMdp.getText().toString().trim();
+        final String name = uNom.getText().toString().trim();
+        final String firstname = uPrenom.getText().toString().trim();
+        final String pseudo = uPseudo.getText().toString().trim();
+
+        //Vérification des champs à remplir
+        if(firstname.isEmpty()){
+            uPrenom.setError("Veuillez saisir votre prénom");
+            uPrenom.requestFocus();
+        }
+
+        if(name.isEmpty()){
+            uNom.setError("Veuillez saisir votre nom");
+            uNom.requestFocus();
+        }
+
+        if(pseudo.isEmpty()){
+            uPseudo.setError("Veuillez saisir votre pseudonyme");
+            uPseudo.requestFocus();
+        }
+
+        if(email.isEmpty()){
+            uEmail.setError("Veuillez saisir votre email");
+            uEmail.requestFocus();
+        }
+
+        if( !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            uEmail.setError("Veuillez saisir une adresse mail valide");
+            uEmail.requestFocus();
+        }
+
+        if(mdp.isEmpty()){
+            uMdp.setError("Veuillez saisir un mot de passe");
+            uMdp.requestFocus();
+        }
+
+        if(mdp.length() < 8){
+            uMdp.setError("Veuillez saisir un mot de passe à 8 caractères");
+            uMdp.requestFocus();
+        }
+
+        prgB.setVisibility(View.VISIBLE);
+        mAuth.createUserWithEmailAndPassword(email,mdp)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            User u = new User(name, firstname,pseudo, email);
+
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(RegisterActivity.this, "Utilisateur créé avec succès", Toast.LENGTH_SHORT).show();
+                                        prgB.setVisibility(View.VISIBLE);
+                                        //redirection à la page de connexion
+                                    }else{
+                                        Toast.makeText(RegisterActivity.this, "Création nouvel utilisateur échoué . Veuillez réessayer", Toast.LENGTH_SHORT).show();
+                                        prgB.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                        }else{
+                            Toast.makeText(RegisterActivity.this, "Création nouvel utilisateur échoué . Veuillez réessayer", Toast.LENGTH_SHORT).show();
+                            prgB.setVisibility(View.GONE);
+                        }
+                    }
+                });
     }
 
     /*

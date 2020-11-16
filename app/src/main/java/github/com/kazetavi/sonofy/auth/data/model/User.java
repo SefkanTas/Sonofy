@@ -8,20 +8,31 @@ import android.widget.TextView;
 public class User {
 
     private String userId;
-    private String displayName;
-    private String email;
+    private String nom, prenom, pseudo, email, password;
     private String role;
 
     public User(String userId, String displayName) {
         this.userId = userId;
-        this.displayName = displayName;
+        this.nom = displayName;
     }
+
+    public User(){
+
+    }
+
+    public User(String nom, String prenom, String pseudo, String email){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.pseudo = pseudo;
+        this.email = email;
+    }
+
 
     public String getUserId() {
         return userId;
     }
 
     public String getDisplayName() {
-        return displayName;
+        return nom;
     }
 }
