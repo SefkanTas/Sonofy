@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy.data.model;
 
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -18,7 +19,8 @@ public class Commentaire {
     public Commentaire() {
 
     }
-
+    
+    @DocumentId
     public String getUid() {
         return uid;
     }
@@ -66,4 +68,5 @@ public class Commentaire {
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
+
 }
