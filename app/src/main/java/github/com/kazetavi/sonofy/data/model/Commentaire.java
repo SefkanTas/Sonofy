@@ -19,7 +19,14 @@ public class Commentaire {
     public Commentaire() {
 
     }
-    
+
+    public Commentaire(String publicationId, String content) {
+        this.publicationId = publicationId;
+        this.content = content;
+        likeCount = 0L;
+        dislikeCount = 0L;
+    }
+
     @DocumentId
     public String getUid() {
         return uid;

@@ -3,22 +3,24 @@ package github.com.kazetavi.sonofy.ui.publication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.ui.main.MainViewModel;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -33,7 +35,14 @@ public class PublicationActivity extends AppCompatActivity {
     LinearLayout likeButton;
     LinearLayout dislikeButton;
 
+    EditText commentaireEditText;
+    Button commenterButton;
+
     Publication publication;
+
+    private RecyclerView commentaireRecyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -48,13 +57,20 @@ public class PublicationActivity extends AppCompatActivity {
         likeButton = findViewById(R.id.likeButton2);
         dislikeButton = findViewById(R.id.dislikeButton2);
 
-        Intent intent = getIntent();
-        String publicationId = intent.getStringExtra("PUBLICATION_ID");
+        commentaireEditText = findViewById(R.id.commentaireEditText);
+        commenterButton = findViewById(R.id.commenterButton);
 
-        PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
+        commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
+
+        layoutManager = new LinearLayoutManager(this);
+        commentaireRecyclerView.setLayoutManager(layoutManager);
+
+        final Intent intent = getIntent();
+        final String publicationId = intent.getStringExtra("PUBLICATION_ID");
+
+        final PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
 
         publicationViewModel.loadPublication(publicationId);
-
 
         publicationViewModel.getPublication().observe(this, new Observer<Publication>() {
             @Override
@@ -64,6 +80,31 @@ public class PublicationActivity extends AppCompatActivity {
                 titreTextView.setText(publication.getTitre());
                 likeCountTextView.setText(publication.getLikeCount().toString());
                 dislikeCountTextView.setText(publication.getDislikeCount().toString());
+            }
+        });
+
+        publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
+            @Override
+            public void onChanged(List<Commentaire> commentaires) {
+                adapter = new CommentaireAdapter(commentaires);
+                commentaireRecyclerView.setAdapter(adapter);
+            }
+        });
+
+        commenterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = commentaireEditText.getText().toString();
+                publicationViewModel.createCommentaire(publication.getUid(), content);
+                commentaireEditText.setText("");
+            }
+        });
+
+        miniatureImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentYoutube = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                startActivity(intentYoutube);
             }
         });
 
