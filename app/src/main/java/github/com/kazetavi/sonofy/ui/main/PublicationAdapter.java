@@ -1,7 +1,6 @@
-package github.com.kazetavi.sonofy.adapters;
+package github.com.kazetavi.sonofy.ui.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.models.Publication;
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
 
     private List<Publication> publications;
-    FirebaseFirestore db;
 
     public PublicationAdapter(List<Publication> publications) {
         this.publications = publications;
-        db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -56,7 +52,9 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                Intent intent = new Intent(view.getContext(), PublicationActivity.class);
+                intent.putExtra("PUBLICATION_ID", publication.getUid());
                 view.getContext().startActivity(intent);
             }
         });
@@ -64,37 +62,28 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         holder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentReference docRef = db.collection("publications")
-                        .document(publication.getUid());
-                docRef.update("like_count", FieldValue.increment(1));
-
+                PublicationFirestore.incrementLike(publication);
             }
         });
 
         holder.dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentReference docRef = db.collection("publications")
-                        .document(publication.getUid());
-                docRef.update("dislike_count", FieldValue.increment(1));
-
+                PublicationFirestore.incrementDislike(publication);
             }
         });
 
-        final DocumentReference pubRef = db.collection("publications")
-                .document(publication.getUid());
-
-        pubRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        PublicationFirestore.getPublicationRef(publication)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value != null && value.exists()){
-                    holder.likeCountTextView.setText(value.get("like_count").toString());
-                    holder.dislikeCountTextView.setText(value.get("dislike_count").toString());
+                    holder.likeCountTextView.setText(value.get(PublicationFirestore.LIKE_COUNT).toString());
+                    holder.dislikeCountTextView.setText(value.get(PublicationFirestore.DISLIKE_COUNT).toString());
                 }
             }
         });
     }
-
 
     @Override
     public int getItemCount() {
@@ -115,10 +104,10 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             super(v);
             this.titreTextView = v.findViewById(R.id.titrePublicationTextView);
             this.miniatureImageView = v.findViewById(R.id.miniaturePublicationImageView);
-            this.likeCountTextView = v.findViewById(R.id.likeCountTextView);
-            this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView);
-            this.likeButton = v.findViewById(R.id.likeButton);
-            this.dislikeButton = v.findViewById(R.id.dislikeButton);
+            this.likeCountTextView = v.findViewById(R.id.likeCountTextView2);
+            this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView2);
+            this.likeButton = v.findViewById(R.id.likeButton2);
+            this.dislikeButton = v.findViewById(R.id.dislikeButton2);
         }
     }
 
