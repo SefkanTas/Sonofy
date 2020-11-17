@@ -1,0 +1,59 @@
+@startuml model
+
+package app{
+
+	package model{
+  	class User{
+
+    }
+
+  }
+
+  class LoginDataSource{
+
+  }
+
+  class LoginRepository{
+
+  }
+
+  package ui{
+  	package login{
+    	class LoggedInUser{
+
+      }
+
+      class LogingActivity{
+
+      }
+
+      class LogingFormState{
+
+      }
+
+      class LogingResult{
+
+      }
+
+      class LogingViewModel{
+
+      }
+
+      class LogingViewModelFactory{
+
+      }
+
+    }
+
+    package register{
+    	class RegisterActivity{
+
+      }
+
+    }
+
+  }
+
+
+}
+@enduml
