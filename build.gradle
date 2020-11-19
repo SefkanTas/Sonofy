@@ -17,6 +17,8 @@ buildscript {
 
 plugins {
     id "org.sonarqube" version "3.0"
+    id 'org.asciidoctor.jvm.pdf' version '3.1.0'
+    id 'org.asciidoctor.jvm.gems' version '3.1.0'
 }
 
 allprojects {
@@ -26,12 +28,34 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
 sonarqube {
     properties {
         property "sonar.projectKey", "SefkanTas_Sonofy"
     }
 }
+asciidoctorPdf {
+    dependsOn asciidoctorGemsPrepare
+
+    baseDirFollowsSourceFile()
+
+    asciidoctorj {
+        requires 'rouge'
+        modules {
+            diagram.use()
+        }
+        attributes 'build-gradle': file('build.gradle'),
+                //'sourcedir': project.sourceSets.main.java.srcDirs[0],
+                'endpoint-url': 'http://example.org',
+                'source-highlighter': 'rouge',
+                'rouge-style': 'github',
+                'rouge-theme': 'github',
+                'imagesdir': './images',
+                'toc': 'left',
+                'toclevels': 2,
+                'icons': 'font',
+                'idprefix': '',
+                'idseparator': '-'
+    }
+}
+
+task asciidoctor(dependsOn: asciidoctorPdf)
