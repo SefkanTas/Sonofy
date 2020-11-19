@@ -13,7 +13,7 @@ sudo : false
 before_install:
   - openssl aes-256-cbc -k "$secret_keystore_decrypt" -in sonofy.jks.enc -out sonofy.jks -d
   - chmod a+x gradlew
-
+  - yes | sdkmanager "platforms;android-30"
 addons:
   sonarcloud:
     organization: "parisnanterre"
