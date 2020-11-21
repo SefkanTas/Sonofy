@@ -120,44 +120,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = usernameEditText.toString().trim();
-                String mdp = passwordEditText.toString().trim();
 
-                if(TextUtils.isEmpty(email)){
-                    usernameEditText.setError("Email requis");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(mdp)){
-                    passwordEditText.setError("Mot de passe requis");
-                    return;
-                }
-
-                if(mdp.length() < 8){
-                    passwordEditText.setError("Votre mot de passe doit faire au minimum 8 caractères");
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                auth.signInWithEmailAndPassword(email, mdp).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this,"Connexion réussie", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        }else{
-                            Toast.makeText(LoginActivity.this,"Erreur ! " + task.getException(), Toast.LENGTH_SHORT).show();
-                            loadingProgressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-                /* a changer*/
-                loginViewModel.login(usernameEditText.getText().toString(),
+        loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
-            }
-        });
+
 
         new_count.setOnClickListener(new View.OnClickListener(){
             @Override

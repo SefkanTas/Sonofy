@@ -155,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User u = new User(name, firstname,pseudo, email);
+                            User u = new User(name, firstname,pseudo, email,"rien");
 
                             FirebaseFirestore.getInstance().collection("Users")
                                     .add(u)
@@ -180,23 +180,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 });
     }
-
-    /*
-     * Dans main_activity
-     * Ajouter une variable Button logout
-     * Dans MainActivity aussi
-     * puis mettre le code suivant dans onCreate():
-     *
-     * logout = findViewById(R.id.deconnexion_user);
-     * logout.setOnClickListener(new View.OnClickListener(){
-     * @Override
-     *      public void onClick(View v) {
-     *          FireBaseAuth.getInstance().signOut();
-     *          startActivity(new Intent(getApplicationContext(), MainActivity.class));
-     *          finish();
-     *      }
-     *
-     * );
-    *
-    * */
 }

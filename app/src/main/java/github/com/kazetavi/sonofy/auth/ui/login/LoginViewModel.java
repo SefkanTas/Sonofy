@@ -34,7 +34,7 @@ public class LoginViewModel extends ViewModel {
 
         if (result instanceof Result.Success) {
             User data = ((Result.Success<User>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName(), data.getPseudo(), data.getRole())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
@@ -64,6 +64,6 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return password != null && password.trim().length() > 7;
     }
 }
