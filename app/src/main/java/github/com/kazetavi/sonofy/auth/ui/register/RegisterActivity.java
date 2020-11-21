@@ -2,6 +2,7 @@ package github.com.kazetavi.sonofy.auth.ui.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.auth.data.model.User;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginActivity;
+import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModel;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = this.getClass().getSimpleName();
@@ -37,12 +41,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button inscription;
     private FirebaseAuth mAuth;
     private ProgressBar prgB;
+    private RadioGroup btn_groupe;
+    private RadioButton artiste, normal;
+
+    private RegisterViewModel registerViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
         uPrenom = findViewById(R.id.prenom_user);
         uNom = findViewById(R.id.nom_user);
@@ -52,6 +62,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         prgB = findViewById(R.id.progressBar2);
         inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
+        btn_groupe = findViewById(R.id.groupe);
+        artiste = findViewById(R.id.u_artiste);
+        normal = findViewById(R.id.u_normal);
 
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -59,56 +72,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         inscription.setOnClickListener(this);
-               /* new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if(TextUtils.isEmpty(email)){
-                    uEmail.setError("Email requis");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(mdp)){
-                    uMdp.setError("Mot de passe requis");
-                    return;
-                }
-
-                if(mdp.length() < 8){
-                    uMdp.setError("Votre mot de passe doit faire au minimum 8 caractères");
-                    return;
-                }
-
-                prgB.setVisibility(View.VISIBLE);
-
-                //On enregistre l'utilisateur et ses données
-                mAuth.createUserWithEmailAndPassword(email, mdp).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this,"Compte créé", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        }else{
-                            Toast.makeText(RegisterActivity.this,"Erreur ! " + task.getException(), Toast.LENGTH_SHORT).show();
-                            prgB.setVisibility(View.GONE);
-                        }
-                    }
-                });
-            }
-
-        });*/
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.inscription) {
-            registerUser();
+            final String role = checkRole(v);
+            registerUser(role);
         }
     }
 
-    private void registerUser() {
+    public String checkRole(View view){
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.u_artiste:
+                if (checked)
+                    return "artiste";
+                    break;
+            case R.id.u_normal:
+                if (checked)
+                    return "normal";
+                    break;
+        }
+        btn_groupe.requestFocus();
+        return "";
+    }
+
+    private void registerUser(final String role) {
         final String email = uEmail.getText().toString().trim();
-        String mdp = uMdp.getText().toString().trim();
+        final String mdp = uMdp.getText().toString().trim();
         final String name = uNom.getText().toString().trim();
         final String firstname = uPrenom.getText().toString().trim();
         final String pseudo = uPseudo.getText().toString().trim();
@@ -155,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User u = new User(name, firstname,pseudo, email,"rien");
+                            User u = new User(name, firstname,pseudo, email,role);
 
                             FirebaseFirestore.getInstance().collection("Users")
                                     .add(u)

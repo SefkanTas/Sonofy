@@ -1,18 +1,11 @@
 package github.com.kazetavi.sonofy.auth.data;
 
-import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.auth.data.model.User;
 
 import java.io.IOException;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
