@@ -8,8 +8,7 @@ import android.widget.TextView;
 public class User {
 
     private String userId;
-    private String nom, prenom, pseudo, email, password;
-    private String role;
+    private String nom, prenom, pseudo, email, password,role;
 
     public User(String userId, String displayName) {
         this.userId = userId;
@@ -20,11 +19,12 @@ public class User {
 
     }
 
-    public User(String nom, String prenom, String pseudo, String email){
+    public User(String nom, String p, String pseudo, String email, String r){
         this.nom = nom;
-        this.prenom = prenom;
+        this.prenom = p;
         this.pseudo = pseudo;
         this.email = email;
+        this.role = r;
     }
 
 
@@ -34,5 +34,29 @@ public class User {
 
     public String getDisplayName() {
         return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

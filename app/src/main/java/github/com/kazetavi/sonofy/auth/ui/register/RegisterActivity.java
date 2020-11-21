@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
@@ -26,6 +31,7 @@ import github.com.kazetavi.sonofy.auth.data.model.User;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+    private final String TAG = this.getClass().getSimpleName();
     private EditText uPrenom, uNom, uPseudo, uEmail,uMdp;
     private TextView LoginBtn;
     private Button inscription;
@@ -151,21 +157,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if(task.isSuccessful()){
                             User u = new User(name, firstname,pseudo, email);
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this, "Utilisateur créé avec succès", Toast.LENGTH_SHORT).show();
-                                        prgB.setVisibility(View.VISIBLE);
-                                        //redirection à la page de connexion
-                                    }else{
-                                        Toast.makeText(RegisterActivity.this, "Création nouvel utilisateur échoué . Veuillez réessayer", Toast.LENGTH_SHORT).show();
-                                        prgB.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
+                            FirebaseFirestore.getInstance().collection("Users")
+                                    .add(u)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + documentReference.getId());
+                                            prgB.setVisibility(View.VISIBLE);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Création d'un nouvel utilisateur échouéet", e);
+                                            prgB.setVisibility(View.GONE);
+                                        }
+                                    });
                         }else{
                             Toast.makeText(RegisterActivity.this, "Création nouvel utilisateur échoué . Veuillez réessayer", Toast.LENGTH_SHORT).show();
                             prgB.setVisibility(View.GONE);
