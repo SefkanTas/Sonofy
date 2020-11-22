@@ -12,15 +12,18 @@ import androidx.annotation.Nullable;
         @Nullable
         private Integer pseudoError;
         @Nullable
+        private Integer roleError;
+        @Nullable
         private Integer usernameError;
         @Nullable
         private Integer passwordError;
         private boolean isDataValid;
 
-        RegisterFormState(@Nullable Integer firstnameError,@Nullable Integer nameError,@Nullable Integer pseudoError,@Nullable Integer usernameError, @Nullable Integer passwordError) {
+        RegisterFormState(@Nullable Integer firstnameError,@Nullable Integer nameError,@Nullable Integer pseudoError,@Nullable Integer roleError,@Nullable Integer usernameError, @Nullable Integer passwordError) {
             this.firstnameError = firstnameError;
             this.nameError = nameError;
             this.pseudoError = pseudoError;
+            this.roleError = roleError;
             this.usernameError = usernameError;
             this.passwordError = passwordError;
             this.isDataValid = false;
@@ -30,6 +33,7 @@ import androidx.annotation.Nullable;
             this.firstnameError = null;
             this.nameError = null;
             this.pseudoError = null;
+            this.roleError = null;
             this.usernameError = null;
             this.passwordError = null;
             this.isDataValid = isDataValid;
@@ -48,6 +52,11 @@ import androidx.annotation.Nullable;
         @Nullable
         Integer getPseudoError() {
             return pseudoError;
+        }
+
+        @Nullable
+        Integer getRoleError() {
+            return roleError;
         }
 
         @Nullable

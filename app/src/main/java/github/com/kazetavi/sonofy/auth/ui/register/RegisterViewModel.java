@@ -46,18 +46,25 @@ public class RegisterViewModel extends ViewModel {
         return pseudo != null;
     }
 
+    // Checking the user's role
+    private boolean isRoleValid(String role) {
+        return role != null;
+    }
+
     //Checking all fields of the register form
-    public void registerDataChanged(String name, String firstname, String pseudo,String username, String password) {
+    public void registerDataChanged(String name, String firstname, String pseudo,String role,String username, String password) {
         if (!isUserNameValid(username)) {
-            registerFormState.setValue(new RegisterFormState(null, null,null,R.string.invalid_username,null));
+            registerFormState.setValue(new RegisterFormState(null, null,null,null,R.string.invalid_username,null));
         }else if (!isNameValid(name)) {
-            registerFormState.setValue(new RegisterFormState(null,R.string.invalid_username,null,null, null));
+            registerFormState.setValue(new RegisterFormState(null,R.string.invalid_username,null,null,null, null));
         }else if (!isFirstameValid(firstname)) {
-            registerFormState.setValue(new RegisterFormState(R.string.invalid_username,null,null,null, R.string.invalid_password));
+            registerFormState.setValue(new RegisterFormState(R.string.invalid_username,null,null,null, null,null));
+        }else if (!isRoleValid(role)) {
+            registerFormState.setValue(new RegisterFormState(null,null,null,R.string.invalid_username,null, null));
         }else if (!isPseudoValid(pseudo)) {
-            registerFormState.setValue(new RegisterFormState(null,null,R.string.invalid_username,null, R.string.invalid_password));
+            registerFormState.setValue(new RegisterFormState(null,null,R.string.invalid_username,null,null, null));
         } else if (!isPasswordValid(password)) {
-            registerFormState.setValue(new RegisterFormState(null,null,null,null, R.string.invalid_password));
+            registerFormState.setValue(new RegisterFormState(null,null,null,null,null, R.string.invalid_password));
         } else {
             registerFormState.setValue(new RegisterFormState(true));
         }
