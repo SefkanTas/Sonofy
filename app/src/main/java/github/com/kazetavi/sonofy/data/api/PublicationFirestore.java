@@ -59,7 +59,7 @@ public class PublicationFirestore {
     //SEARCH
 
     public static Query searchByTitle(String title){
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME+"/"+TITRE).whereEqualTo(title, true);
+        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(TITRE, title);
     }
 
     // UPDATE
