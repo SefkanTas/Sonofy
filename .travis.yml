@@ -29,7 +29,7 @@ after_success:
 - "./gradlew asciidoctor"
 
 before_deploy:
-- export VERSION=./gradlew -q version
+- export VERSION=$TRAVIS_TAG
 - export BINDIR="build/libs"
 - export BINFILE="Sonofy-${VERSION}"
 - export DOCDIR="build/docs/asciidocPdf"
