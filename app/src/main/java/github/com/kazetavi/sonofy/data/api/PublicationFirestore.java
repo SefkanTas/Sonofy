@@ -43,6 +43,22 @@ public class PublicationFirestore {
         return PublicationFirestore.getAllPublicationsCollectionDesc().get();
     }
 
+    public static Query getAllPublicationsCollectionTitre(){
+        return PublicationFirestore.getPublicationsCollection().orderBy(TITRE, Query.Direction.ASCENDING);
+    }
+
+    public static Task<QuerySnapshot> getAllPublicationsTitre() {
+        return PublicationFirestore.getAllPublicationsCollectionTitre().get();
+    }
+
+    public static Query getAllPublicationsCollectionLike(){
+        return PublicationFirestore.getPublicationsCollection().orderBy(LIKE_COUNT, Query.Direction.DESCENDING);
+    }
+
+    public static Task<QuerySnapshot> getAllPublicationsLike() {
+        return PublicationFirestore.getAllPublicationsCollectionLike().get();
+    }
+
     public static DocumentReference getPublicationRef(String uid){
         return PublicationFirestore.getPublicationsCollection().document(uid);
     }
@@ -55,6 +71,12 @@ public class PublicationFirestore {
         return PublicationFirestore.getPublicationRef(uid).get();
     }
 
+
+    //SEARCH
+
+    public static Query searchByTitle(String title){
+        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(TITRE, title);
+    }
 
     // UPDATE
 
