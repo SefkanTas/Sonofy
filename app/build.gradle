@@ -61,3 +61,28 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
 }
+
+asciidoctorPdf {
+    dependsOn asciidoctorGemsPrepare
+
+    baseDirFollowsSourceFile()
+
+    asciidoctorj {
+        requires 'rouge'
+        modules {
+            diagram.use()
+        }
+        attributes 'build-gradle': file('build.gradle'),
+                //'sourcedir': project.sourceSets.main.java.srcDirs[0],
+                'endpoint-url': 'http://example.org',
+                'source-highlighter': 'rouge',
+                'rouge-style': 'github',
+                'rouge-theme': 'github',
+                'imagesdir': './images',
+                'toc': 'left',
+                'toclevels': 2,
+                'icons': 'font',
+                'idprefix': '',
+                'idseparator': '-'
+    }
+}
