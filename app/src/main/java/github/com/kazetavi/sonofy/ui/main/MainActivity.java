@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //mainViewModel.loadPublicationsDate();
+        mainViewModel.loadPublicationsDate();
 
         sortTitre.setOnClickListener(new View.OnClickListener() {
             @Override
