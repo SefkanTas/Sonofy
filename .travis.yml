@@ -70,6 +70,21 @@ deploy:
   on:
     branch: master
     tags: true
+deploy:
+  provider: releases
+  api-key: "$GITHUB_API_KEY"
+  file: 
+    - "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
+    - ${DOCUMENTATION}
+  skip_cleanup: true
+  name: $TRAVIS_TAG
+  body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date
+    +'%F %T %Z').
+  overwrite: true
+  target_commitish: "$TRAVIS_COMMIT"
+  on:
+    branch: ascdoc
+    tags: false
 
 env:
   global:
