@@ -95,7 +95,7 @@ public class AddPublicationViewModel extends ViewModel {
             @Override
             public void onResponse(Response response) throws IOException {
                 response.code();
-                if(response.code() == 201){
+                if(response.code() == 200){
                     savePublication(fTitre, fVideoId);
                     isPublicationSaved.postValue(true);
                     Log.d(TAG, "client.onResponse: code is 200 : " + request.urlString());

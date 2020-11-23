@@ -6,15 +6,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.ui.main.MainActivity;
@@ -75,7 +72,7 @@ public class AddPublicationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!youtubeVideoIdEditText.getText().toString().isEmpty() && !titreMusiqueEditText.getText().toString().isEmpty()){
                     String titre;
-                    String videoId = null;
+                    String videoId;
 
                     titre = titreMusiqueEditText.getText().toString().trim();
                     videoId = youtubeVideoIdEditText.getText().toString().trim();
