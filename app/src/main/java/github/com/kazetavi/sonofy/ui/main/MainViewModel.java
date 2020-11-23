@@ -64,4 +64,19 @@ public class MainViewModel extends ViewModel {
                     }
                 });
     }
+
+    void loadPublicationsLike() {
+        final List<Publication> publicationsList = new ArrayList<>();
+        PublicationFirestore.getAllPublicationsCollectionLike()
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        publicationsList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            publicationsList.add(doc.toObject(Publication.class));
+                            publications.setValue(publicationsList);
+                        }
+                    }
+                });
+    }
 }

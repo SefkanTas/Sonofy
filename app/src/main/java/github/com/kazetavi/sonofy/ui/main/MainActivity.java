@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     Button sortTitre;
     Button sortDate;
+    Button sortLike;
 
 
     @Override
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         sortTitre = findViewById(R.id.sortByTitre);
         sortDate = findViewById(R.id.sortByDate);
+        sortLike = findViewById(R.id.sortByLike);
 
         newPublicationButton = findViewById(R.id.newPublicationButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainViewModel.loadPublicationsDate();
+        //mainViewModel.loadPublicationsDate();
 
         sortTitre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mainViewModel.loadPublicationsDate();
+            }
+        });
+
+        sortLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainViewModel.loadPublicationsLike();
             }
         });
 

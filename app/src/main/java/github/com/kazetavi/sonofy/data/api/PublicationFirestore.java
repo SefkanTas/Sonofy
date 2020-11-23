@@ -52,11 +52,11 @@ public class PublicationFirestore {
     }
 
     public static Query getAllPublicationsCollectionLike(){
-        return PublicationFirestore.getPublicationsCollection().orderBy(TITRE, Query.Direction.ASCENDING);
+        return PublicationFirestore.getPublicationsCollection().orderBy(LIKE_COUNT, Query.Direction.DESCENDING);
     }
 
     public static Task<QuerySnapshot> getAllPublicationsLike() {
-        return PublicationFirestore.getAllPublicationsCollectionTitre().get();
+        return PublicationFirestore.getAllPublicationsCollectionLike().get();
     }
 
     public static DocumentReference getPublicationRef(String uid){
