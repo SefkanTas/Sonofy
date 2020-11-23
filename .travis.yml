@@ -32,7 +32,7 @@ before_deploy:
 - export VERSION=$TRAVIS_TAG
 - export BINDIR="build/libs"
 - export BINFILE="Sonofy-${VERSION}"
-- export DOCDIR="build/docs/asciidocPdf"
+- export DOCDIR="build/.asciidoctorGems/gems"
 - export DOCFILE="main"
 - mv "${DOCDIR}/${DOCFILE}.pdf" "${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
 - export BINARY="${BINDIR}/${BINFILE}.jar"
