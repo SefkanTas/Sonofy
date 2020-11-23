@@ -34,7 +34,7 @@ before_deploy:
 - export BINFILE="Sonofy-${VERSION}"
 - export DOCDIR="build/.asciidoctorGems/gems"
 - export DOCFILE="main"
-- mv '${DOCDIR}/${DOCFILE}.pdf' '${DOCDIR}/${DOCFILE}-${VERSION}.pdf'
+- mv ${DOCDIR}/${DOCFILE}.pdf ${DOCDIR}/${DOCFILE}-${VERSION}.pdf
 - export BINARY="${BINDIR}/${BINFILE}.jar"
 - export DOCUMENTATION="${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
 - echo binary is ${BINARY}
