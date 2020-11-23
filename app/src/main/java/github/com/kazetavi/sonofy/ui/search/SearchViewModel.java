@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -40,6 +41,5 @@ public class SearchViewModel extends ViewModel {
                         }
                     }
                 });
-
     }
 }
