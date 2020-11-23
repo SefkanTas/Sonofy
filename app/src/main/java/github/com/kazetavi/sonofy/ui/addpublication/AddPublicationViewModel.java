@@ -18,6 +18,8 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -72,9 +74,16 @@ public class AddPublicationViewModel extends ViewModel {
     void addPublication(String titre, String videoId){
         isLoading.postValue(true);
         final String fTitre = titre;
+
+        String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*";
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(videoId); //url is youtube url for which you want to extract the id.
+        if (matcher.find()) {
+            videoId = matcher.group();
+        }
+
         final String fVideoId = videoId;
         String videoUrl = "https://i.ytimg.com/vi/" + videoId + "/mqdefault.jpg";
-
         Log.d(TAG, "addPublication: fetching video : " + videoUrl);
         final Request request = new Request.Builder()
                 .url(videoUrl)
