@@ -1,6 +1,7 @@
 package github.com.kazetavi.sonofy.ui.main;
 
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 public class MainViewModel extends ViewModel {
 
     private final String TAG = this.getClass().getSimpleName();
+    Button sortTitre;
 
     MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
 
@@ -32,20 +34,49 @@ public class MainViewModel extends ViewModel {
         return publications;
     }
 
-    void loadPublications(){
+    void loadPublicationsTitre(){
         final List<Publication> publicationsList = new ArrayList<>();
 
+            PublicationFirestore.getAllPublicationsCollectionTitre()
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            publicationsList.clear();
+                            for (QueryDocumentSnapshot doc : value) {
+                                publicationsList.add(doc.toObject(Publication.class));
+                                publications.setValue(publicationsList);
+                            }
+                        }
+                    });
+    }
+
+    void loadPublicationsDate() {
+        final List<Publication> publicationsList = new ArrayList<>();
         PublicationFirestore.getAllPublicationsCollectionDesc()
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         publicationsList.clear();
-                        for(QueryDocumentSnapshot doc : value){
+                        for (QueryDocumentSnapshot doc : value) {
                             publicationsList.add(doc.toObject(Publication.class));
                             publications.setValue(publicationsList);
                         }
                     }
                 });
+    }
 
+    void loadPublicationsLike() {
+        final List<Publication> publicationsList = new ArrayList<>();
+        PublicationFirestore.getAllPublicationsCollectionLike()
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        publicationsList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            publicationsList.add(doc.toObject(Publication.class));
+                            publications.setValue(publicationsList);
+                        }
+                    }
+                });
     }
 }

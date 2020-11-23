@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -26,11 +27,18 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView publicationRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    Button sortTitre;
+    Button sortDate;
+    Button sortLike;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sortTitre = findViewById(R.id.sortByTitre);
+        sortDate = findViewById(R.id.sortByDate);
+        sortLike = findViewById(R.id.sortByLike);
 
         newPublicationButton = findViewById(R.id.newPublicationButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
@@ -40,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         publicationRecyclerView.setLayoutManager(layoutManager);
 
-        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        final MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
 
         mainViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
@@ -51,7 +59,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainViewModel.loadPublications();
+        mainViewModel.loadPublicationsDate();
+
+        sortTitre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainViewModel.loadPublicationsTitre();
+            }
+        });
+
+        sortDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainViewModel.loadPublicationsDate();
+            }
+        });
+
+        sortLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainViewModel.loadPublicationsLike();
+            }
+        });
 
         newPublicationButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.publication.PublicationActivity"></activity>
         <activity android:name=".ui.addpublication.AddPublicationActivity" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>

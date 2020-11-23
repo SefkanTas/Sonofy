@@ -1,10 +1,10 @@
 package github.com.kazetavi.sonofy.ui.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +23,7 @@ import java.util.List;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
 
@@ -52,7 +53,9 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                Intent intent = new Intent(view.getContext(), PublicationActivity.class);
+                intent.putExtra("PUBLICATION_ID", publication.getUid());
                 view.getContext().startActivity(intent);
             }
         });
@@ -102,10 +105,10 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             super(v);
             this.titreTextView = v.findViewById(R.id.titrePublicationTextView);
             this.miniatureImageView = v.findViewById(R.id.miniaturePublicationImageView);
-            this.likeCountTextView = v.findViewById(R.id.likeCountTextView);
-            this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView);
-            this.likeButton = v.findViewById(R.id.likeButton);
-            this.dislikeButton = v.findViewById(R.id.dislikeButton);
+            this.likeCountTextView = v.findViewById(R.id.likeCountTextView2);
+            this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView2);
+            this.likeButton = v.findViewById(R.id.likeButton2);
+            this.dislikeButton = v.findViewById(R.id.dislikeButton2);
         }
     }
 
