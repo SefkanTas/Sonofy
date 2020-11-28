@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth mAuth;
     private ProgressBar prgB;
     private RadioGroup btn_groupe;
-    private RadioButton artiste, normal;
+    private RadioButton role;
 
     private RegisterViewModel registerViewModel;
 
@@ -63,12 +63,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
         btn_groupe = findViewById(R.id.groupe);
-        artiste = findViewById(R.id.u_artiste);
-        normal = findViewById(R.id.u_normal);
+
 
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            finish();
+            //finish();
         }
 
         inscription.setOnClickListener(this);
@@ -77,35 +76,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.inscription) {
-            final String role = checkRole(v);
-            registerUser(role);
+            registerUser();
         }
     }
 
-    public String checkRole(View view){
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.u_artiste:
-                if (checked)
-                    return "artiste";
-                    break;
-            case R.id.u_normal:
-                if (checked)
-                    return "normal";
-                    break;
-        }
-        btn_groupe.requestFocus();
-        return "";
-    }
-
-    private void registerUser(final String role) {
+    private void registerUser() {
         final String email = uEmail.getText().toString().trim();
         final String mdp = uMdp.getText().toString().trim();
         final String name = uNom.getText().toString().trim();
         final String firstname = uPrenom.getText().toString().trim();
         final String pseudo = uPseudo.getText().toString().trim();
+        final int r = btn_groupe.getCheckedRadioButtonId();
+        role = (RadioButton) findViewById(r);
+        final String type = role.getText().toString().trim();
 
         //Vérification des champs à remplir
         if(firstname.isEmpty()){
@@ -121,6 +104,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(pseudo.isEmpty()){
             uPseudo.setError("Veuillez saisir votre pseudonyme");
             uPseudo.requestFocus();
+        }
+
+        if(type.isEmpty()){
+            role.setError("Veuillez selectionner un type de compte");
+            role.requestFocus();
         }
 
         if(email.isEmpty()){
@@ -143,13 +131,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             uMdp.requestFocus();
         }
 
-        prgB.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,mdp)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User u = new User(name, firstname,pseudo, email,role);
+                            User u = new User(name, firstname,pseudo, email,type);
 
                             FirebaseFirestore.getInstance().collection("Users")
                                     .add(u)
@@ -158,12 +145,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         public void onSuccess(DocumentReference documentReference) {
                                             Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + documentReference.getId());
                                             prgB.setVisibility(View.VISIBLE);
+                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Création d'un nouvel utilisateur échouéet", e);
+                                            Log.w(TAG, "Création d'un nouvel utilisateur échouée", e);
                                             prgB.setVisibility(View.GONE);
                                         }
                                     });
