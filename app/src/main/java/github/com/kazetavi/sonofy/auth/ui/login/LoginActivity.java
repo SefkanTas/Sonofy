@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -27,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
@@ -34,9 +36,17 @@ import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModel;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModelFactory;
 import github.com.kazetavi.sonofy.auth.ui.register.RegisterActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private final String TAG = this.getClass().getSimpleName();
     private LoginViewModel loginViewModel;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private Button loginButton;
+    private TextView new_count;
+    private TextView mdpo;
+    private ProgressBar loadingProgressBar;
+    private FirebaseAuth auth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,15 +55,15 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final TextView new_count = findViewById(R.id.register);
-        final TextView mdpo = findViewById(R.id.mdpoublie);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        usernameEditText = findViewById(R.id.username);
+        passwordEditText = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login);
+        new_count = findViewById(R.id.register);
+        mdpo = findViewById(R.id.mdpoublie);
+        loadingProgressBar = findViewById(R.id.loading);
+        auth = FirebaseAuth.getInstance();
 
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
+        /*loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
                 if (loginFormState == null) {
@@ -124,6 +134,8 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
 
+    */
+        loginButton.setOnClickListener(this);
 
         new_count.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -141,5 +153,44 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.login){
+            loginUser();
+        }
+    }
+
+    private void loginUser(){
+        final String mail = usernameEditText.getText().toString().trim();
+        final String mdp = passwordEditText.getText().toString().trim();
+
+        if(mail.isEmpty()){
+            usernameEditText.setError("Veuillez saisir votre email");
+            usernameEditText.requestFocus();
+        }
+
+        if(mdp.isEmpty()){
+            passwordEditText.setError("Veuillez saisir votre mot de passe");
+            passwordEditText.requestFocus();
+        }
+
+        auth.signInWithEmailAndPassword(mail,mdp).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success");
+                    FirebaseUser user = auth.getCurrentUser();
+                    startActivity(new Intent(getBaseContext(), MainActivity.class));
+                }else{
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
