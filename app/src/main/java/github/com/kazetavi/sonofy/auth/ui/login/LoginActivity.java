@@ -28,13 +28,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModel;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModelFactory;
 import github.com.kazetavi.sonofy.auth.ui.register.RegisterActivity;
+import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 

@@ -28,11 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import github.com.kazetavi.sonofy.MainActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.auth.data.model.User;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModel;
+import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = this.getClass().getSimpleName();
