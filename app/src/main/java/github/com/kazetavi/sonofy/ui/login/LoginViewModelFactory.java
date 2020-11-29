@@ -1,11 +1,11 @@
-package github.com.kazetavi.sonofy.auth.ui.login;
+package github.com.kazetavi.sonofy.ui.login;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import github.com.kazetavi.sonofy.auth.data.LoginDataSource;
-import github.com.kazetavi.sonofy.auth.data.LoginRepository;
+import github.com.kazetavi.sonofy.data.extra.LoginDataSource;
+import github.com.kazetavi.sonofy.data.extra.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

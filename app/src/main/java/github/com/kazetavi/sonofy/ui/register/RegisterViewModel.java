@@ -1,4 +1,4 @@
-package github.com.kazetavi.sonofy.auth.ui.register;
+package github.com.kazetavi.sonofy.ui.register;
 
 import android.util.Patterns;
 
@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.auth.data.model.User;
+import github.com.kazetavi.sonofy.data.model.User;
 
 public class RegisterViewModel extends ViewModel {
 

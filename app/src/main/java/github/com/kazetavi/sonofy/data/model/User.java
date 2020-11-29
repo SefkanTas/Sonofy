@@ -1,4 +1,4 @@
-package github.com.kazetavi.sonofy.auth.data.model;
+package github.com.kazetavi.sonofy.data.model;
 
 import android.widget.TextView;
 

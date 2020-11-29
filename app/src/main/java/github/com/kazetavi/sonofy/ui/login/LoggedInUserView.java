@@ -1,4 +1,4 @@
-package  github.com.kazetavi.sonofy.auth.ui.login;
+package github.com.kazetavi.sonofy.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

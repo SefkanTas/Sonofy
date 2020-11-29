@@ -1,4 +1,4 @@
-package github.com.kazetavi.sonofy.auth.data;
+package github.com.kazetavi.sonofy.data.extra;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

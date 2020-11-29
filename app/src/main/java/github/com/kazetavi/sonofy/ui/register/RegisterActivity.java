@@ -1,4 +1,4 @@
-package github.com.kazetavi.sonofy.auth.ui.register;
+package github.com.kazetavi.sonofy.ui.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -24,14 +23,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.auth.data.model.User;
-import github.com.kazetavi.sonofy.auth.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.auth.ui.login.LoginViewModel;
+import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
@@ -41,8 +38,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button inscription,login;
     private FirebaseAuth mAuth;
     private ProgressBar prgB;
-    private RadioGroup btn_groupe;
-    private RadioButton role;
+    //private RadioGroup btn_groupe;
+    //private RadioButton role;
 
     private RegisterViewModel registerViewModel;
 
@@ -62,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         prgB = findViewById(R.id.progressBar2);
         inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
-        btn_groupe = findViewById(R.id.groupe);
+        //btn_groupe = findViewById(R.id.groupe);
         login = findViewById(R.id.log_button);
 
         if (mAuth.getCurrentUser() != null) {
@@ -97,9 +94,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String name = uNom.getText().toString().trim();
         final String firstname = uPrenom.getText().toString().trim();
         final String pseudo = uPseudo.getText().toString().trim();
-        final int r = btn_groupe.getCheckedRadioButtonId();
-        role = (RadioButton) findViewById(r);
-        final String type = role.getText().toString().trim();
+        //final int r = btn_groupe.getCheckedRadioButtonId();
+        //role = (RadioButton) findViewById(r);
+        //final String type = role.getText().toString().trim();
 
         //Vérification des champs à remplir
         if(firstname.isEmpty()){
@@ -117,10 +114,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             uPseudo.requestFocus();
         }
 
-        if(type.isEmpty()){
+        /*if(type.isEmpty()){
             role.setError("Veuillez selectionner un type de compte");
             role.requestFocus();
-        }
+        }*/
 
         if(email.isEmpty()){
             uEmail.setError("Veuillez saisir votre email");
@@ -147,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User u = new User(name, firstname,pseudo, email,type);
+                            User u = new User(name, firstname,pseudo, email,"normal"/*type*/);
 
                             FirebaseFirestore.getInstance().collection("Users")
                                     .add(u)

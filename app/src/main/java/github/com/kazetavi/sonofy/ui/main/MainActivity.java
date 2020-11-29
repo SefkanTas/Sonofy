@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-import github.com.kazetavi.sonofy.auth.ui.login.LoginActivity;
+import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Publication;

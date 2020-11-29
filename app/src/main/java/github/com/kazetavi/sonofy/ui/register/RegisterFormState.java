@@ -1,4 +1,4 @@
-package github.com.kazetavi.sonofy.auth.ui.register;
+package github.com.kazetavi.sonofy.ui.register;
 
 import androidx.annotation.Nullable;
     /**

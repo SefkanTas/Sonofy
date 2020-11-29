@@ -1,13 +1,13 @@
-package github.com.kazetavi.sonofy.auth.ui.login;
+package github.com.kazetavi.sonofy.ui.login;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import android.util.Patterns;
 
-import github.com.kazetavi.sonofy.auth.data.LoginRepository;
-import github.com.kazetavi.sonofy.auth.data.Result;
-import github.com.kazetavi.sonofy.auth.data.model.User;
+import github.com.kazetavi.sonofy.data.extra.LoginRepository;
+import github.com.kazetavi.sonofy.data.extra.Result;
+import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.R;
 
 public class LoginViewModel extends ViewModel {

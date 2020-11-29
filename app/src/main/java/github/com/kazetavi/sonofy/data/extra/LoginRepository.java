@@ -1,6 +1,6 @@
-package github.com.kazetavi.sonofy.auth.data;
+package github.com.kazetavi.sonofy.data.extra;
 
-import github.com.kazetavi.sonofy.auth.data.model.User;
+import github.com.kazetavi.sonofy.data.model.User;
 
 /**
  * Class that requests authentication and user information from the remote data source and
