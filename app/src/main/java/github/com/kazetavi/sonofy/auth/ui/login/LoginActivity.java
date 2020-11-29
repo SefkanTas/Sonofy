@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginViewModel loginViewModel;
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private Button loginButton, logoutButton;
+    private Button loginButton;
     private TextView new_count;
     private TextView mdpo;
     private ProgressBar loadingProgressBar;
@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         new_count = findViewById(R.id.register);
         mdpo = findViewById(R.id.mdpoublie);
         loadingProgressBar = findViewById(R.id.loading);
-        loginButton = findViewById(R.id.logout);
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
@@ -150,13 +149,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-            }
         });
     }
 

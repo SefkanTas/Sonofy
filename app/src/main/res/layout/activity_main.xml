@@ -83,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_red_light"
+        android:clickable="true"
         android:text="Logout"
         android:textColor="#F8F1F1"
         app:layout_constraintBottom_toBottomOf="parent"
