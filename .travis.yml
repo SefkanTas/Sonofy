@@ -24,9 +24,6 @@ script:
   - "./gradlew build"
   - "./gradlew assembleRelease"
 
-after_success:
-- "./gradlew jar"
-
 deploy:
   provider: releases
   api-key: "$GITHUB_API_KEY"

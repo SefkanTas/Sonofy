@@ -11,6 +11,7 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath 'com.google.gms:google-services:4.3.4'
+
         classpath "com.cosminpolifronie.gradle:gradle-plantuml-plugin:1.6.0"
     }
 }
