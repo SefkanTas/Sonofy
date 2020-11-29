@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private final String TAG = this.getClass().getSimpleName();
     private EditText uPrenom, uNom, uPseudo, uEmail,uMdp;
     private TextView LoginBtn;
-    private Button inscription;
+    private Button inscription,login;
     private FirebaseAuth mAuth;
     private ProgressBar prgB;
     private RadioGroup btn_groupe;
@@ -63,14 +63,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
         btn_groupe = findViewById(R.id.groupe);
-
+        login = findViewById(R.id.log_button);
 
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             //finish();
         }
 
         inscription.setOnClickListener(this);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

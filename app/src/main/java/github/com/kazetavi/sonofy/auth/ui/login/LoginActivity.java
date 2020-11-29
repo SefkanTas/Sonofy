@@ -63,6 +63,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loadingProgressBar = findViewById(R.id.loading);
         auth = FirebaseAuth.getInstance();
 
+        if (auth.getCurrentUser() != null) {
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            //finish();
+        }
+
         /*loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
@@ -140,8 +147,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         new_count.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-            }
+                Intent intent = new Intent(getBaseContext(), RegisterActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);            }
         });
     }
 
@@ -182,7 +190,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(task.isSuccessful()){
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success");
-                    FirebaseUser user = auth.getCurrentUser();
                     startActivity(new Intent(getBaseContext(), MainActivity.class));
                 }else{
                     // If sign in fails, display a message to the user.
