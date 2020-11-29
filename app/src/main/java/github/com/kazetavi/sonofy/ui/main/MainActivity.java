@@ -8,10 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.List;
 
@@ -27,15 +32,26 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView publicationRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    Button sortTitre;
-    Button sortDate;
-    Button sortLike;
+    private Button sortTitre;
+    private Button sortDate;
+    private Button sortLike;
 
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+        if(firebaseAuth.getCurrentUser() != null){
+            Log.d("SEFKAN", "onCreate: ouii");
+        }
+
+
         sortTitre = findViewById(R.id.sortByTitre);
         sortDate = findViewById(R.id.sortByDate);
         sortLike = findViewById(R.id.sortByLike);

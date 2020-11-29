@@ -13,12 +13,13 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationFirestore {
 
-    private static final String COLLECTION_NAME = "publicationsTest";
+    private static final String COLLECTION_NAME = "publicationsTestGroup";
     public static final String LIKE_COUNT = "likeCount";
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
     public static final String TITRE = "titre";
     public static final String VIDEO_ID = "videoId";
+    public static final String GROUP_ID = "groupId";
 
     public static CollectionReference getPublicationsCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
