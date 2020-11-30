@@ -31,7 +31,7 @@ before_deploy:
 - export VERSION=$TRAVIS_TAG
 - export BINDIR="build/libs"
 - export BINFILE="Sonofy-${VERSION}"
-- export DOCDIR="build/.asciidoctorGems/gems"
+- export DOCDIR="app/build/docs/asciidoc"
 - export DOCFILE="main"
 - mv "${DOCDIR}/${DOCFILE}.pdf" "${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
 - export BINARY="${BINDIR}/${BINFILE}.jar"
@@ -67,22 +67,7 @@ deploy:
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
-    branch: master
-    tags: true
-deploy:
-  provider: releases
-  api-key: "$GITHUB_API_KEY"
-  file: 
-    - "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
-    - ${DOCUMENTATION}
-  skip_cleanup: true
-  name: $TRAVIS_TAG
-  body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date
-    +'%F %T %Z').
-  overwrite: true
-  target_commitish: "$TRAVIS_COMMIT"
-  on:
-    branch: ascdoc
+    branch: all
     tags: false
 
 env:

@@ -3,6 +3,10 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.1"
@@ -17,8 +21,34 @@ buildscript {
 
 plugins {
     id "org.sonarqube" version "3.0"
-    id 'org.asciidoctor.jvm.pdf' version '3.1.0'
-    id 'org.asciidoctor.jvm.gems' version '3.1.0'
+    id 'org.asciidoctor.jvm.pdf' version '3.2.0'
+    id 'org.asciidoctor.jvm.gems' version '3.2.0'
+}
+
+apply plugin: VersionPlugin
+
+group 'github.com.kazetavi.sonofy'
+version '0.5'
+
+
+class VersionPlugin implements Plugin<Project> {
+    public void apply(Project project) {
+        project.task('version') {
+            project.gradle.projectsEvaluated {
+                println "$project.version"
+            }
+        }
+    }
+}
+
+dependencies {
+    asciidoctorGems 'rubygems:rouge:3.15.0' // pour coloration
+}
+
+repositories {
+    jcenter()
+    ruby.gems() // indispensable
+    mavenCentral()
 }
 
 allprojects {
@@ -43,8 +73,9 @@ asciidoctorPdf {
         modules {
             diagram.use()
         }
+        sourceDir = file('app/docs')
+        outputDir = file('app/build/docs')
         attributes 'build-gradle': file('build.gradle'),
-                //'sourcedir': project.sourceSets.main.java.srcDirs[0],
                 'endpoint-url': 'http://example.org',
                 'source-highlighter': 'rouge',
                 'rouge-style': 'github',
