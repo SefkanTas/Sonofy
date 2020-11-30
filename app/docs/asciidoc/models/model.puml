@@ -2,22 +2,61 @@
 
 package app{
 
+    package api{
+
+    class CommentaireFirestore{
+
+    }
+
+    class PublicationFirestore{
+
+    }
+
+    }
+
+    package extra{
+
+        class LoginDataSource{
+
+        }
+
+        class LoginRepository{
+
+        }
+
+        class Result{
+        }
+    }
+
 	package model{
+	class Commentaire{
+	}
+
+	class Publication{
+
+	}
+
   	class User{
 
     }
 
   }
 
-  class LoginDataSource{
 
-  }
-
-  class LoginRepository{
-
-  }
 
   package ui{
+
+  	package addpublication{
+
+        class AddPublicationActivity{
+
+        }
+
+        class AddPublicationViewModel{
+
+        }
+  	}
+
   	package login{
     	class LoggedInUser{
 
@@ -45,10 +84,60 @@ package app{
 
     }
 
+    package main{
+        class MainActivity{
+
+        }
+
+        class MainViewModel{
+
+        }
+
+        class PublicationAdapter{
+
+        }
+    }
+
+    package publication{
+
+        class CommentaireAdapater{
+
+        }
+
+        class PublicationActivtiy{
+
+        }
+
+        class PublicationViewModel{
+
+        }
+
+    }
+
     package register{
     	class RegisterActivity{
 
       }
+
+      class RegisterFormState{
+
+      }
+
+      class RegisterViewModel{
+
+      }
+
+    }
+
+    package search{
+
+        class SearchActivity{
+
+        }
+
+        class SearchViewModel{
+
+        }
 
     }
 

@@ -1,6 +1,6 @@
 = ```Sonofy``` Documentation
-Nos Prenoms et noms
-2020-11-17
+TAS Sefkan, VIDA Anisoara, ZEGADI Lina, KAIS Lamia 
+2020-11-30
 :revnumber: {project-version}
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
@@ -17,7 +17,7 @@ ifndef::modelsdir[:modelsdir: models]
 
 === Note
 
-Tested with gradle 4.1.1 and Java 12.0.2
+Tested with gradle 6.5 and Java 12.0.2
 
 === If you have ```git``` on your computer
 
@@ -43,4 +43,7 @@ Simply run:
 
 Sonofy is a music social media .
 
-You can share on it music videos.
+Create an account and enjoy the app.
+Then you can share on it music videos, comments publications, like or dislike them.
+You can create groups with publications inside.
+
