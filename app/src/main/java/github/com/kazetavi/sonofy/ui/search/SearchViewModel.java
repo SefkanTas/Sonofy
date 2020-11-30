@@ -27,10 +27,10 @@ public class SearchViewModel extends ViewModel {
         return publications;
     }
 
-    void searchPublicationsTitle(String titre){
+    void searchPublicationsTitle(String titre, String groupeId){
         final List<Publication> publicationsList = new ArrayList<>();
 
-        PublicationFirestore.searchByTitle(titre)
+        PublicationFirestore.searchByTitleAndGroupe(titre, groupeId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

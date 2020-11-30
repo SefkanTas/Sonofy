@@ -15,6 +15,7 @@ public class CommentaireFirestore {
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
     public static final String PUBLICATION_ID = "publicationId";
+    public static final String USERNAME = "username";
 
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
