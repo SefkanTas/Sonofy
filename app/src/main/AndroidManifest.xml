@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.addgroup.AddGroupActivity" />
-        <activity android:name=".ui.listgroup.ListGroupActivity">
+        <activity android:name=".ui.listgroup.ListGroupActivity"/>
+
+        <activity android:name=".ui.register.RegisterActivity"/>
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
