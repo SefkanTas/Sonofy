@@ -39,6 +39,10 @@ Simply run:
 ./gradlew run
 ----
 
+== Class diagram of Sonofy
+
+image:model.png[]
+
 == What does ```Sonofy``` do?
 
 Sonofy is a music social media .
