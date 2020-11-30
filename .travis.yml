@@ -8,9 +8,9 @@ android:
   - build-tools-30.0.2
   - android-30
   - extra-android-m2repository
-
 sudo : false
 before_install:
+  - yes | sdkmanager "platforms;android-30"
   - openssl aes-256-cbc -k "$secret_keystore_decrypt" -in sonofy.jks.enc -out sonofy.jks -d
   - chmod a+x gradlew
   - yes | sdkmanager "platforms;android-30"

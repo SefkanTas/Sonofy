@@ -72,6 +72,12 @@ public class PublicationFirestore {
     }
 
 
+    //SEARCH
+
+    public static Query searchByTitle(String title){
+        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(TITRE, title);
+    }
+
     // UPDATE
 
     public static Task<Void> updateTitre(String uid, String titre) {
