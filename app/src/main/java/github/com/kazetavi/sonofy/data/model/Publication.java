@@ -14,6 +14,7 @@ public class Publication {
     private String videoId;
     private Long likeCount;
     private Long dislikeCount;
+    private String groupId;
     @ServerTimestamp
     private Date dateCreated;
 
@@ -27,6 +28,11 @@ public class Publication {
         this.videoId = videoId;
         this.likeCount = 0L;
         this.dislikeCount = 0L;
+    }
+
+    public Publication(String titre, String videoId, String groupId) {
+        this(titre,videoId);
+        this.groupId = groupId;
     }
 
 
@@ -54,6 +60,10 @@ public class Publication {
     public Date getDateCreated() {
         return dateCreated;
     };
+
+    public String getGroupId() {
+        return groupId;
+    }
 
     @Exclude
     public String getMiniatureUrl(){

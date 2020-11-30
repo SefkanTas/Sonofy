@@ -61,8 +61,8 @@ public class PublicationViewModel extends ViewModel {
                 });
     }
 
-    public void createCommentaire(String publicationId, String content){
-        Commentaire commentaire = new Commentaire(publicationId, content);
+    public void createCommentaire(String publicationId, String content, String username){
+        Commentaire commentaire = new Commentaire(publicationId, content, username);
         content = content.trim();
         if(!content.isEmpty()){
             CommentaireFirestore.create(commentaire);

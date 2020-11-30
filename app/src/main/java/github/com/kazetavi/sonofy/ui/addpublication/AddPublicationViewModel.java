@@ -48,8 +48,8 @@ public class AddPublicationViewModel extends ViewModel {
      * @param titre
      * @param videoId
      */
-    void savePublication(String titre, String videoId){
-        Publication publication = new Publication(titre, videoId);
+    void savePublication(String titre, String videoId, String groupId){
+        Publication publication = new Publication(titre, videoId, groupId);
         Log.d(TAG, "savePublication: saving publication : " + titre);
         PublicationFirestore.createPublication(publication)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -71,7 +71,7 @@ public class AddPublicationViewModel extends ViewModel {
      * @param titre
      * @param videoId
      */
-    void addPublication(String titre, String videoId){
+    void addPublication(String titre, String videoId, final String groupId){
         isLoading.postValue(true);
         final String fTitre = titre;
 
@@ -96,7 +96,7 @@ public class AddPublicationViewModel extends ViewModel {
             public void onResponse(Response response) throws IOException {
                 response.code();
                 if(response.code() == 200){
-                    savePublication(fTitre, fVideoId);
+                    savePublication(fTitre, fVideoId, groupId);
                     isPublicationSaved.postValue(true);
                     Log.d(TAG, "client.onResponse: code is 200 : " + request.urlString());
                 }
