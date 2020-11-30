@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -34,17 +35,20 @@ public class MainViewModel extends ViewModel {
         return publications;
     }
 
-    void loadPublicationsTitre(){
+    void loadPublicationsTitre(String groupeId){
         final List<Publication> publicationsList = new ArrayList<>();
 
-            PublicationFirestore.getAllPublicationsCollectionTitre()
+
+            PublicationFirestore.getAllPublicationsCollectionTitreByGroupe(groupeId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             publicationsList.clear();
-                            for (QueryDocumentSnapshot doc : value) {
-                                publicationsList.add(doc.toObject(Publication.class));
-                                publications.setValue(publicationsList);
+                            if(value != null){
+                                for (QueryDocumentSnapshot doc : value) {
+                                    publicationsList.add(doc.toObject(Publication.class));
+                                    publications.setValue(publicationsList);
+                                }
                             }
                         }
                     });
@@ -65,16 +69,18 @@ public class MainViewModel extends ViewModel {
                 });
     }
 
-    void loadPublicationsLike() {
+    void loadPublicationsLike(String groupId) {
         final List<Publication> publicationsList = new ArrayList<>();
-        PublicationFirestore.getAllPublicationsCollectionLike()
+        PublicationFirestore.getAllPublicationsCollectionLikeByGroup(groupId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         publicationsList.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            publicationsList.add(doc.toObject(Publication.class));
-                            publications.setValue(publicationsList);
+                        if(value != null){
+                            for (QueryDocumentSnapshot doc : value) {
+                                publicationsList.add(doc.toObject(Publication.class));
+                                publications.setValue(publicationsList);
+                            }
                         }
                     }
                 });

@@ -48,12 +48,26 @@ public class PublicationFirestore {
         return PublicationFirestore.getPublicationsCollection().orderBy(TITRE, Query.Direction.ASCENDING);
     }
 
+    public static Query getAllPublicationsCollectionTitreByGroupe(String groupId){
+        return PublicationFirestore
+                .getPublicationsCollection()
+                .orderBy(TITRE, Query.Direction.ASCENDING)
+                .whereEqualTo(GROUP_ID, groupId);
+    }
+
     public static Task<QuerySnapshot> getAllPublicationsTitre() {
         return PublicationFirestore.getAllPublicationsCollectionTitre().get();
     }
 
     public static Query getAllPublicationsCollectionLike(){
         return PublicationFirestore.getPublicationsCollection().orderBy(LIKE_COUNT, Query.Direction.DESCENDING);
+    }
+
+    public static Query getAllPublicationsCollectionLikeByGroup(String groupId){
+        return PublicationFirestore
+                .getPublicationsCollection()
+                .whereEqualTo(GROUP_ID, groupId)
+                .orderBy(LIKE_COUNT, Query.Direction.DESCENDING);
     }
 
     public static Task<QuerySnapshot> getAllPublicationsLike() {

@@ -54,9 +54,6 @@ public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("SEFKAN", "onClick: " + groupe.getName());
-                Log.d("SEFKAN", "onClick: " + groupe.getUid());
-
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 intent.putExtra("GROUPE_ID", groupe.getUid());
                 view.getContext().startActivity(intent);

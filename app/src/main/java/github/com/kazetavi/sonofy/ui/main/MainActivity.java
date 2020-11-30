@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         sortTitre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsTitre();
+                mainViewModel.loadPublicationsTitre(groupeId);
             }
         });
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         sortLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsLike();
+                mainViewModel.loadPublicationsLike(groupeId);
             }
         });
 
