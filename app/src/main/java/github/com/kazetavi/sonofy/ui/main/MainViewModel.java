@@ -50,9 +50,9 @@ public class MainViewModel extends ViewModel {
                     });
     }
 
-    void loadPublicationsDate() {
+    void loadPublicationsDate(String groupId) {
         final List<Publication> publicationsList = new ArrayList<>();
-        PublicationFirestore.getAllPublicationsCollectionDesc()
+        PublicationFirestore.getPublicationsByGroup(groupId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

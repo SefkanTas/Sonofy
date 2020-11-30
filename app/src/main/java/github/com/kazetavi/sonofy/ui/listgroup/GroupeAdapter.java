@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy.ui.listgroup;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
+import github.com.kazetavi.sonofy.ui.main.MainActivity;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
+import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
 public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeViewHolder> {
 
@@ -52,6 +55,11 @@ public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeView
             @Override
             public void onClick(View view) {
                 Log.d("SEFKAN", "onClick: " + groupe.getName());
+                Log.d("SEFKAN", "onClick: " + groupe.getUid());
+
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                intent.putExtra("GROUPE_ID", groupe.getUid());
+                view.getContext().startActivity(intent);
             }
         });
 

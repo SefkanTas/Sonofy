@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.addgroup.AddGroupActivity"></activity>
+        <activity android:name=".ui.group.GroupActivity"></activity>
+        <activity android:name=".ui.addgroup.AddGroupActivity" />
         <activity android:name=".ui.listgroup.ListGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +23,7 @@
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.publication.PublicationActivity" />
         <activity android:name=".ui.addpublication.AddPublicationActivity" />
-        <activity android:name=".ui.main.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.main.MainActivity"></activity>
     </application>
 
 </manifest>

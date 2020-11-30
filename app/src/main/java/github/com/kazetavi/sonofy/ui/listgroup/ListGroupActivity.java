@@ -15,7 +15,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
+import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
 
 
@@ -33,6 +35,9 @@ public class ListGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_group);
+
+//        Publication pub = new Publication("Un titre", "_4kHxtiuML0", "MHEt0SI2hTedMlakfJqJ");
+//        PublicationFirestore.createPublication(pub);
 
         addGroupButton = findViewById(R.id.addGroupButton);
         groupeRecyclerView = findViewById(R.id.groupeRecyclerView);

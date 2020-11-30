@@ -72,11 +72,21 @@ public class PublicationFirestore {
         return PublicationFirestore.getPublicationRef(uid).get();
     }
 
+    public static Query getPublicationsByGroup(String groupeId){
+        return PublicationFirestore
+                .getAllPublicationsCollectionDesc()
+                .whereEqualTo(GROUP_ID, groupeId);
+    }
+
 
     //SEARCH
 
     public static Query searchByTitle(String title){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(TITRE, title);
+    }
+
+    public static Query searchByTitleAndGroupe(String title, String groupeId){
+        return searchByTitle(title).whereEqualTo(GROUP_ID, groupeId);
     }
 
     // UPDATE
