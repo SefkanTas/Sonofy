@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -37,6 +40,10 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
     public void onBindViewHolder(@NonNull CommentaireViewHolder holder, int position) {
         Commentaire commentaire = commentaires.get(position);
         holder.commentaireTextView.setText(commentaire.getContent());
+
+        if(commentaire.getUsername() != null && !commentaire.getUsername().isEmpty()){
+            holder.usernameTextView.setText("@" + commentaire.getUsername());
+        }
     }
 
     @Override
@@ -47,10 +54,12 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
     public static class CommentaireViewHolder extends RecyclerView.ViewHolder{
 
         TextView commentaireTextView;
+        TextView usernameTextView;
 
         public CommentaireViewHolder(@NonNull View itemView) {
             super(itemView);
             this.commentaireTextView = itemView.findViewById(R.id.commentaireTextView);
+            this.usernameTextView = itemView.findViewById(R.id.usernameTextView);
         }
     }
 

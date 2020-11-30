@@ -13,8 +13,12 @@ import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+
 import java.util.List;
 
+import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -27,18 +31,24 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView publicationRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    Button sortTitre;
-    Button sortDate;
-    Button sortLike;
 
+    private Button sortTitre,sortDate, sortLike, logout;
+
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        final Intent intent = getIntent();
+        final String groupeId = intent.getStringExtra("GROUPE_ID");
+
         sortTitre = findViewById(R.id.sortByTitre);
         sortDate = findViewById(R.id.sortByDate);
         sortLike = findViewById(R.id.sortByLike);
+        logout = findViewById(R.id.logout);
 
         newPublicationButton = findViewById(R.id.newPublicationButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
@@ -59,26 +69,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainViewModel.loadPublicationsDate();
+        mainViewModel.loadPublicationsDate(groupeId);
 
         sortTitre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsTitre();
+                mainViewModel.loadPublicationsTitre(groupeId);
             }
         });
 
         sortDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsDate();
+                mainViewModel.loadPublicationsDate(groupeId);
             }
         });
 
         sortLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsLike();
+                mainViewModel.loadPublicationsLike(groupeId);
             }
         });
 
@@ -86,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);
+                intent.putExtra("GROUPE_ID", groupeId);
                 startActivity(intent);
             }
         });
@@ -93,11 +104,22 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                intent.putExtra("GROUPE_ID", groupeId);
+                startActivity(intent);
             }
         });
 
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
 

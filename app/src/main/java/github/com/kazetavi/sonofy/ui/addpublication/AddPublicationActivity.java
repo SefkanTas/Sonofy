@@ -30,6 +30,9 @@ public class AddPublicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_publication);
 
+        final Intent intent = getIntent();
+        final String groupeId = intent.getStringExtra("GROUPE_ID");
+
         titreMusiqueEditText = findViewById(R.id.titreMusiqueEditText);
         youtubeVideoIdEditText = findViewById(R.id.youtubeVideoIdEditText);
         publierButton = findViewById(R.id.publierButton);
@@ -56,8 +59,7 @@ public class AddPublicationActivity extends AppCompatActivity {
             public void onChanged(Boolean publicationIsSaved) {
                 if(publicationIsSaved){
                     //Retour sur la page de la liste des publications
-                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    startActivity(intent);
+                    onBackPressed();
                 }
                 else {
                     Toast.makeText(getBaseContext(), "L'identifiant de la vidéo n'est pas valide", Toast.LENGTH_SHORT).show();
@@ -77,7 +79,7 @@ public class AddPublicationActivity extends AppCompatActivity {
                     titre = titreMusiqueEditText.getText().toString().trim();
                     videoId = youtubeVideoIdEditText.getText().toString().trim();
 
-                    addPublicationViewModel.addPublication(titre, videoId);
+                    addPublicationViewModel.addPublication(titre, videoId, groupeId);
                 }
             }
         });

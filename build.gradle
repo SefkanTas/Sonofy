@@ -3,6 +3,10 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.1"
@@ -11,12 +15,41 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath 'com.google.gms:google-services:4.3.4'
+
         classpath "com.cosminpolifronie.gradle:gradle-plantuml-plugin:1.6.0"
     }
 }
 
 plugins {
     id "org.sonarqube" version "3.0"
+    id 'org.asciidoctor.jvm.pdf' version '3.2.0'
+    id 'org.asciidoctor.jvm.gems' version '3.2.0'
+}
+
+apply plugin: VersionPlugin
+
+group 'github.com.kazetavi.sonofy'
+version '1.0-alpha'
+
+
+class VersionPlugin implements Plugin<Project> {
+    public void apply(Project project) {
+        project.task('version') {
+            project.gradle.projectsEvaluated {
+                println "$project.version"
+            }
+        }
+    }
+}
+
+dependencies {
+    asciidoctorGems 'rubygems:rouge:3.15.0' // pour coloration
+}
+
+repositories {
+    jcenter()
+    ruby.gems() // indispensable
+    mavenCentral()
 }
 
 allprojects {
@@ -26,12 +59,35 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
 sonarqube {
     properties {
         property "sonar.projectKey", "SefkanTas_Sonofy"
     }
 }
+asciidoctorPdf {
+    dependsOn asciidoctorGemsPrepare
+
+    baseDirFollowsSourceFile()
+
+    asciidoctorj {
+        requires 'rouge'
+        modules {
+            diagram.use()
+        }
+        sourceDir = file('app/docs')
+        outputDir = file('app/build/docs')
+        attributes 'build-gradle': file('build.gradle'),
+                'endpoint-url': 'http://example.org',
+                'source-highlighter': 'rouge',
+                'rouge-style': 'github',
+                'rouge-theme': 'github',
+                'imagesdir': './images',
+                'toc': 'left',
+                'toclevels': 2,
+                'icons': 'font',
+                'idprefix': '',
+                'idseparator': '-'
+    }
+}
+
+task asciidoctor(dependsOn: asciidoctorPdf)

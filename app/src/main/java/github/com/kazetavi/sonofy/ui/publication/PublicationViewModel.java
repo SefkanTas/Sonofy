@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -47,10 +48,7 @@ public class PublicationViewModel extends ViewModel {
     public void loadCommentaires(String publicationId){
         final List<Commentaire> commentaireList = new ArrayList<>();
 
-        FirebaseFirestore.getInstance()
-                .collection("commentaires")
-                .whereEqualTo("publicationId", publicationId)
-                .orderBy("dateCreated")
+        CommentaireFirestore.getCollectionQueryByPublication(publicationId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -63,13 +61,11 @@ public class PublicationViewModel extends ViewModel {
                 });
     }
 
-    public void createCommentaire(String publicationId, String content){
-        Commentaire commentaire = new Commentaire(publicationId, content);
+    public void createCommentaire(String publicationId, String content, String username){
+        Commentaire commentaire = new Commentaire(publicationId, content, username);
         content = content.trim();
         if(!content.isEmpty()){
-            FirebaseFirestore.getInstance()
-                    .collection("commentaires")
-                    .add(commentaire);
+            CommentaireFirestore.create(commentaire);
         }
     }
 

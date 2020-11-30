@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +41,10 @@ public class SearchActivity extends AppCompatActivity{
         liste_pub.setLayoutManager(layoutManager);
 
 
+        final Intent intent = getIntent();
+        final String groupeId = intent.getStringExtra("GROUPE_ID");
+
+
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
         searchViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
@@ -55,7 +60,7 @@ public class SearchActivity extends AppCompatActivity{
             public void onClick(View view) {
                 final String titre = recherche.getText().toString().trim();
                 if(!titre.isEmpty()) {
-                    searchViewModel.searchPublicationsTitle(titre);
+                    searchViewModel.searchPublicationsTitle(titre, groupeId);
                 }
             }
         });

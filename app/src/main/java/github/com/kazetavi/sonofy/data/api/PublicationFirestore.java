@@ -13,12 +13,13 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationFirestore {
 
-    private static final String COLLECTION_NAME = "publicationsTest";
+    private static final String COLLECTION_NAME = "publicationsTestGroup";
     public static final String LIKE_COUNT = "likeCount";
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
     public static final String TITRE = "titre";
     public static final String VIDEO_ID = "videoId";
+    public static final String GROUP_ID = "groupId";
 
     public static CollectionReference getPublicationsCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -47,12 +48,26 @@ public class PublicationFirestore {
         return PublicationFirestore.getPublicationsCollection().orderBy(TITRE, Query.Direction.ASCENDING);
     }
 
+    public static Query getAllPublicationsCollectionTitreByGroupe(String groupId){
+        return PublicationFirestore
+                .getPublicationsCollection()
+                .orderBy(TITRE, Query.Direction.ASCENDING)
+                .whereEqualTo(GROUP_ID, groupId);
+    }
+
     public static Task<QuerySnapshot> getAllPublicationsTitre() {
         return PublicationFirestore.getAllPublicationsCollectionTitre().get();
     }
 
     public static Query getAllPublicationsCollectionLike(){
         return PublicationFirestore.getPublicationsCollection().orderBy(LIKE_COUNT, Query.Direction.DESCENDING);
+    }
+
+    public static Query getAllPublicationsCollectionLikeByGroup(String groupId){
+        return PublicationFirestore
+                .getPublicationsCollection()
+                .whereEqualTo(GROUP_ID, groupId)
+                .orderBy(LIKE_COUNT, Query.Direction.DESCENDING);
     }
 
     public static Task<QuerySnapshot> getAllPublicationsLike() {
@@ -71,11 +86,21 @@ public class PublicationFirestore {
         return PublicationFirestore.getPublicationRef(uid).get();
     }
 
+    public static Query getPublicationsByGroup(String groupeId){
+        return PublicationFirestore
+                .getAllPublicationsCollectionDesc()
+                .whereEqualTo(GROUP_ID, groupeId);
+    }
+
 
     //SEARCH
 
     public static Query searchByTitle(String title){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(TITRE, title);
+    }
+
+    public static Query searchByTitleAndGroupe(String title, String groupeId){
+        return searchByTitle(title).whereEqualTo(GROUP_ID, groupeId);
     }
 
     // UPDATE
