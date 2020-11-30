@@ -23,13 +23,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = this.getClass().getSimpleName();
@@ -63,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         login = findViewById(R.id.log_button);
 
         if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             //finish();
@@ -153,6 +155,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         public void onSuccess(DocumentReference documentReference) {
                                             Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + documentReference.getId());
                                             prgB.setVisibility(View.VISIBLE);
+
+                                            //Ajout du pseudo dans le displayName
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(pseudo).build();
+                                            user.updateProfile(profileUpdates);
+
                                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                         }
                                     })

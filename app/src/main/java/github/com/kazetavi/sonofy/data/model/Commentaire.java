@@ -15,17 +15,20 @@ public class Commentaire {
     private Long dislikeCount;
     @ServerTimestamp
     private Date dateCreated;
+    private String username;
 
     public Commentaire() {
 
     }
 
-    public Commentaire(String publicationId, String content) {
+    public Commentaire(String publicationId, String content, String username) {
         this.publicationId = publicationId;
         this.content = content;
+        this.username = username;
         likeCount = 0L;
         dislikeCount = 0L;
     }
+
 
     @DocumentId
     public String getUid() {
@@ -76,4 +79,7 @@ public class Commentaire {
         this.dateCreated = dateCreated;
     }
 
+    public String getUsername() {
+        return username;
+    }
 }
