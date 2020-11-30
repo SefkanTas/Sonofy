@@ -67,7 +67,7 @@ deploy:
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
-    branch: all
+    branch: ascdoc
     tags: false
 
 env:
