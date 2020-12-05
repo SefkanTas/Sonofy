@@ -67,7 +67,7 @@ deploy:
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
-    branch: fix_bug_travis
+    all_branches: true
     tags: false
 
 env:
