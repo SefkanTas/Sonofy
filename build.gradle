@@ -29,7 +29,7 @@ plugins {
 apply plugin: VersionPlugin
 
 group 'github.com.kazetavi.sonofy'
-version '1.0-test'
+version '1.0-alpha'
 
 
 class VersionPlugin implements Plugin<Project> {
