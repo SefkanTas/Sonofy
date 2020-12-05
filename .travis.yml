@@ -38,6 +38,21 @@ before_deploy:
 - export DOCUMENTATION="${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
 - echo binary is ${BINARY}
 - echo documentation is ${DOCUMENTATION}
+- |
+  if [ $TRAVIS_BRANCH = "dev" ]
+  then
+    export TRAVIS_TAG=v${VERSION}-SNAPSHOT
+  else
+    export TRAVIS_TAG=v${VERSION}
+  fi
+- |
+  if [ $TRAVIS_BRANCH = "dev" ]
+  then
+    git tag ${TRAVIS_TAG}
+    echo tag ${TRAVIS_TAG}
+  else
+    echo no tag
+  fi
 
 deploy:
   provider: releases
