@@ -50,5 +50,10 @@ Simply run:
 
 == Class diagram of Sonofy
 
+UI Diagram class
+
 image:model.png[]
 
+Data Diagram class
+
+image:model2.png[]

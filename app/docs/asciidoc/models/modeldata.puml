@@ -1,0 +1,175 @@
+@startuml model2
+title <size:30><b>Diagramme de classes data</b></size>
+legend
+    |= Couleur |= Description |
+    | <size:11><back:#grey>           </back></size>| Les classes qui ne sont pas encore utilisées |
+endlegend
+
+package app{
+ package data {
+
+        package api{
+
+            class CommentaireFirestore{
+                - COLLECTION_NAME : String
+                + CONTENT : String
+                + LIKE_COUNT : String
+                + DISLIKE_COUNT : String
+                + DATE_CREATED : String
+                + PUBLICATION_ID : String
+
+                + getCollection() : CollectionReference
+                + getCollectionQueryDesc() : Query
+                + getCollectionQueryByPublication(publicationId : String): Query
+                + create(commentaire : Commentaire) : Task<DocumentReference>
+            }
+
+            class GroupeFirestore{
+                - COLLECTION_NAME : String
+                + NAME : String
+                + DATE_CREATED: String
+
+                + getCollection() : CollectionReference
+                + getCollectionQueryDesc() : Query
+                + getGroup(nom : String): Task<QuerySnapshot>
+                + create(groupe : Groupe): Task<DocumentReference>
+            }
+
+            class PublicationFirestore{
+                - COLLECTION_NAME : String
+                + LIKE_COUNT : String
+                + DISLIKE_COUNT : String
+                + DATE_CREATED : String
+                + TITRE : String
+                + VIDEO_ID : String
+
+                + getPublicationsCollection() : CollectionReference
+                + createPublication( publication : Publication) : Task<DocumentReference>
+                + getAllPublications() : Task<QuerySnapshot>
+                + getAllPublicationsDesc() : Query
+                + getPublicationRef( uid : String) : DocumentReference
+                + getPublicationRef( publication : Publication) : DocumentReference
+                + getPublication(uid : String) : Task<DocumentSnapshot>
+
+                + updateTitre(uid : String, titre : String) : Task<Void>
+                + updateTitre(publication : Publication, titre : String) : Task<Void>
+                + updateVideoId(uid : String, videoId : String) : Task<Void>
+                + updateVideoId(publication : Publication, titre : String) : Task<Void>
+
+                - incrementValueByN(publication : Publication, field : String, n : int): Task<Void>
+                + incrementLike( publication : Publication) : Task<Void>
+                + incrementDislike( publication : Publication) : Task<Void>
+                + deletePublication( uid : String) : Task<Void>
+            }
+
+        }
+        'fin api'
+
+        package extra{
+
+            class LoginDataSource #grey{
+                - mAuth : FirebaseAuth
+                - db : FirebaseFirestore
+            }
+
+            class LoginRepository #grey{
+            }
+
+            class Result #grey{
+            }
+
+        }
+        'fin extra'
+
+        package model{
+
+            class Commentaire{
+                - uid : String
+                - publicationId : String
+                - content : String
+                - likeCount : Long
+                - dislikeCount : Long
+                - dateCreated : Date
+
+                + this : ()
+                + this : (publicationId : String, content : String)
+                + getUid() : String
+                + setUid(uid : String): void
+                + getPublicationId() : String
+                + setPublicationId(publicationId : String): void
+                + getContent() : String
+                + setContent(content : String): void
+                + getLikeCount() : Long
+                + setLikeCount(likeCount : Long) : void
+                + getDislikeCount() : Long
+                + setDislikeCount(dislikeCount : long) : void
+                + getDateCreated() : Date
+                + setDateCreated(datecreated : Date) : void
+            }
+
+            class Groupe{
+                - uid : String
+                - name : String
+                - dateCreated : Date
+
+                + this : ()
+
+                + getUid() : String
+                + getName() : String
+                + getDateCreated() : Date
+            }
+
+            class Publication{
+                - uid : String
+                - titre : String
+                - videoId : String
+                - likeCount : Long
+                - dislikeCount : Long
+                - dateCreated : Date
+
+                + this : ()
+                + this : (titre : String, videoId : String)
+
+                + getUid() : String
+                + getTitre() : String
+                + getVideoId() : String
+                + getLikeCount() : Long
+                + getDislikeCount() : Long
+                + getDateCreated() : Date
+                + getMiniatureUrl() : String
+                + getVideoUrl() : String
+                + toString() : String
+            }
+
+            class User{
+                - userId : String
+                - nom : String
+                - prenom : String
+                - pseudo : String
+                - email : String
+                - role : String
+
+                + this : (userId String, displayName : String)
+                + this : (nom : String, prenom : String, email : String, r :String)
+
+                + getUserId(): String
+                + getDisplayName(): String
+                + getPrenom() : String
+                + setPrenom(prenom : String): void
+                + getNom() : String
+                + setNom(nom : String): void
+                + getPseudo() : String
+                + getEmail(): String
+                + getRole() : String
+                + setRole(role : String): void
+            }
+            Commentaire -[hidden]- Groupe
+            Publication -[hidden]- User
+
+        }
+        'fin model'
+    }
+    'fin data'
+}
+
+@enduml
