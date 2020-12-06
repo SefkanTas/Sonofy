@@ -13,6 +13,15 @@ ifndef::modelsdir[:modelsdir: models]
 // :figure-caption: Figure
 // :listing-caption: Listing
 
+== What does ```Sonofy``` do?
+
+Sonofy is a music social media .
+
+Create an account and enjoy the app.
+Then you can share on it music videos, comments publications, like or dislike them.
+You can create groups with publications inside.
+
+
 == How to install ?
 
 === Note
@@ -42,12 +51,4 @@ Simply run:
 == Class diagram of Sonofy
 
 image:model.png[]
-
-== What does ```Sonofy``` do?
-
-Sonofy is a music social media .
-
-Create an account and enjoy the app.
-Then you can share on it music videos, comments publications, like or dislike them.
-You can create groups with publications inside.
 

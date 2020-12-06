@@ -1,141 +1,199 @@
 @startuml model
+title <size:30><b>Diagramme de classes</b></size>
+legend
+    |= Couleur |= Description |
+    | <size:11><back:#grey>           </back></size>| Les classes qui ne sont pas encore utilisées |
+endlegend
 
 package app{
 
-    package api{
+    package data {
 
-        class CommentaireFirestore{
-            - COLLECTION_NAME : String
-            + CONTENT : String
-            + LIKE_COUNT : String
-            + DISLIKE_COUNT : String
-            + DATE_CREATED : String
-            + PUBLICATION_ID : String
+        package api{
 
-            + getCollection() : CollectionReference
-            + getCollectionQueryDesc() : Query
-            + getCollectionQueryByPublication(publicationId : String): Query
-            + create(commentaire : Commentaire) : Task<DocumentReference>
+            class CommentaireFirestore{
+                - COLLECTION_NAME : String
+                + CONTENT : String
+                + LIKE_COUNT : String
+                + DISLIKE_COUNT : String
+                + DATE_CREATED : String
+                + PUBLICATION_ID : String
+
+                + getCollection() : CollectionReference
+                + getCollectionQueryDesc() : Query
+                + getCollectionQueryByPublication(publicationId : String): Query
+                + create(commentaire : Commentaire) : Task<DocumentReference>
+            }
+
+            class GroupeFirestore{
+                - COLLECTION_NAME : String
+                + NAME : String
+                + DATE_CREATED: String
+
+                + getCollection() : CollectionReference
+                + getCollectionQueryDesc() : Query
+                + getGroup(nom : String): Task<QuerySnapshot>
+                + create(groupe : Groupe): Task<DocumentReference>
+            }
+
+            class PublicationFirestore{
+                - COLLECTION_NAME : String
+                + LIKE_COUNT : String
+                + DISLIKE_COUNT : String
+                + DATE_CREATED : String
+                + TITRE : String
+                + VIDEO_ID : String
+
+                + getPublicationsCollection() : CollectionReference
+                + createPublication( publication : Publication) : Task<DocumentReference>
+                + getAllPublications() : Task<QuerySnapshot>
+                + getAllPublicationsDesc() : Query
+                + getPublicationRef( uid : String) : DocumentReference
+                + getPublicationRef( publication : Publication) : DocumentReference
+                + getPublication(uid : String) : Task<DocumentSnapshot>
+
+                + updateTitre(uid : String, titre : String) : Task<Void>
+                + updateTitre(publication : Publication, titre : String) : Task<Void>
+                + updateVideoId(uid : String, videoId : String) : Task<Void>
+                + updateVideoId(publication : Publication, titre : String) : Task<Void>
+
+                - incrementValueByN(publication : Publication, field : String, n : int): Task<Void>
+                + incrementLike( publication : Publication) : Task<Void>
+                + incrementDislike( publication : Publication) : Task<Void>
+                + deletePublication( uid : String) : Task<Void>
+            }
+
         }
+        'fin api'
 
-        class PublicationFirestore{
-            - COLLECTION_NAME : String
-            + LIKE_COUNT : String
-            + DISLIKE_COUNT : String
-            + DATE_CREATED : String
-            + TITRE : String
-            + VIDEO_ID : String
+        package extra{
 
-            + getPublicationsCollection() : CollectionReference
-            + createPublication( publication : Publication) : Task<DocumentReference>
-            + getAllPublications() : Task<QuerySnapshot>
-            + getAllPublicationsDesc() : Query
-            + getPublicationRef( uid : String) : DocumentReference
-            + getPublicationRef( publication : Publication) : DocumentReference
-            + getPublication(uid : String) : Task<DocumentSnapshot>
+            class LoginDataSource #grey{
+                - mAuth : FirebaseAuth
+                - db : FirebaseFirestore
+            }
 
-            + updateTitre(uid : String, titre : String) : Task<Void>
-            + updateTitre(publication : Publication, titre : String) : Task<Void>
-            + updateVideoId(uid : String, videoId : String) : Task<Void>
-            + updateVideoId(publication : Publication, titre : String) : Task<Void>
+            class LoginRepository #grey{
+            }
 
-            - incrementValueByN(publication : Publication, field : String, n : int): Task<Void>
-            + incrementLike( publication : Publication) : Task<Void>
-            + incrementDislike( publication : Publication) : Task<Void>
-            + deletePublication( uid : String) : Task<Void>
+            class Result #grey{
+            }
+
         }
+        'fin extra'
+
+        package model{
+
+            class Commentaire{
+                - uid : String
+                - publicationId : String
+                - content : String
+                - likeCount : Long
+                - dislikeCount : Long
+                - dateCreated : Date
+
+                + this : ()
+                + this : (publicationId : String, content : String)
+                + getUid() : String
+                + setUid(uid : String): void
+                + getPublicationId() : String
+                + setPublicationId(publicationId : String): void
+                + getContent() : String
+                + setContent(content : String): void
+                + getLikeCount() : Long
+                + setLikeCount(likeCount : Long) : void
+                + getDislikeCount() : Long
+                + setDislikeCount(dislikeCount : long) : void
+                + getDateCreated() : Date
+                + setDateCreated(datecreated : Date) : void
+            }
+
+            class Groupe{
+                - uid : String
+                - name : String
+                - dateCreated : Date
+
+                + this : ()
+
+                + getUid() : String
+                + getName() : String
+                + getDateCreated() : Date
+            }
+
+            class Publication{
+                - uid : String
+                - titre : String
+                - videoId : String
+                - likeCount : Long
+                - dislikeCount : Long
+                - dateCreated : Date
+
+                + this : ()
+                + this : (titre : String, videoId : String)
+
+                + getUid() : String
+                + getTitre() : String
+                + getVideoId() : String
+                + getLikeCount() : Long
+                + getDislikeCount() : Long
+                + getDateCreated() : Date
+                + getMiniatureUrl() : String
+                + getVideoUrl() : String
+                + toString() : String
+            }
+
+            class User{
+                - userId : String
+                - nom : String
+                - prenom : String
+                - pseudo : String
+                - email : String
+                - role : String
+
+                + this : (userId String, displayName : String)
+                + this : (nom : String, prenom : String, email : String, r :String)
+
+                + getUserId(): String
+                + getDisplayName(): String
+                + getPrenom() : String
+                + setPrenom(prenom : String): void
+                + getNom() : String
+                + setNom(nom : String): void
+                + getPseudo() : String
+                + getEmail(): String
+                + getRole() : String
+                + setRole(role : String): void
+            }
+            Commentaire -[hidden]- Groupe
+            Publication -[hidden]- User
+
+        }
+        'fin model'
     }
-
-    package extra{
-
-        class LoginDataSource #grey{
-            - mAuth : FirebaseAuth
-            - db : FirebaseFirestore
-        }
-
-        class LoginRepository #grey{
-
-        }
-
-        class Result #grey{
-        }
-    }
-
-	package model{
-
-	    class Commentaire{
-            - uid : String
-            - publicationId : String
-            - content : String
-            - likeCount : Long
-            - dislikeCount : Long
-            - dateCreated : Date
-
-            + this : ()
-            + this : (publicationId : String, content : String)
-            + getUid() : String
-            + setUid(uid : String): void
-            + getPublicationId() : String
-            + setPublicationId(publicationId : String): void
-            + getContent() : String
-            + setContent(content : String): void
-            + getLikeCount() : Long
-            + setLikeCount(likeCount : Long) : void
-            + getDislikeCount() : Long
-            + setDislikeCount(dislikeCount : long) : void
-            + getDateCreated() : Date
-            + setDateCreated(datecreated : Date) : void
-	    }
-
-	    class Publication{
-            - uid : String
-            - titre : String
-            - videoId : String
-            - likeCount : Long
-            - dislikeCount : Long
-            - dateCreated : Date
-
-            + this : ()
-            + this : (titre : String, videoId : String)
-
-            + getUid() : String
-            + getTitre() : String
-            + getVideoId() : String
-            + getLikeCount() : Long
-            + getDislikeCount() : Long
-            + getDateCreated() : Date
-            + getMiniatureUrl() : String
-            + getVideoUrl() : String
-            + toString() : String
-	    }
-
-  	    class User{
-            - userId : String
-            - nom : String
-            - prenom : String
-            - pseudo : String
-            - email : String
-            - role : String
-
-            + this : (userId String, displayName : String)
-            + this : (nom : String, prenom : String, email : String, r :String)
-
-            + getUserId(): String
-            + getDisplayName(): String
-            + getPrenom() : String
-            + setPrenom(prenom : String): void
-            + getNom() : String
-            + setNom(nom : String): void
-            + getPseudo() : String
-            + getEmail(): String
-            + getRole() : String
-            + setRole(role : String): void
-        }
-    }
-
-
-
+    'fin data'
   package ui{
+
+    package addgroup{
+
+        class AddGroupActivity extends AppCompatActivity{
+            - nomGroupeEditText : EditText
+            - creerButton : Button
+            - addGroupViewModel: AddGroupViewModel
+
+            onCreate(savedInstanceState : Bundle) : void
+        }
+
+        class AddGroupViewModel extends ViewModel{
+            - TAG : String
+            - isGroupCreated : MutableLiveData<Boolean>
+
+            + isGroupCreated() : MutableLiveData<Boolean>
+            - chechGroupExists(nomGroupe : String) : void
+            - createGroupe(nomGroupe : String): void
+            + chechGroupExistsAndCreate(nomGroupe): void
+        }
+    }
+        'fin addgroup'
 
   	package addpublication{
 
@@ -161,14 +219,57 @@ package app{
             savePublication(titre : String, videoId : String) : void
             addPublication(titre : String, videoId : String) : void
         }
+
+        AddPublicationActivity -[hidden]- AddPublicationViewModel
   	}
+    'fin addpublication'
+
+    package listgroup{
+
+        class GroupeAdapter extends RecyclerView{
+            + groupeList: List<Group>
+
+            + this : (groupeList: List<Groupe>)
+
+
+            + onCreateViewHolder(parent : ViewGroup, viewType : int): GroupeViewHolder
+            + onBindViewHolder(holder : GroupeViewHolder, position: int): void
+            + getItemCount() : int
+
+            class GroupeViewHolder extends RecyclerView.ViewHolder{
+                 groupNameTextView : TextView
+
+                + this : (itemView : View)
+            }
+        }
+
+        class ListGroupActivity extends AppCompatActivity {
+            - addGroupButton : FloatingActionButton
+            - groupeRecyclerView : RecyclerView
+            - adapter : RecyclerView.Adapter
+            - layoutManager : RecyclerView.LayoutManager
+            - viewModel : ListGroupViewModel
+            - logoutButton : Button
+
+            # onCreate(savedInstanceState : Bundle): void
+        }
+
+        class ListGroupViewModel{
+            - groupesLiveData : MutableLiveData<List<Group>>
+
+            + getGroupesLiveData() : MutableLiveData<List<Group>>
+            + loadGroupes() : void
+        }
+    }
+     'fin listgroup'
 
   	package login{
-    	  class LoggedInUser #grey{
+
+    	  class LoggedInUserView #grey{
 
           }
 
-          class LogingActivity extends AppCompatActivity implements View.OnClickListener{
+          class LoginActivity extends AppCompatActivity implements View.OnClickListener{
                - TAG : String
                - loginViewModel : LoginViewModel
                - usernameEditText : EditText
@@ -187,14 +288,22 @@ package app{
                - loginUser(): void
           }
 
-          class LogingFormState #grey{}
+          class LoginFormState #grey{}
 
-          class LogingResult #grey{}
+          class LoginResult #grey{}
 
-          class LogingViewModel #grey{}
+          class LoginViewModel #grey{}
 
-          class LogingViewModelFactory #grey{}
+          class LoginViewModelFactory #grey{}
+
+          LoginActivity -[hidden]- LoginFormState
+          LoginFormState -[hidden]- LoginResult
+          LoginResult -[hidden]- LoginViewModel
+          LoginViewModel -[hidden]- LoginViewModelFactory
+          LoginViewModelFactory -[hidden]- LoggedInUserView
+
     }
+    'fin login'
 
     package main{
 
@@ -242,7 +351,12 @@ package app{
 
                    + this: (v: View)
             }
-        }
+          }
+          MainActivity -[hidden]- MainViewModel
+          MainViewModel -[hidden]- PublicationAdapter
+
+     }
+     'fin main'
 
     package publication{
 
@@ -254,13 +368,8 @@ package app{
               + onCreateViewHolder(parent :@NonNull ViewGroup, viewType: int): CommentaireViewHolder
               + onBindViewHolder(holder: @NonNull final CommentaireViewHolder , position: int): void
               + getItemCount(): int
-
-              class CommentaireViewHolder extends RecyclerView.ViewHolder{
-                    commentaireTextView: TextView
-
-                    + this: (itemView: View)
-              }
         }
+
 
         class PublicationActivtiy extends AppCompatActivity{
                titreTextView: TextView
@@ -289,8 +398,8 @@ package app{
             + loadCommentaires(publicationId : String): void
             + createCommentaires(publicationId : String, content : String): void
         }
-
     }
+     'fin publication'
 
     package register{
 
@@ -318,11 +427,15 @@ package app{
           class RegisterFormState #grey{}
 
           class RegisterViewModel #grey extends ViewModel{}
+
+          RegisterActivity -[hidden]- RegisterViewModel
+          RegisterViewModel -[hidden]- RegisterFormState
     }
+     'fin register'
 
     package search{
 
-        class SearchActivity extends AppCompatActivity{
+        class SearchActivity extends AppCompatActivity {
             - recherche: EditText
             - btn_recherche: ImageButton
             - accueil: ImageButton
@@ -341,6 +454,8 @@ package app{
               + getPublications(): MutableLiveData<Publication>
               searchPublicationsTitle(titre: String): void
         }
+        SearchActivity -[hidden]- SearchViewModel
     }
-  }
+         'fin search'
+
 @enduml
