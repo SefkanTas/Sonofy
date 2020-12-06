@@ -23,7 +23,7 @@ addons:
 script:
   - "./gradlew build"
   - "./gradlew assembleRelease"
-  - sonar-scanner
+  #- sonar-scanner
 
 after_success:
 - "./gradlew asciidoctor"
