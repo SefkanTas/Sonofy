@@ -3,11 +3,11 @@ package github.com.kazetavi.sonofy.data.api;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 
 public class GroupeFirestore {
@@ -27,6 +27,11 @@ public class GroupeFirestore {
     public static Task<QuerySnapshot> getGroup(String nom){
         return getCollection().whereEqualTo(NAME, nom).get();
     }
+
+    public static Task<DocumentSnapshot> getGroupWithId(String uid){
+        return getCollection().document(uid).get();
+    }
+
 
     // CREATE
     public static Task<DocumentReference> create(Groupe groupe){

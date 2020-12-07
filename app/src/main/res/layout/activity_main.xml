@@ -8,35 +8,60 @@
 
 
     <Button
-        android:id="@+id/sortByDate"
-        android:layout_width="103dp"
-        android:layout_height="50dp"
+        android:id="@+id/logout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@android:color/holo_red_light"
         android:clickable="true"
-        android:text="Trier par date"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="@+id/sortByLike"
-        app:layout_constraintStart_toEndOf="@+id/sortByLike"
-        app:layout_constraintTop_toTopOf="@+id/sortByLike" />
-
-    <Button
-        android:id="@+id/sortByTitre"
-        android:layout_width="110dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:text="Trier par titre"
+        android:text="Logout"
+        android:textColor="#F8F1F1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:constraint_referenced_ids="sortByTitre,sortByLike,sortByDate"
+        app:flow_horizontalStyle="spread_inside"
+        app:flow_verticalAlign="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
+
+    <Button
+        android:id="@+id/sortByTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Trier par titre"
+        tools:layout_editor_absoluteX="239dp"
+        tools:layout_editor_absoluteY="320dp" />
+
     <Button
         android:id="@+id/sortByLike"
-        android:layout_width="112dp"
-        android:layout_height="51dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:text="Trier par Like"
-        app:layout_constraintBottom_toBottomOf="@+id/sortByTitre"
-        app:layout_constraintStart_toEndOf="@+id/sortByTitre"
-        app:layout_constraintTop_toTopOf="@+id/sortByTitre" />
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="320dp" />
+
+    <Button
+        android:id="@+id/sortByDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Trier par date"
+        android:textAllCaps="true"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="320dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newPublicationButton"
@@ -45,50 +70,35 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/publicationRecyclerView"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sortByTitre"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/sortByLike" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/newPublicationButton"
         app:layout_constraintEnd_toStartOf="@+id/newPublicationButton"
-        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/newPublicationButton"
         app:layout_constraintVertical_bias="0.952"
         app:srcCompat="@android:drawable/ic_menu_search" />
-
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:clickable="true"
-        android:text="Logout"
-        android:textColor="#F8F1F1"
-        app:layout_constraintBottom_toBottomOf="@+id/sortByDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.996"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sortByDate"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
