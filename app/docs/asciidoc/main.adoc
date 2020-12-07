@@ -108,3 +108,11 @@ image:AjoutPublication.png[]
 === Sequence Diagram : Group Page
 
 image:PageGroupe.png[]
+
+=== Sequence Diagram : Main Publication
+
+image:MainPublication.png[]
+
+=== Sequence Diagram : Search Publication
+
+image:Recherche.png[]

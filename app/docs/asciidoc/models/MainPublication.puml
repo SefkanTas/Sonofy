@@ -1,0 +1,63 @@
+@startuml
+
+actor User as g
+participant "::MainActivity " as act
+participant "mainViewModel : MainViewModel " as main
+participant "::PublicationFirestore " as pubb
+participant "::FirebaseFirestore " as base
+
+g -> act: Afficher la liste des publications
+activate act
+activate main
+act -> main : loadPublicationsDate(groupeId)
+activate pubb
+main -> pubb : getPublicationsByGroup(groupId)
+activate base
+pubb -> base : getAllPublicationsCollectionDesc()
+base --> pubb : data
+deactivate base
+pubb --> main : data publication
+deactivate pubb
+main --> act : liste des publications
+deactivate main
+deactivate act
+act --> g : Affichage de la liste des publications ordonnées par date d'ajout
+deactivate act
+
+g -> act: Appuyer sur trier par titre
+activate act
+activate main
+act -> main : loadPublicationsTitre(groupeId)
+activate pubb
+main -> pubb : getAllPublicationsCollectionTitreByGroupe(groupeId)
+activate base
+pubb -> base : getPublicationsCollection().orderBy(TITRE, Query.Direction.ASCENDING)
+base --> pubb : data
+deactivate base
+pubb --> main : data publication
+deactivate pubb
+main --> act : liste des publications ordonnées par titre
+deactivate main
+deactivate act
+act --> g : Affiche la iste de publication ordonée par titre
+deactivate act
+
+g -> act: Appuyer sur trier par like
+activate act
+activate main
+act -> main : loadPublicationsLike(groupeId)
+activate pubb
+main -> pubb : getAllPublicationsCollectionLikeByGroupe(groupeId)
+activate base
+pubb -> base : getPublicationsCollection().orderBy(LIKE_COUNT, Query.Direction.DESCENDING)
+base --> pubb : data
+deactivate base
+pubb --> main : data publication
+deactivate pubb
+main --> act : liste des publications ordonnées par nombre de like
+deactivate main
+deactivate act
+act --> g : Affiche la iste de publication ordonée par nombre de like
+deactivate act
+
+@enduml
