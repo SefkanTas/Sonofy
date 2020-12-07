@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
+import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
@@ -40,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        
         final Intent intent = getIntent();
         final String groupeId = intent.getStringExtra("GROUPE_ID");
 
@@ -60,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
         final MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
+        mainViewModel.getGroupeMutableLiveData().observe(this, new Observer<Groupe>() {
+            @Override
+            public void onChanged(Groupe groupe) {
+                setTitle(groupe.getName());
+            }
+        });
 
         mainViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
             @Override
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mainViewModel.getGroupe(groupeId);
         mainViewModel.loadPublicationsDate(groupeId);
 
         sortTitre.setOnClickListener(new View.OnClickListener() {
