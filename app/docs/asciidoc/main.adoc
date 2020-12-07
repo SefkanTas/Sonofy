@@ -50,10 +50,43 @@ Simply run:
 
 == Class diagram of Sonofy
 
-UI Diagram class
+=== UI Diagram class
 
-image:model.png[]
+==== For the main page
 
-Data Diagram class
+image:modelui6.png[]
 
-image:model2.png[]
+==== For the register page
+
+image:modelui8.png[]
+
+
+==== For the signin page
+
+image:modelui5.png[]
+
+==== For the adding publication page
+
+image:modelui3.png[]
+
+==== For the display publication page
+
+image:modelui7.png[]
+
+==== For the groups list page
+
+image:modelui4.png[]
+
+==== For the adding group page
+
+image:modelui2.png[]
+
+==== For the search page
+
+image:modelui.png[]
+
+
+
+=== Data Diagram class
+
+image:modeldata.png[]

@@ -1,4 +1,4 @@
-@startuml model2
+@startuml modeldata
 title <size:30><b>Diagramme de classes data</b></size>
 legend
     |= Couleur |= Description |
@@ -163,6 +163,7 @@ package app{
                 + getRole() : String
                 + setRole(role : String): void
             }
+
             Commentaire -[hidden]- Groupe
             Publication -[hidden]- User
 

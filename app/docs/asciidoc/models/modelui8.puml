@@ -1,0 +1,41 @@
+@startuml modelui8
+title <size:30><b>Diagramme de classes ui de la page d'inscription</b></size>
+legend
+    |= Couleur |= Description |
+    | <size:11><back:#grey>           </back></size>| Les classes qui ne sont pas encore utilisées |
+endlegend
+
+package app{
+
+  package ui{
+
+        package register{
+
+                class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+                        - TAG: String
+                        - uPrenom: EditText
+                        - uNom:  EditText
+                        - uPseudo:  EditText
+                        - uEmail: EditText
+                        - uMdp: EditText
+                        - LoginBtn:TextView
+                        - inscription: Button
+                        - login: Button
+                        - mAuth: FirebaseAuth
+                        - prgB: ProgressBar
+                        - btn_groupe: RadioGroup
+                        - role: RadioButton
+                        - registerViewModel: RegisterViewModel
+
+                        + onCreate(savedInstanceState : Bundle): void
+                        + onClick(v : View): void
+                        + registerUser(): void
+                }
+
+                  class RegisterFormState #grey{}
+
+                  class RegisterViewModel #grey extends ViewModel{}
+            }
+        }
+  }
+@enduml

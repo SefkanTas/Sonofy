@@ -1,0 +1,37 @@
+@startuml modelui3
+title <size:30><b>Diagramme de classes ui pour l'ajout de publication</b></size>
+
+package app{
+
+  package ui{
+
+  package addpublication{
+
+          class AddPublicationActivity extends AppCompatActivity{
+                # addPublicationViewModel : AddPublicationViewModel
+               - titreMusiqueEditText : EditText
+               - youtubeVideoIdEditText : EditText
+               - publierButton : Button
+               - progressBar : ProgressBar;
+
+               + onCreate(savedInstanceState : Bundle) :void
+          }
+
+          class AddPublicationViewModel extends ViewModel{
+              - TAG : String
+                client : OkHttpClient
+              - isPublicationSaved : MutableLiveData<Boolean>
+              - isLoading : MutableLiveData<Boolean>
+
+              + isPublicationSaved() : MutableLiveData<Boolean>
+              + isLoading() : MutableLiveData<Boolean>
+
+              savePublication(titre : String, videoId : String) : void
+              addPublication(titre : String, videoId : String) : void
+          }
+
+          AddPublicationActivity -[hidden]- AddPublicationViewModel
+    	}
+  }
+}
+@enduml
