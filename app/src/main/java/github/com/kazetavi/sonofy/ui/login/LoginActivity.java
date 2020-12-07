@@ -169,11 +169,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(mail.isEmpty()){
             usernameEditText.setError("Veuillez saisir votre email");
             usernameEditText.requestFocus();
+            return;
         }
 
         if(mdp.isEmpty()){
             passwordEditText.setError("Veuillez saisir votre mot de passe");
             passwordEditText.requestFocus();
+            return;
         }
 
         auth.signInWithEmailAndPassword(mail,mdp).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

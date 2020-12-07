@@ -101,19 +101,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //final String type = role.getText().toString().trim();
 
         //Vérification des champs à remplir
-        if(firstname.isEmpty()){
-            uPrenom.setError("Veuillez saisir votre prénom");
-            uPrenom.requestFocus();
-        }
-
         if(name.isEmpty()){
             uNom.setError("Veuillez saisir votre nom");
             uNom.requestFocus();
+            return;
+        }
+
+        if(firstname.isEmpty()){
+            uPrenom.setError("Veuillez saisir votre prénom");
+            uPrenom.requestFocus();
+            return;
         }
 
         if(pseudo.isEmpty()){
             uPseudo.setError("Veuillez saisir votre pseudonyme");
             uPseudo.requestFocus();
+            return;
         }
 
         /*if(type.isEmpty()){
@@ -124,21 +127,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(email.isEmpty()){
             uEmail.setError("Veuillez saisir votre email");
             uEmail.requestFocus();
+            return;
         }
 
         if( !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             uEmail.setError("Veuillez saisir une adresse mail valide");
             uEmail.requestFocus();
+            return;
         }
 
         if(mdp.isEmpty()){
             uMdp.setError("Veuillez saisir un mot de passe");
             uMdp.requestFocus();
+            return;
         }
 
         if(mdp.length() < 8){
             uMdp.setError("Veuillez saisir un mot de passe à 8 caractères");
             uMdp.requestFocus();
+            return;
         }
 
         mAuth.createUserWithEmailAndPassword(email,mdp)

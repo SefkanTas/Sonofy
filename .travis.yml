@@ -23,12 +23,13 @@ addons:
 script:
   - "./gradlew build"
   - "./gradlew assembleRelease"
+  #- sonar-scanner
 
 after_success:
 - "./gradlew asciidoctor"
 
 before_deploy:
-- export VERSION=$TRAVIS_TAG
+- export VERSION=`./gradlew -q version`
 - export BINDIR="build/libs"
 - export BINFILE="Sonofy-${VERSION}"
 - export DOCDIR="app/build/docs/asciidoc"
@@ -57,7 +58,7 @@ before_deploy:
 deploy:
   provider: releases
   api-key: "$GITHUB_API_KEY"
-  file: 
+  file:
     - "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
     - ${DOCUMENTATION}
   skip_cleanup: true
@@ -67,7 +68,7 @@ deploy:
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
-    branch: master
+    branche: master
     tags: true
 
 env:

@@ -13,6 +13,22 @@ ifndef::modelsdir[:modelsdir: models]
 // :figure-caption: Figure
 // :listing-caption: Listing
 
+== What does ```Sonofy``` do?
+
+Sonofy is a music social media .
+
+Create an account and enjoy the app.
+Then you can share on it music videos, comments publications, like or dislike them.
+You can create groups with publications inside.
+
+
+== Personas 
+
+image:persona1.png[{half-size}]
+
+image:persona2.png[]
+
+
 == How to install ?
 
 === Note
@@ -41,13 +57,77 @@ Simply run:
 
 == Class diagram of Sonofy
 
-image:model.png[]
+=== UI Diagram class
 
-== What does ```Sonofy``` do?
+==== For the main page
 
-Sonofy is a music social media .
+image:modelui6.png[]
 
-Create an account and enjoy the app.
-Then you can share on it music videos, comments publications, like or dislike them.
-You can create groups with publications inside.
+==== For the register page
 
+image:modelui8.png[]
+
+
+==== For the signin page
+
+image:modelui5.png[]
+
+==== For the adding publication page
+
+image:modelui3.png[]
+
+==== For the display publication page
+
+image:modelui7.png[]
+
+==== For the groups list page
+
+image:modelui4.png[]
+
+==== For the adding group page
+
+image:modelui2.png[]
+
+==== For the search page
+
+image:modelui.png[]
+
+
+
+=== Data Diagram class
+
+image:modeldata.png[]
+
+== Sequence Diagram
+
+=== Sequence Diagram : Publication Page
+
+image:PublicationPage.png[]
+
+=== Sequence Diagram : Add Group
+
+image:AjoutGroupe.png[]
+
+=== Sequence Diagram : Add Publication
+
+image:AjoutPublication.png[]
+
+=== Sequence Diagram : Group Page
+
+image:PageGroupe.png[]
+
+=== Sequence Diagram : Main Publication
+
+image:MainPublication.png[]
+
+=== Sequence Diagram : Search Publication
+
+image:Recherche.png[]
+
+=== Sequence Diagram : Register
+
+image:Register.png[]
+
+=== Sequence Diagram : Connexion
+
+image:Connexion.png[]

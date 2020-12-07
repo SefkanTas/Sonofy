@@ -1,0 +1,31 @@
+@startuml modelui2
+title <size:30><b>Diagramme de classes ui pour l'ajout de groupe</b></size>
+
+package app{
+
+  package ui{
+   package addgroup{
+
+          class AddGroupActivity extends AppCompatActivity{
+              - nomGroupeEditText : EditText
+              - creerButton : Button
+              - addGroupViewModel: AddGroupViewModel
+
+              onCreate(savedInstanceState : Bundle) : void
+          }
+
+          class AddGroupViewModel extends ViewModel{
+              - TAG : String
+              - isGroupCreated : MutableLiveData<Boolean>
+
+              + isGroupCreated() : MutableLiveData<Boolean>
+              - chechGroupExists(nomGroupe : String) : void
+              - createGroupe(nomGroupe : String): void
+              + chechGroupExistsAndCreate(nomGroupe): void
+          }
+      }
+    }
+
+}
+
+@enduml

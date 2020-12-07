@@ -1,0 +1,37 @@
+@startuml
+actor User as g
+participant "::RegisterActivity " as act
+participant "registerViewModel :RegisterViewModel " as register
+participant "myAuth::FirebaseUser " as user
+participant "::FirebaseFirestore " as base
+
+
+g -> act : Faire à une inscription
+activate act
+g-> act : Enter Prenom, Pseudo, Email, Mdp
+act -> act : if(name.isEmpty()) : false
+act --> g : Veuillez saisir votre nom
+g-> act : Enter Nom
+activate user
+act -> user : onCreate(Bundle savedInstanceState)
+activate base
+user -> base : getInstance().collection("Users")
+base --> user : utilisateur ok
+deactivate base
+user --> act : utilisateur créé
+deactivate user
+act --> g : Nouvel utilisateur créé avec succès avec ID
+deactivate act
+
+g -> act : Faire à une inscription ( même adresse mail)
+activate act
+activate user
+act -> user: createUserWithEmailAndPassword(email,mdp)
+
+activate base
+user -> base : getInstance().collection("Users")
+base --> user : utilisateur existant
+deactivate base
+user --> act : false
+act --> g : Création d'un nouvel utilisateur échouée
+@enduml
