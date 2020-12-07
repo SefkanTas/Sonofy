@@ -104,3 +104,7 @@ image:AjoutGroupe.png[]
 === Sequence Diagram : Add Publication
 
 image:AjoutPublication.png[]
+
+=== Sequence Diagram : Group Page
+
+image:PageGroupe.png[]

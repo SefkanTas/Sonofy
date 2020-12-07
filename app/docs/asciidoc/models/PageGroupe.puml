@@ -1,0 +1,24 @@
+@startuml
+actor User as g
+participant "::ListGroupActivity " as act
+participant "viewModel :ListGroupViewModel " as groupe
+participant ":: GroupeFirestore " as groupeb
+participant ":: FirebaseFirestore " as base
+
+g -> act: Afficher la liste des groupes
+activate act
+activate groupe
+act -> groupe : loadGroupes()
+activate groupeb
+groupe -> groupeb : getCollectionQueryDesc()
+activate base
+groupeb -> base : getInstance().collection(COLLECTION_NAME)
+base --> groupeb : database
+deactivate base
+groupeb --> groupe : data groupe
+deactivate groupeb
+groupe --> act : liste groupe
+deactivate groupe
+act --> g : Affichage de la liste des groupes
+deactivate act
+@enduml
