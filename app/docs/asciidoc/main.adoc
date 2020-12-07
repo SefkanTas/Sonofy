@@ -90,3 +90,8 @@ image:modelui.png[]
 === Data Diagram class
 
 image:modeldata.png[]
+
+=== Sequence Diagram
+
+=== Sequence Diagram : Publication Page
+image:PublicationPage.png[]
