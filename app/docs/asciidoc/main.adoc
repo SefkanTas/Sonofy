@@ -91,7 +91,7 @@ image:modelui.png[]
 
 image:modeldata.png[]
 
-=== Sequence Diagram
+== Sequence Diagram
 
 === Sequence Diagram : Publication Page
 
