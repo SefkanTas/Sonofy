@@ -22,6 +22,13 @@ Then you can share on it music videos, comments publications, like or dislike th
 You can create groups with publications inside.
 
 
+== Personas 
+
+image:persona1.png[{half-size}]
+
+image:persona2.png[]
+
+
 == How to install ?
 
 === Note
