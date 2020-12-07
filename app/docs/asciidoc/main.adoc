@@ -127,3 +127,7 @@ image:Recherche.png[]
 === Sequence Diagram : Register
 
 image:Register.png[]
+
+=== Sequence Diagram : Connexion
+
+image:Connexion.png[]
