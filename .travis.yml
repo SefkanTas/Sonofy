@@ -28,7 +28,7 @@ after_success:
 - "./gradlew asciidoctor"
 
 before_deploy:
-- export VERSION='./gradlew -q version'
+- export VERSION='gradle -q version'
 - export BINDIR="build/libs"
 - export BINFILE="Sonofy-${VERSION}"
 - export DOCDIR="app/build/docs/asciidoc"
