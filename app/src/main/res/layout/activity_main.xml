@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -41,8 +42,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:text="Trier par titre"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <Button
         android:id="@+id/sortByLike"
@@ -50,8 +51,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:text="Trier par Like"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintStart_toEndOf="@+id/flow"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <Button
         android:id="@+id/sortByDate"
@@ -60,8 +61,8 @@
         android:clickable="true"
         android:text="Trier par date"
         android:textAllCaps="true"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintStart_toEndOf="@+id/flow"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newPublicationButton"
