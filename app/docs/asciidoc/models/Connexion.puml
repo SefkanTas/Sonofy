@@ -1,0 +1,21 @@
+@startuml
+actor User as g
+participant "::LoginActivity " as act
+participant "auth::FirebaseAuth " as user
+participant "::FirebaseFirestore " as base
+
+g -> act : Connexion utilisateur
+activate act
+g -> act : Entrez login, mdp
+activate user
+act -> user : getInstance()
+activate base
+user -> base : signInWithEmailAndPassword(mail,mdp)
+base --> user : mail, mdp data
+deactivate base
+user --> act : signInWithEmail:success
+deactivate user
+act --> g : connexion réussie
+deactivate act
+
+@enduml

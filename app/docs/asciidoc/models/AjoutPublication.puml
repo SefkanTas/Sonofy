@@ -1,0 +1,42 @@
+@startuml
+actor User as g
+participant "::AddPublicationActivity " as act
+participant "addPublicationViewModel :AddPublicationViewModel " as pub
+participant ":: PublicationFirestore " as pubb
+participant ":: FirebaseFirestore " as base
+
+g -> act: Appuyer sur "+" (ajouter une publication)
+activate act
+g -> act :  entrez titre, videId
+activate pub
+act -> pub : addPublication(titre, videoId, groupeId)
+pub -> pubb : createPublication(publication)
+activate base
+pubb -> base : getPublicationsCollection().add(publication)
+base --> pubb : true
+deactivate base
+pubb --> pub : onSuccess: publication saved
+deactivate pubb
+pub --> act : true
+deactivate pub
+act --> g : Ajout nouveau groupe dans la liste de la liste des groupes
+deactivate act
+
+g -> act: Appuyer sur "+" (ajouter une publication)
+activate act
+g -> act :  entrez titre, videId
+activate pub
+act -> pub : addPublication(titre, videoId, groupeId)
+pub -> pubb : createPublication(publication)
+activate base
+pubb -> base : getPublicationsCollection().add(publication)
+base --> pubb : false
+deactivate base
+pubb --> pub : Error adding document
+deactivate pubb
+pub --> act : false
+deactivate pub
+act --> g : L'identifiant de la vidéo n'est pas valide
+deactivate act
+
+@enduml
