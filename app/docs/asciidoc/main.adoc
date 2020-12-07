@@ -94,4 +94,13 @@ image:modeldata.png[]
 === Sequence Diagram
 
 === Sequence Diagram : Publication Page
+
 image:PublicationPage.png[]
+
+=== Sequence Diagram : Add Group
+
+image:AjoutGroupe.png[]
+
+=== Sequence Diagram : Add Publication
+
+image:AjoutPublication.png[]
