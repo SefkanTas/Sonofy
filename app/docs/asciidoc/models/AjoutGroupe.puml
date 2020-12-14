@@ -1,0 +1,44 @@
+@startuml
+actor User as g
+participant "::AddGroupActivity " as act
+participant "addGroupViewModel :AddGroupViewModel " as groupe
+participant ":: GroupeFirestore " as groupeb
+participant ":: FirebaseFirestore " as base
+
+g -> act: Appuyer sur "+" (ajouter un groupe)
+activate act
+activate groupe
+act -> groupe : isGroupCreated()
+activate groupeb
+groupe -> groupeb : getGroup(nomGroupe)
+groupeb --> groupe : true
+groupe --> act : true
+act -> groupe : checkGroupExistsAndCreate(nomGroupe)
+groupe -> groupeb : create(new Groupe(nomGroupe)
+activate base
+groupeb -> base : getCollection().add(groupe)
+base --> groupeb : groupe crée dans la base
+deactivate base
+groupeb --> groupe : ok
+deactivate groupeb
+groupe --> act : groupe créé
+deactivate groupe
+act --> g : Ajout nouveau groupe dans la liste de la liste des groupes
+deactivate act
+
+g -> act: Appuyer sur "+" (ajouter un groupe)
+activate act
+activate groupe
+act -> groupe : isGroupCreated()
+activate groupeb
+groupe -> groupeb : getGroup(nomGroupe)
+activate base
+groupeb -> base : getCollection().whereEqualTo(NAME, nom).get()
+base --> groupeb : data groupe
+deactivate base
+groupeb --> groupe : false
+deactivate groupeb
+groupe --> act : false
+deactivate groupe
+act --> g : Le groupe existe déjà
+@enduml

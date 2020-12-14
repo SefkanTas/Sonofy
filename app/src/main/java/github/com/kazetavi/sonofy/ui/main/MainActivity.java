@@ -12,10 +12,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.google.firebase.auth.FirebaseAuth;
+
 
 import java.util.List;
 
+import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
@@ -29,13 +32,19 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView publicationRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
     private Button sortTitre,sortDate, sortLike, logout;
 
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        final Intent intent = getIntent();
+        final String groupeId = intent.getStringExtra("GROUPE_ID");
+
         sortTitre = findViewById(R.id.sortByTitre);
         sortDate = findViewById(R.id.sortByDate);
         sortLike = findViewById(R.id.sortByLike);
@@ -51,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
         final MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
+        mainViewModel.getGroupeMutableLiveData().observe(this, new Observer<Groupe>() {
+            @Override
+            public void onChanged(Groupe groupe) {
+                setTitle(groupe.getName());
+            }
+        });
 
         mainViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
             @Override
@@ -60,26 +75,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainViewModel.loadPublicationsDate();
+        mainViewModel.getGroupe(groupeId);
+        mainViewModel.loadPublicationsDate(groupeId);
 
         sortTitre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsTitre();
+                mainViewModel.loadPublicationsTitre(groupeId);
             }
         });
 
         sortDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsDate();
+                mainViewModel.loadPublicationsDate(groupeId);
             }
         });
 
         sortLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainViewModel.loadPublicationsLike();
+                mainViewModel.loadPublicationsLike(groupeId);
             }
         });
 
@@ -87,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);
+                intent.putExtra("GROUPE_ID", groupeId);
                 startActivity(intent);
             }
         });
@@ -94,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                intent.putExtra("GROUPE_ID", groupeId);
+                startActivity(intent);
             }
         });
 

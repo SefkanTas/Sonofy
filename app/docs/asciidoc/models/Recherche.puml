@@ -1,0 +1,27 @@
+@startuml
+actor User as g
+participant "::SearchActivity " as act
+participant "searchViewModel :SearchViewModel " as pub
+participant ":: PublicationFirestore " as pubb
+participant ":: FirebaseFirestore " as base
+
+g -> act : Appuyer sur le boutton recherche
+activate act
+g -> act : entrer le titre de la publication à rechercher
+activate pub
+act -> pub : searchPublicationsTitle(titre, groupeId)
+activate pubb
+pub -> pubb : searchByTitleAndGroupe(titre, groupeId)
+activate base
+pubb -> base : getInstance().collection(COLLECTION_NAME).whereEqualTo(TITRE, title)
+base --> pubb : publication data
+deactivate base
+pubb --> pub : add(doc.toObject(Publication.class))
+deactivate pubb
+pub --> act : setValue(publicationsList)
+deactivate pub
+act --> g : Affiche la publication recherchée
+deactivate act
+
+
+@enduml

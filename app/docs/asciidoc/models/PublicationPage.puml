@@ -1,0 +1,94 @@
+@startuml
+
+actor User as g
+participant "::PublicationActivity " as act
+participant "::PublicationAdapter " as like
+participant "publicationViewModel : PublicationViewModel " as pub
+participant "::PublicationFirestore " as pubb
+participant "::CommentairesFirestore " as comb
+participant "::FirebaseFirestore " as base
+
+g -> act: Choisir une publication de la liste
+activate act
+activate pub
+act -> pub : loadPublication(final String publicationId)
+activate pubb
+activate base
+pub -> pubb : getPublication(publicationId)
+pubb -> base : getInstance().collection(COLLECTION_NAME)
+base --> pubb : data publication
+deactivate base
+pubb --> pub : data publication
+
+deactivate pubb
+pub --> act : data publication
+act -> pub : loadCommentaires(String publicationId)
+activate comb
+activate base
+pub -> comb : getCollectionQueryByPublication(publicationId)
+comb -> base : getInstance().collection(COLLECTION_NAME)
+base --> comb : commentaire de la base
+deactivate base
+comb --> pub : commentaire
+deactivate comb
+pub --> act : liste commentaires
+deactivate pub
+act --> g : Afficher la page publication
+deactivate act
+
+g -> like : Like publication
+activate like
+activate pubb
+like -> pubb: incrementLike(Publication publication)
+activate base
+pubb -> base : incrementValueByN(publication, LIKE_COUNT, 1)
+base --> pubb : update base
+deactivate base
+pubb --> like : nombre de like augmenter par 1
+deactivate pubb
+like --> g : Affiche le nombre de like
+deactivate like
+
+g -> like : Dislike publication
+activate like
+activate pubb
+like -> pubb: incrementDislike(Publication publication)
+activate base
+pubb -> base : incrementValueByN(publication, DISLIKE_COUNT, 1)
+base --> pubb : update base
+deactivate base
+pubb --> like : nombre de dislike augmenter par 1
+deactivate pubb
+like --> g : Affiche le nombre de dislike
+deactivate like
+
+
+g -> act : Ajouter un commentaire
+activate act
+activate pub
+act -> pub : createCommentaire(String publicationId, String content, String username)
+activate comb
+pub-> comb : create(commentaire)
+activate base
+comb -> base : getCollection().add(commentaire)
+base --> comb : commentaire ajouté dans la base
+deactivate base
+
+comb --> pub : commentaire créé
+deactivate comb
+pub --> act : commentaire ajouté dans la liste
+act-> pub : loadCommentaires(String publicationId)
+pub --> act : liste commentaire actualisée
+act --> g : Commentaire ajouté dans la liste
+deactivate pub
+deactivate act
+
+g -> act: Cliquer sur la miniature
+activate act
+act -> act : startActivity(intentYoutube)
+act --> g : Ouverture de youtube avec la musique de la publication
+deactivate act
+
+
+
+@enduml

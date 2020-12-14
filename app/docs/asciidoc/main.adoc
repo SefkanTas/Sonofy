@@ -1,6 +1,6 @@
 = ```Sonofy``` Documentation
-Nos Prenoms et noms
-2020-11-17
+TAS Sefkan, VIDA Anisoara, ZEGADI Lina, KAIS Lamia 
+2020-11-30
 :revnumber: {project-version}
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
@@ -13,11 +13,27 @@ ifndef::modelsdir[:modelsdir: models]
 // :figure-caption: Figure
 // :listing-caption: Listing
 
+== What does ```Sonofy``` do?
+
+Sonofy is a music social media .
+
+Create an account and enjoy the app.
+Then you can share on it music videos, comments publications, like or dislike them.
+You can create groups with publications inside.
+
+
+== Personas 
+
+image:persona1.png[{half-size}]
+
+image:persona2.png[]
+
+
 == How to install ?
 
 === Note
 
-Tested with gradle 4.1.1 and Java 12.0.2
+Tested with gradle 6.5 and Java 12.0.2
 
 === If you have ```git``` on your computer
 
@@ -39,8 +55,79 @@ Simply run:
 ./gradlew run
 ----
 
-== What does ```Sonofy``` do?
+== Class diagram of Sonofy
 
-Sonofy is a music social media .
+=== UI Diagram class
 
-You can share on it music videos.
+==== For the main page
+
+image:modelui6.png[]
+
+==== For the register page
+
+image:modelui8.png[]
+
+
+==== For the signin page
+
+image:modelui5.png[]
+
+==== For the adding publication page
+
+image:modelui3.png[]
+
+==== For the display publication page
+
+image:modelui7.png[]
+
+==== For the groups list page
+
+image:modelui4.png[]
+
+==== For the adding group page
+
+image:modelui2.png[]
+
+==== For the search page
+
+image:modelui.png[]
+
+
+
+=== Data Diagram class
+
+image:modeldata.png[]
+
+== Sequence Diagram
+
+=== Sequence Diagram : Publication Page
+
+image:PublicationPage.png[]
+
+=== Sequence Diagram : Add Group
+
+image:AjoutGroupe.png[]
+
+=== Sequence Diagram : Add Publication
+
+image:AjoutPublication.png[]
+
+=== Sequence Diagram : Group Page
+
+image:PageGroupe.png[]
+
+=== Sequence Diagram : Main Publication
+
+image:MainPublication.png[]
+
+=== Sequence Diagram : Search Publication
+
+image:Recherche.png[]
+
+=== Sequence Diagram : Register
+
+image:Register.png[]
+
+=== Sequence Diagram : Connexion
+
+image:Connexion.png[]

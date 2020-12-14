@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -95,7 +96,8 @@ public class PublicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String content = commentaireEditText.getText().toString();
-                publicationViewModel.createCommentaire(publication.getUid(), content);
+                String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                publicationViewModel.createCommentaire(publication.getUid(), content, username);
                 commentaireEditText.setText("");
             }
         });

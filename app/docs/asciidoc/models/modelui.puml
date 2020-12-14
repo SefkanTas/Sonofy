@@ -1,0 +1,31 @@
+@startuml modelui
+title <size:30><b>Diagramme de classes ui de la recherche</b></size>
+
+package app{
+
+  package ui{
+
+    package search{
+
+        class SearchActivity extends AppCompatActivity {
+            - recherche: EditText
+            - btn_recherche: ImageButton
+            - accueil: ImageButton
+            - liste_pub: RecyclerView
+            - adapter: RecyclerView.Adapter
+            - layoutManager: RecyclerView.LayoutManager
+            - searchViewModel: SearchViewModel
+
+            + onCreate(savedInstanceState : Bundle): void
+        }
+
+        class SearchViewModel{
+              - publication: MutableLiveData<Publication>
+
+              + getPublications(): MutableLiveData<Publication>
+              searchPublicationsTitle(titre: String): void
+        }
+       }
+    }
+ }
+@enduml

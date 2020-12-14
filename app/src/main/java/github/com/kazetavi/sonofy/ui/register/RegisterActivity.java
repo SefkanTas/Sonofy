@@ -23,13 +23,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = this.getClass().getSimpleName();
@@ -63,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         login = findViewById(R.id.log_button);
 
         if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             //finish();
@@ -99,19 +101,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //final String type = role.getText().toString().trim();
 
         //Vérification des champs à remplir
-        if(firstname.isEmpty()){
-            uPrenom.setError("Veuillez saisir votre prénom");
-            uPrenom.requestFocus();
-        }
-
         if(name.isEmpty()){
             uNom.setError("Veuillez saisir votre nom");
             uNom.requestFocus();
+            return;
+        }
+
+        if(firstname.isEmpty()){
+            uPrenom.setError("Veuillez saisir votre prénom");
+            uPrenom.requestFocus();
+            return;
         }
 
         if(pseudo.isEmpty()){
             uPseudo.setError("Veuillez saisir votre pseudonyme");
             uPseudo.requestFocus();
+            return;
         }
 
         /*if(type.isEmpty()){
@@ -122,21 +127,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(email.isEmpty()){
             uEmail.setError("Veuillez saisir votre email");
             uEmail.requestFocus();
+            return;
         }
 
         if( !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             uEmail.setError("Veuillez saisir une adresse mail valide");
             uEmail.requestFocus();
+            return;
         }
 
         if(mdp.isEmpty()){
             uMdp.setError("Veuillez saisir un mot de passe");
             uMdp.requestFocus();
+            return;
         }
 
         if(mdp.length() < 8){
             uMdp.setError("Veuillez saisir un mot de passe à 8 caractères");
             uMdp.requestFocus();
+            return;
         }
 
         mAuth.createUserWithEmailAndPassword(email,mdp)
@@ -153,6 +162,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         public void onSuccess(DocumentReference documentReference) {
                                             Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + documentReference.getId());
                                             prgB.setVisibility(View.VISIBLE);
+
+                                            //Ajout du pseudo dans le displayName
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(pseudo).build();
+                                            user.updateProfile(profileUpdates);
+
                                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                         }
                                     })

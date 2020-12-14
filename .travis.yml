@@ -12,8 +12,8 @@ sudo : false
 before_install:
   - yes | sdkmanager "platforms;android-30"
   - openssl aes-256-cbc -k "$secret_keystore_decrypt" -in sonofy.jks.enc -out sonofy.jks -d
-  - chmod +x gradlew
-
+  - chmod a+x gradlew
+  - yes | sdkmanager "platforms;android-30"
 addons:
   sonarcloud:
     organization: "parisnanterre"
@@ -23,11 +23,44 @@ addons:
 script:
   - "./gradlew build"
   - "./gradlew assembleRelease"
+  #- sonar-scanner
+
+after_success:
+- "./gradlew asciidoctor"
+
+before_deploy:
+- export VERSION=`./gradlew -q version`
+- export BINDIR="build/libs"
+- export BINFILE="Sonofy-${VERSION}"
+- export DOCDIR="app/build/docs/asciidoc"
+- export DOCFILE="main"
+- mv "${DOCDIR}/${DOCFILE}.pdf" "${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
+- export BINARY="${BINDIR}/${BINFILE}.jar"
+- export DOCUMENTATION="${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
+- echo binary is ${BINARY}
+- echo documentation is ${DOCUMENTATION}
+- |
+  if [ $TRAVIS_BRANCH = "dev" ]
+  then
+    export TRAVIS_TAG=v${VERSION}-SNAPSHOT
+  else
+    export TRAVIS_TAG=v${VERSION}
+  fi
+- |
+  if [ $TRAVIS_BRANCH = "dev" ]
+  then
+    git tag ${TRAVIS_TAG}
+    echo tag ${TRAVIS_TAG}
+  else
+    echo no tag
+  fi
 
 deploy:
   provider: releases
   api-key: "$GITHUB_API_KEY"
-  file: "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
+  file:
+    - "$TRAVIS_BUILD_DIR/app/build/outputs/apk/release/app-release.apk"
+    - ${DOCUMENTATION}
   skip_cleanup: true
   name: $TRAVIS_TAG
   body: Automatic build of $TRAVIS_BRANCH ($TRAVIS_COMMIT) built by Travis CI on $(date
@@ -35,7 +68,7 @@ deploy:
   overwrite: true
   target_commitish: "$TRAVIS_COMMIT"
   on:
-    branch: master
+    branche: master
     tags: true
 
 env:
