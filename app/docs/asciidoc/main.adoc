@@ -1,6 +1,6 @@
 = ```Sonofy``` Documentation
 TAS Sefkan, VIDA Anisoara, ZEGADI Lina, KAIS Lamia 
-2020-11-30
+2020-12-16
 :revnumber: {project-version}
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
@@ -131,3 +131,50 @@ image:Register.png[]
 === Sequence Diagram : Connexion
 
 image:Connexion.png[]
+
+
+== Retrospective
+
+==== v0.0/v0.1
+
+Initialisation du projet Sonofy et de son environnement de developpement.
+
+
+==== v0.2
+
+La version v0.2 permet aux utilisateurs d'ajouter des publications, c'est-à-dire des vidéos de musique venant de YouTube grâce à leur ID et de rajouter un titre à la publication.
+Il est aussi possible de liker/disliker une ou plusieurs publication(s).
+
+
+==== v0.3
+
+Dans la version v0.3, des correctifs et des améliorations ont été apportées. 
+
+Plus précisement:
+ * La documentation README.md a été mise à jour avec le guide d'installation
+ * L'apk a été ajouté ce qui permet de télécharger Sonofy sur smartphone Android et de l'utiliser comme n'importe quelle autre application
+ * L'ajout des badges sur le README.md
+ 
+
+==== v0.4
+
+La version v0.4 permet aux utilisateurs de commenter les publications existantes dans le fil d'actualité.
+
+
+==== v0.5
+
+La version v0.5 permet aux utilisateurs de pouvoir visualiser les publications en fonctions du titre, des likes et par date d'ajout le plus récent. 
+La fonction recherche a été ajouté pour trouver les publications par le titre recherché.
+Il est possible d'ajouter une vidéo Youtube grâce au lien entier et non seulement grâce à l'ID.
+
+
+==== v1.0-alpha
+
+Pour la version v1.0-alpha, il est désormais nécessaire de créer un compte pour accéder aux fonctionnalités proposées par Sonofy.
+Il est possible de créer des groupes pour pouvoir y ajouter des publications.
+
+
+==== v1.0-beta
+
+Dans cette dernière version, des corrections de bugs ont été apportées.
+
