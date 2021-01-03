@@ -6,8 +6,12 @@ Sonofy offre de la reconnaissance aux nouveaux artistes qui ont du talent et n�
 
 Les abonnés qui sont passionnés et inspirés par la musique ont la possibilité d’aider les artistes à se faire connaître en partageant leurs musiques permettant ainsi de découvrir et de diversifier les styles musicaux.
 
+## Télécharger l'application sur un appareil Android
+---
 
-## Installation
+Vous pouvez télécharger Sonofy directement sur votre smartphone Android en cliquant [ici](https://github.com/SefkanTas/Sonofy/releases/download/v1.0-beta.1/app-release.apk).
+
+## Installation sur ordinateur pour devéloppeur
 Vous devez premièrement installer [**Android Studio**](https://developer.android.com/studio) correspondant à votre système d'exploitation (Windows, Linux, Mac OS).
 
 
