@@ -59,8 +59,15 @@ public class SearchActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 final String titre = recherche.getText().toString().trim();
+                final String groupe = recherche.getText().toString().trim();
+
+
                 if(!titre.isEmpty()) {
                     searchViewModel.searchPublicationsTitle(titre, groupeId);
+                }
+
+                if(!groupe.isEmpty()) {
+                    searchViewModel.searchPublicationsTitle(groupe, groupeId);
                 }
             }
         });
