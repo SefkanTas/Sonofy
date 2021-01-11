@@ -27,7 +27,7 @@ public class SearchViewModel extends ViewModel {
         return publications;
     }
 
-    void searchPublicationsTitle(String titre, String groupeId){
+    void searchPublicationsTitle(String titre, String groupeId) {
         final List<Publication> publicationsList = new ArrayList<>();
 
         PublicationFirestore.searchByTitleAndGroupe(titre, groupeId)
@@ -35,11 +35,26 @@ public class SearchViewModel extends ViewModel {
                     @Override
                     public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         publicationsList.clear();
-                        for(QueryDocumentSnapshot doc : value){
+                        for (QueryDocumentSnapshot doc : value) {
                             publicationsList.add(doc.toObject(Publication.class));
                             publications.setValue(publicationsList);
                         }
                     }
                 });
     }
-}
+        void searchPublicationsTitleGroup(String titre){
+            final List<Publication> publicationsList = new ArrayList<>();
+
+            PublicationFirestore.searchByGroupName(titre)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            publicationsList.clear();
+                            for (QueryDocumentSnapshot doc : value) {
+                                publicationsList.add(doc.toObject(Publication.class));
+                                publications.setValue(publicationsList);
+                            }
+                        }
+                    });
+        }
+    }

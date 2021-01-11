@@ -20,6 +20,8 @@ public class PublicationFirestore {
     public static final String TITRE = "titre";
     public static final String VIDEO_ID = "videoId";
     public static final String GROUP_ID = "groupId";
+    public static final String GROUP_NAME = "titre";
+
 
     public static CollectionReference getPublicationsCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -103,6 +105,9 @@ public class PublicationFirestore {
         return searchByTitle(title).whereEqualTo(GROUP_ID, groupeId);
     }
 
+    public static Query searchByGroupName(String group){
+        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(GROUP_NAME, group);
+    }
     // UPDATE
 
     public static Task<Void> updateTitre(String uid, String titre) {
