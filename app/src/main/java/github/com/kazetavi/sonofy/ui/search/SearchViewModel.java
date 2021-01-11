@@ -16,15 +16,22 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class SearchViewModel extends ViewModel {
 
     MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
+    MutableLiveData<List<Groupe>> groupes = new MutableLiveData<>();
 
     MutableLiveData<List<Publication>> getPublications(){
         return publications;
+    }
+
+    MutableLiveData<List<Groupe>> getGroupes(){
+        return groupes;
     }
 
     void searchPublicationsTitle(String titre, String groupeId) {
@@ -42,17 +49,17 @@ public class SearchViewModel extends ViewModel {
                     }
                 });
     }
-        void searchPublicationsTitleGroup(String titre){
-            final List<Publication> publicationsList = new ArrayList<>();
+        void searchGroup(String groupe){
+            final List<Groupe> groupeList = new ArrayList<>();
 
-            PublicationFirestore.searchByGroupName(titre)
+            GroupeFirestore.searchByGroupe(groupe)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            publicationsList.clear();
+                            groupeList.clear();
                             for (QueryDocumentSnapshot doc : value) {
-                                publicationsList.add(doc.toObject(Publication.class));
-                                publications.setValue(publicationsList);
+                                groupeList.add(doc.toObject(Groupe.class));
+                                groupes.setValue(groupeList);
                             }
                         }
                     });
