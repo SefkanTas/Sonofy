@@ -13,15 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
@@ -84,6 +89,16 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
                 }
             }
         });
+
+        CommentaireFirestore.getCollectionQueryByPublication(publication.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.getResult() != null){
+                    holder.commentaireCountTextView.setText(String.valueOf(task.getResult().size()));
+                }
+            }
+        });
     }
 
     @Override
@@ -97,6 +112,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         ImageView miniatureImageView;
         TextView likeCountTextView;
         TextView dislikeCountTextView;
+        TextView commentaireCountTextView;
 
         LinearLayout likeButton;
         LinearLayout dislikeButton;
@@ -109,6 +125,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             this.dislikeCountTextView = v.findViewById(R.id.dislikeCountTextView2);
             this.likeButton = v.findViewById(R.id.likeButton2);
             this.dislikeButton = v.findViewById(R.id.dislikeButton2);
+            this.commentaireCountTextView = v.findViewById(R.id.commentCountTextView);
         }
     }
 
