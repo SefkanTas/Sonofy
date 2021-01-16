@@ -28,13 +28,13 @@ android {
         }
     }
 
-    def isRunningOnTravis = System.getenv("CI") == "true"
+    def isRunningOnGithubActions = System.getenv("CI") == "true"
 
-    if (isRunningOnTravis) {
+    if (isRunningOnGithubActions) {
         signingConfigs.release.storeFile = file("../sonofy.jks")
-        signingConfigs.release.storePassword = System.getenv("keystore_password")
-        signingConfigs.release.keyAlias = System.getenv("keystore_alias")
-        signingConfigs.release.keyPassword = System.getenv("key_password")
+        signingConfigs.release.storePassword = System.getenv("KEYSTORE_PASSWORD")
+        signingConfigs.release.keyAlias = System.getenv("KEYSTORE_ALIAS")
+        signingConfigs.release.keyPassword = System.getenv("KEY_PASSWORD")
     }
 }
 
