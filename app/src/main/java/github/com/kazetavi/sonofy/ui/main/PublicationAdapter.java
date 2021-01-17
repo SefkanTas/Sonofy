@@ -82,10 +82,11 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         holder.archive_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // PublicationFirestore.createPublication(publication);
                 PublicationFirestore.deletePublication(publication.getUid());
             }
         });
+
+       //PublicationFirestore.deletePublication(publication.getUid()).add
 
         PublicationFirestore.getPublicationRef(publication)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {

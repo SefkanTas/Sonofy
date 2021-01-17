@@ -113,6 +113,7 @@
 
     <ImageView
         android:id="@+id/delete"
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -122,7 +123,8 @@
         app:layout_constraintStart_toEndOf="@+id/titrePublicationTextView"
         app:layout_constraintTop_toBottomOf="@+id/dislikeButton2"
         app:layout_constraintVertical_bias="0.315"
-        tools:srcCompat="@android:drawable/ic_delete" />
+        tools:srcCompat="@android:drawable/ic_delete"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/commentCountTextView"
