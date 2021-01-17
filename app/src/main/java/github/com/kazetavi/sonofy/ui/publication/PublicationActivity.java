@@ -32,7 +32,6 @@ public class PublicationActivity extends AppCompatActivity {
     ImageView miniatureImageView;
     TextView likeCountTextView;
     TextView dislikeCountTextView;
-
     LinearLayout likeButton;
     LinearLayout dislikeButton;
 
