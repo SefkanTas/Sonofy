@@ -106,10 +106,27 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/dislikeButton2"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toEndOf="@+id/titrePublicationTextView"
         app:layout_constraintTop_toBottomOf="@+id/dislikeButton2"
+        app:layout_constraintVertical_bias="0.407"
         app:srcCompat="@drawable/ic_baseline_comment_24" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dislikeButton2"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toEndOf="@+id/titrePublicationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/dislikeButton2"
+        app:layout_constraintVertical_bias="0.407"
+        app:srcCompat="@drawable/delete" />
 
     <TextView
         android:id="@+id/commentCountTextView"

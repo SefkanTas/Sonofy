@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ import java.util.List;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
-import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
@@ -79,6 +77,15 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             }
         });
 
+        holder.delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PublicationFirestore.deletePublication(publication.getUid());
+            }
+        });
+
+       //PublicationFirestore.deletePublication(publication.getUid()).add
+
         PublicationFirestore.getPublicationRef(publication)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -117,6 +124,8 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         LinearLayout likeButton;
         LinearLayout dislikeButton;
 
+        ImageView delete_btn;
+
         public PublicationViewHolder(View v) {
             super(v);
             this.titreTextView = v.findViewById(R.id.titrePublicationTextView);
@@ -126,6 +135,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             this.likeButton = v.findViewById(R.id.likeButton2);
             this.dislikeButton = v.findViewById(R.id.dislikeButton2);
             this.commentaireCountTextView = v.findViewById(R.id.commentCountTextView);
+            this.delete_btn = v.findViewById(R.id.delete);
         }
     }
 
