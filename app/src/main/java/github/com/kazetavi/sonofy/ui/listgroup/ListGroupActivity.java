@@ -22,11 +22,12 @@ import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
+import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 
 
 public class ListGroupActivity extends AppCompatActivity {
 
-    private FloatingActionButton addGroupButton;
+    private FloatingActionButton addGroupButton, search_btn;
     private RecyclerView groupeRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -48,6 +49,8 @@ public class ListGroupActivity extends AppCompatActivity {
         groupeRecyclerView.setLayoutManager(layoutManager);
 
         viewModel = new ViewModelProvider(this).get(ListGroupViewModel.class);
+
+        search_btn = findViewById(R.id.search_activity_group);
 
         viewModel.getGroupesLiveData().observe(this, new Observer<List<Groupe>>() {
             @Override
@@ -71,6 +74,14 @@ public class ListGroupActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
                 startActivity(intent);
             }
         });

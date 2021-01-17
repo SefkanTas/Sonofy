@@ -23,10 +23,8 @@ import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 public class SearchActivity extends AppCompatActivity{
     private EditText recherche;
     private ImageButton btn_recherche, accueil;
-    private RecyclerView liste_pub;
     private RecyclerView liste_groupe;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.LayoutManager layoutManager1;
 
     private SearchViewModel searchViewModel;
@@ -39,12 +37,8 @@ public class SearchActivity extends AppCompatActivity{
         recherche = findViewById(R.id.search_field);
         btn_recherche = findViewById(R.id.search_button);
         accueil = findViewById(R.id.back_home);
-        liste_pub = findViewById(R.id.publication_list);
         liste_groupe = findViewById(R.id.groupe_list);
-
-        layoutManager = new LinearLayoutManager(this);
         layoutManager1 = new LinearLayoutManager(this);
-        liste_pub.setLayoutManager(layoutManager);
         liste_groupe.setLayoutManager(layoutManager1);
 
 
@@ -53,14 +47,6 @@ public class SearchActivity extends AppCompatActivity{
 
 
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-
-        searchViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
-            @Override
-            public void onChanged(List<Publication> publications) {
-                adapter = new PublicationAdapter(publications);
-                liste_pub.setAdapter(adapter);
-            }
-        });
 
         searchViewModel.getGroupes().observe(this, new Observer<List<Groupe>>() {
             @Override
@@ -73,20 +59,14 @@ public class SearchActivity extends AppCompatActivity{
         btn_recherche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String titre = recherche.getText().toString().trim();
                 final String nameg = recherche.getText().toString().trim();
 
-
-                if(!titre.isEmpty()) {
-                    searchViewModel.searchPublicationsTitle(titre, groupeId);
-                }
 
                 if(!nameg.isEmpty()) {
                     searchViewModel.searchGroup(nameg);
                 }
             }
         });
-
         accueil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
