@@ -1,0 +1,57 @@
+@startuml modelui6
+title <size:30><b>Diagramme de classes ui de la page principale</b></size>
+
+package app{
+
+  package ui{
+
+  package main{
+
+          class MainActivity extends AppCompatActivity{
+              - newPublicationButton : FloatingActionButton
+              - search_btn: FloatingActionButton
+              - publicationRecyclerView: RecyclerView
+              - adapter: RecyclerView.Adapter
+              - layoutManager: RecyclerView.LayoutManager
+              - sortTitre: Button
+              - sortDate: Button
+              - sortLike: Button
+              - logout: Button
+
+              + onCreate(savedInstanceState : Bundle): void
+          }
+
+          class MainViewModel extends ViewModel{
+              - TAG : String
+               sortTitre : Button
+               publications : MutableLiveData<List<Publication>>
+
+               getPublications() : MutableLiveData<List<Publication>>
+               loadPublicationsTitre() : void
+               loadPublicationsDate(): void
+               loadPublicationsLike(): void
+          }
+
+          class PublicationAdapter extends RecyclerView.Adapter{
+              - publications : List<Publication>
+
+              + this : (publications : List<Publication>)
+
+              + onCreateViewHolder(parent :@NonNull ViewGroup, viewType: int): PublicationViewHolder
+              + onBindViewHolder(holder: @NonNull final PublicationViewHolder , position: int): void
+              + getItemCount(): int
+
+              class PublicationViewHolder extends RecyclerView.ViewHolder
+                     titreTextView: TextView
+                     miniatureImageView: ImageView
+                     likeCountTextView: TextView
+                     dislikeCountTextView: TextView
+                     likeButton: LinearLayout
+                     dislikeButton: LinearLayout
+
+                     + this: (v: View)
+            }
+        }
+  }
+}
+@enduml

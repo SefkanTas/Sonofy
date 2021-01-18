@@ -32,13 +32,13 @@
         android:text="titre"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/miniaturePublicationImageView"
-        app:layout_constraintEnd_toStartOf="@+id/likeButton"
+        app:layout_constraintEnd_toStartOf="@+id/likeButton2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/miniaturePublicationImageView"
         app:layout_constraintTop_toTopOf="@+id/miniaturePublicationImageView" />
 
     <LinearLayout
-        android:id="@+id/likeButton"
+        android:id="@+id/likeButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -51,7 +51,7 @@
         android:paddingRight="16dp"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/miniaturePublicationImageView"
-        app:layout_constraintEnd_toStartOf="@+id/dislikeButton"
+        app:layout_constraintEnd_toStartOf="@+id/dislikeButton2"
         app:layout_constraintTop_toTopOf="@+id/miniaturePublicationImageView">
 
         <ImageView
@@ -61,7 +61,7 @@
             app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
 
         <TextView
-            android:id="@+id/likeCountTextView"
+            android:id="@+id/likeCountTextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -69,7 +69,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/dislikeButton"
+        android:id="@+id/dislikeButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -81,9 +81,9 @@
         android:paddingTop="8dp"
         android:paddingRight="16dp"
         android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/likeButton"
+        app:layout_constraintBottom_toBottomOf="@+id/likeButton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/likeButton">
+        app:layout_constraintTop_toTopOf="@+id/likeButton2">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -92,10 +92,52 @@
             app:srcCompat="@drawable/ic_baseline_thumb_down_24" />
 
         <TextView
-            android:id="@+id/dislikeCountTextView"
+            android:id="@+id/dislikeCountTextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="12" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dislikeButton2"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toEndOf="@+id/titrePublicationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/dislikeButton2"
+        app:layout_constraintVertical_bias="0.407"
+        app:srcCompat="@drawable/ic_baseline_comment_24" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dislikeButton2"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toEndOf="@+id/titrePublicationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/dislikeButton2"
+        app:layout_constraintVertical_bias="0.407"
+        app:srcCompat="@drawable/delete" />
+
+    <TextView
+        android:id="@+id/commentCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/titrePublicationTextView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

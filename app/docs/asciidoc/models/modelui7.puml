@@ -1,0 +1,51 @@
+@startuml modelui7
+title <size:30><b>Diagramme de classes ui de l'affichage des publications</b></size>
+
+package app{
+
+  package ui{
+
+  package publication{
+
+          class CommentaireAdapater extends RecyclerView.Adapter {
+              - commentaires: List<Commentaire>
+
+               + this: (commentaire : List<Commentaire>)
+
+                + onCreateViewHolder(parent :@NonNull ViewGroup, viewType: int): CommentaireViewHolder
+                + onBindViewHolder(holder: @NonNull final CommentaireViewHolder , position: int): void
+                + getItemCount(): int
+          }
+
+
+          class PublicationActivtiy extends AppCompatActivity{
+                 titreTextView: TextView
+                 miniatureImageView: ImageView
+                 likeCountTextView: TextView
+                 dislikeCountTextView: TextView
+                 likeButton: LinearLayout
+                 dislikeButton:LinearLayout
+                 commentaireEditText: EditText
+                 commenterButton: Button
+                 publication: Publication
+                 - commentaireRecyclerView:  RecyclerView
+                 - adapter:  RecyclerView.Adapter
+                 - layoutManager: RecyclerView.LayoutManager
+
+                 + onCreate(savedInstanceState : Bundle): void
+          }
+
+          class PublicationViewModel extends ViewModel{
+              - publication: MutableLiveData<Publication>
+              - commentaires: MutableLiveData<Commentaire>
+
+              + getPublication(): MutableLiveData<Publication>
+              + getCommentaires(): MutableLiveData<Commentaire>
+              + loadPublication(publicationId : String): void
+              + loadCommentaires(publicationId : String): void
+              + createCommentaires(publicationId : String, content : String): void
+          }
+      }
+   }
+}
+@enduml
