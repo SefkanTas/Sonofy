@@ -179,3 +179,35 @@ Il est possible de créer des groupes pour pouvoir y ajouter des publications.
 
 Dans cette dernière version, des corrections de bugs ont été apportées.
 
+
+=== v1.1
+
+Pour la version v1.1, il est possible de supprimer une publication ainsi qu'afficher le nombre de commentaires d'une publication.
+La recherche a été modifiée de manière à ce que les utilisateurs puissent rechercher une publication dans la liste des publications mais aussi de rechercher un groupe parmi la liste des groupes.
+
+== Features prévues
+
+== v1.2
+
+== Affichage du nom de l'auteur d'une publication
+
+image:features/nom_utilisateurs.png[]
+
+== Ajouter une émotion
+
+image:features/emotion_comm.png[]
+
+== Profil utilisateur
+
+image:features/profil_utilisateur.png[]
+
+== Affichage du nombre de publication par groupe
+
+image:features/nb_groupe.png[]
+
+== Intégration des recommandations youtube
+
+image:features/recommendation_youtube.png[]
+
+
+
