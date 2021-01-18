@@ -21,6 +21,7 @@ public class PublicationFirestore {
     public static final String VIDEO_ID = "videoId";
     public static final String GROUP_ID = "groupId";
 
+
     public static CollectionReference getPublicationsCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }

@@ -33,6 +33,15 @@ public class GroupeFirestore {
     }
 
 
+
+    //SEARCH
+
+    public static Query searchByGroupe(String groupe){
+        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME).whereEqualTo(NAME,groupe);
+    }
+
+
+
     // CREATE
     public static Task<DocumentReference> create(Groupe groupe){
         return getCollection().add(groupe);

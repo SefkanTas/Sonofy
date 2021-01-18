@@ -21,6 +21,7 @@ public class CommentaireFirestore {
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
+    //GET
     public static Query getCollectionQueryDesc(){
         return getCollection().orderBy(DATE_CREATED);
     }
