@@ -9,6 +9,7 @@ on:
     branches:
     - master
     - dev
+    - gen-apk-actions
   pull_request:
     branches:
     - master
@@ -28,7 +29,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Restore keystore
         env: 
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
@@ -42,3 +43,19 @@ jobs:
         run: |
           chmod a+x gradlew
           ./gradlew build
+        
+        
+      - name: Generate APK
+        run: ./gradlew assembleRelease
+        
+      - name: Check location
+        run: |
+          pwd
+          ls
+        
+      - name: Deploy APK
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./app/build/outputs/apk/release/app-release.apk
+        
+        
