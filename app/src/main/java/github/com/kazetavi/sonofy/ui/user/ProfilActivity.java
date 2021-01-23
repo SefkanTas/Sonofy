@@ -161,7 +161,7 @@ public class ProfilActivity extends AppCompatActivity {
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon pseudo");
+        alert.setTitle("Modifier mon email");
         // this is set the view from XML inside AlertDialog
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
