@@ -157,11 +157,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             User u = new User(name, firstname,pseudo, email,type);
 
                             FirebaseFirestore.getInstance().collection("Users")
-                                    .add(u)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    .document(mAuth.getCurrentUser().getUid())
+                                    .set(u)
+                                    .addOnSuccessListener(new OnSuccessListener() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + documentReference.getId());
+                                        public void onSuccess(Object o) {
+                                            Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + mAuth.getCurrentUser().getUid());
                                             prgB.setVisibility(View.VISIBLE);
 
                                             Intent intent = new Intent(getBaseContext(), LoginActivity.class);

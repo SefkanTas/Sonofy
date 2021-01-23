@@ -1,6 +1,6 @@
 package github.com.kazetavi.sonofy.data.model;
 
-import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
@@ -8,7 +8,7 @@ import android.widget.TextView;
 public class User {
 
     private String userId;
-    private String nom, prenom, pseudo, email, password,role;
+    private String nom, prenom, pseudo, email,role;
 
     public User(String userId, String displayName) {
         this.userId = userId;

@@ -5,6 +5,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import github.com.kazetavi.sonofy.data.model.User;
 
@@ -30,6 +31,10 @@ public class UserFirestore {
 
     public static Task<DocumentSnapshot> getUser(String uid){
         return UserFirestore.getUserRef(uid).get();
+    }
+
+    public static Task<QuerySnapshot> getPseudo(String pseudo){
+        return getUsersCollection().whereEqualTo(PSEUDO, pseudo).get();
     }
 
     //MODIFICATION PRENOM
