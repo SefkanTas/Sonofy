@@ -30,6 +30,7 @@ public class ProfilActivity extends AppCompatActivity {
 
         //Champs à afficher à partir de la base de données
         user = FirebaseAuth.getInstance();
+        User u = profilvm.getUser(user.getUid());
         nom = findViewById(R.id.nom_modif);
         prenom = findViewById(R.id.prenom_modif);
         email = findViewById(R.id.mail_modif);
@@ -41,16 +42,17 @@ public class ProfilActivity extends AppCompatActivity {
         email_mod = findViewById(R.id.email_button);
         pseudo_mod = findViewById(R.id.pseudo_button);
 
-        //nom.setText();
-        //prenom.setText();
+        nom.setText(u.getNom());
+        prenom.setText(u.getPrenom());
         email.setText(user.getCurrentUser().getEmail());
-        //pseudo.setText();
+        pseudo.setText(u.getPseudo());
 
         user.getCurrentUser().getUid();
 
         nom_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //final String  modif = ;
                 //profilvm.updateNom(user.getUid(),v);
             }
         });

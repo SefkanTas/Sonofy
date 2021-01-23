@@ -1,13 +1,19 @@
 package github.com.kazetavi.sonofy.ui.user;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
+import github.com.kazetavi.sonofy.data.model.User;
 
 public class ProfilViewModel extends ViewModel {
     private final String TAG = this.getClass().getSimpleName();
@@ -43,5 +49,24 @@ public class ProfilViewModel extends ViewModel {
         return b[0];
     }
 
+    public User getUser(final String uid){
+        final User[] user = {new User()};
+        UserFirestore.getUser(uid)
+                .addOnSuccessListener(
+                new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        user[0] = documentSnapshot.toObject(User.class);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Pas d'utilisateur trouvé avec cet ID" + uid);
+                    }
+        });
+
+        return user[0];
+    }
 
 }

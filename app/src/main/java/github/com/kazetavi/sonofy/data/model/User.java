@@ -1,12 +1,15 @@
 package github.com.kazetavi.sonofy.data.model;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.Exclude;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 public class User {
 
+    @Exclude
     private String userId;
     private String nom, prenom, pseudo, email,role;
 
@@ -27,7 +30,7 @@ public class User {
         this.role = r;
     }
 
-
+    @DocumentId
     public String getUserId() {
         return userId;
     }
