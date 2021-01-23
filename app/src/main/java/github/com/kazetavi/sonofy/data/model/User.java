@@ -1,6 +1,5 @@
 package github.com.kazetavi.sonofy.data.model;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
 
