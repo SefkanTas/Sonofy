@@ -31,6 +31,15 @@ jobs:
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
         run: openssl aes-256-cbc -d -k ${{ secrets.secret_keystore_decrypt }} -in sonofy.jks.enc -out sonofy.jks
         
+      - name: gradlew rights
+        run : chmod a+x gradlew
+      
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
         
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
@@ -40,9 +49,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Analyze with SonarCloud
-        run: |
-          chmod a+x gradlew
-          ./gradlew sonarqube
+        run: ./gradlew sonarqube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -52,7 +59,5 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          chmod a+x gradlew
-          ./gradlew build
+        run: ./gradlew build
         
