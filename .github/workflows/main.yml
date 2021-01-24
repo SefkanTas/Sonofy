@@ -30,22 +30,25 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-        env: 
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-
       - name: Restore keystore
         env: 
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
         run: openssl aes-256-cbc -d -k ${{ secrets.secret_keystore_decrypt }} -in sonofy.jks.enc -out sonofy.jks
                  
       - name: Build the app
+        env: 
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           chmod a+x gradlew
           ./gradlew build
         
       - name: Generate APK
+        env: 
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           ./gradlew assembleRelease
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
@@ -53,6 +56,6 @@ jobs:
       - name: Deploy APK
         uses: actions/upload-artifact@v2
         with:
-          path: ./app/build/outputs/apk/release/app-release.apk
+          path: ./app/build/outputs/apk/release/sonofy.apk
         
         
