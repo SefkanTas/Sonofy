@@ -51,6 +51,7 @@ public class PublicationActivity extends AppCompatActivity {
     Button commenterButton;
 
     Publication publication;
+    Commentaire commentaire;
 
     private RecyclerView commentaireRecyclerView;
     private RecyclerView.Adapter adapter;
@@ -109,10 +110,15 @@ public class PublicationActivity extends AppCompatActivity {
         publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
             @Override
             public void onChanged(List<Commentaire> commentaires) {
-
                 adapter = new CommentaireAdapter(commentaires);
                 commentaireRecyclerView.setAdapter(adapter);
-            }
+                angryCountTextView.setText(commentaire.getAngryCount().toString());
+                sadCountTextView.setText(commentaire.getSadCount().toString());
+                happyCountTextView.setText(commentaire.getHappyCount().toString());
+                heoCountTextView.setText(commentaire.getHeoCount().toString());
+                superrCountTextView.setText(commentaire.getSuperrCount().toString());
+            }  
+
         });
 
 

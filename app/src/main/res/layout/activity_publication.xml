@@ -30,8 +30,7 @@
             android:id="@+id/sad"
             android:layout_width="50dp"
             android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
-            tools:srcCompat="@drawable/emoji_sad" />
+            app:srcCompat="@drawable/emoji_sad" />
 
         <TextView
             android:id="@+id/sadCount"
@@ -63,8 +62,7 @@
             android:id="@+id/angry"
             android:layout_width="49dp"
             android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
-            tools:srcCompat="@drawable/emoji_angry" />
+            app:srcCompat="@drawable/emoji_angry" />
 
         <TextView
             android:id="@+id/angryCount"
@@ -96,8 +94,7 @@
             android:id="@+id/heo"
             android:layout_width="46dp"
             android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
-            tools:srcCompat="@drawable/emoji_heo" />
+            app:srcCompat="@drawable/emoji_heo" />
 
         <TextView
             android:id="@+id/heoCount"
@@ -129,8 +126,7 @@
             android:id="@+id/superr"
             android:layout_width="47dp"
             android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
-            tools:srcCompat="@drawable/emoji_super" />
+            app:srcCompat="@drawable/emoji_super" />
 
         <TextView
             android:id="@+id/superrCount"
@@ -162,8 +158,7 @@
             android:id="@+id/happy"
             android:layout_width="46dp"
             android:layout_height="37dp"
-            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
-            tools:srcCompat="@drawable/emoji_happy" />
+            app:srcCompat="@drawable/emoji_happy" />
 
         <TextView
             android:id="@+id/happyCount"

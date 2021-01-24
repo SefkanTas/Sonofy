@@ -32,7 +32,7 @@ public class PublicationViewModel extends ViewModel {
     private MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
     public MutableLiveData<List<Commentaire>> getCommentaires() {
         return commentaires;
-    }
+   }
 
 
     public void loadPublication(final String publicationId){
