@@ -1,13 +1,17 @@
 # Sonofy
 
-[![Build Status](https://travis-ci.com/SefkanTas/Sonofy.svg?branch=master)](https://travis-ci.com/SefkanTas/Sonofy) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=alert_status)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=code_smells)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=bugs)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy)  [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=coverage)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy)
+[![CI](https://github.com/SefkanTas/Sonofy/workflows/CI/badge.svg)](https://github.com/SefkanTas/Sonofy/actions) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=alert_status)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=code_smells)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=bugs)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy)  [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=SefkanTas_Sonofy&metric=coverage)](https://sonarcloud.io/dashboard?id=SefkanTas_Sonofy)
 
 Sonofy offre de la reconnaissance aux nouveaux artistes qui ont du talent et n’arrivent pas à obtenir la visibilité souhaitée.
 
 Les abonnés qui sont passionnés et inspirés par la musique ont la possibilité d’aider les artistes à se faire connaître en partageant leurs musiques permettant ainsi de découvrir et de diversifier les styles musicaux.
 
+## Télécharger l'application sur un appareil Android
+---
 
-## Installation
+Vous pouvez télécharger Sonofy directement sur votre smartphone Android en cliquant [ici](https://github.com/SefkanTas/Sonofy/releases/download/v1.0-beta.1/app-release.apk).
+
+## Installation sur ordinateur pour devéloppeur
 Vous devez premièrement installer [**Android Studio**](https://developer.android.com/studio) correspondant à votre système d'exploitation (Windows, Linux, Mac OS).
 
 

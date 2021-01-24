@@ -23,8 +23,8 @@ import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
+import github.com.kazetavi.sonofy.ui.search.SearchActivityPublication;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         newPublicationButton = findViewById(R.id.newPublicationButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
 
-        search_btn = findViewById(R.id.search_activity);
+        search_btn = findViewById(R.id.search_activity_pub);
 
         layoutManager = new LinearLayoutManager(this);
         publicationRecyclerView.setLayoutManager(layoutManager);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                Intent intent = new Intent(getBaseContext(), SearchActivityPublication.class);
                 intent.putExtra("GROUPE_ID", groupeId);
                 startActivity(intent);
             }

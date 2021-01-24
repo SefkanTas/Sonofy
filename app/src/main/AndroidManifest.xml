@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.search.SearchActivityPublication" />
         <activity android:name=".ui.publication.PublicationActivity" />
         <activity android:name=".ui.addpublication.AddPublicationActivity" />
         <activity android:name=".ui.main.MainActivity" />

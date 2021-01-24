@@ -53,6 +53,7 @@ public class MainViewModel extends ViewModel {
         });
     }
 
+
     void loadPublicationsTitre(String groupeId){
         final List<Publication> publicationsList = new ArrayList<>();
 

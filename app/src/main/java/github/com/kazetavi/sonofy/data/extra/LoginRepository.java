@@ -8,7 +8,7 @@ import github.com.kazetavi.sonofy.data.model.User;
  */
 public class LoginRepository {
 
-    private static volatile LoginRepository instance;
+    private static LoginRepository instance;
 
     private LoginDataSource dataSource;
 

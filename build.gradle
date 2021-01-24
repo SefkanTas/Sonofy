@@ -29,7 +29,7 @@ plugins {
 apply plugin: VersionPlugin
 
 group 'github.com.kazetavi.sonofy'
-version '1.0-beta'
+version '1.0-beta.1'
 
 
 class VersionPlugin implements Plugin<Project> {
@@ -61,6 +61,8 @@ allprojects {
 
 sonarqube {
     properties {
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'parisnanterre'
         property "sonar.projectKey", "SefkanTas_Sonofy"
     }
 }
