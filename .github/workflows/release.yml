@@ -28,6 +28,11 @@ jobs:
           draft: false
           prerelease: false
           
+      - name: Restore keystore
+        env: 
+          SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
+        run: openssl aes-256-cbc -d -k ${{ secrets.secret_keystore_decrypt }} -in sonofy.jks.enc -out sonofy.jks
+          
       - name: Generate APK
         env: 
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
