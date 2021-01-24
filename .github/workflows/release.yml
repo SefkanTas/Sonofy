@@ -34,6 +34,7 @@ jobs:
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
+          chmod a+x gradlew
           ./gradlew assembleRelease
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
         
