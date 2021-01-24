@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
 
@@ -30,7 +32,7 @@ public class ProfilActivity extends AppCompatActivity {
 
         //Champs à afficher à partir de la base de données
         user = FirebaseAuth.getInstance();
-        User u = profilvm.getUser(user.getUid());
+        User u = profilvm.getUser(Objects.requireNonNull(user.getCurrentUser()).getUid());
         nom = findViewById(R.id.nom_modif);
         prenom = findViewById(R.id.prenom_modif);
         email = findViewById(R.id.mail_modif);
@@ -47,9 +49,7 @@ public class ProfilActivity extends AppCompatActivity {
         email.setText(user.getCurrentUser().getEmail());
         pseudo.setText(u.getPseudo());
 
-        user.getCurrentUser().getUid();
-
-        nom_mod.setOnClickListener(new View.OnClickListener() {
+        /*nom_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                boutonModNom(v);
@@ -75,10 +75,10 @@ public class ProfilActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boutonModPseudo(v);
             }
-        });
+        });*/
     }
 
-    public void boutonModPrenom(View view) {
+    /*public void boutonModPrenom(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
@@ -180,6 +180,6 @@ public class ProfilActivity extends AppCompatActivity {
         });
         AlertDialog dialog = alert.create();
         dialog.show();
-    }
+    }*/
 
 }

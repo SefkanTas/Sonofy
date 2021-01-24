@@ -65,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            //finish();
         }
 
         inscription.setOnClickListener(this);

@@ -12,6 +12,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Objects;
+
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.User;
 
@@ -50,13 +52,18 @@ public class ProfilViewModel extends ViewModel {
     }
 
     public User getUser(final String uid){
-        final User[] user = {new User()};
-        UserFirestore.getUser(uid)
+        User user = new User();
+        user = Objects.requireNonNull(UserFirestore.getUser(uid).getResult()).toObject(User.class);
+        if(user == null){
+            Log.w(TAG, "Erreur utilisateur vide");
+        }
+        /*UserFirestore.getUser(uid)
                 .addOnSuccessListener(
                 new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         user[0] = documentSnapshot.toObject(User.class);
+                        Log.w(TAG, "utilisateur trouvé avec cet ID" + uid);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -64,9 +71,9 @@ public class ProfilViewModel extends ViewModel {
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Pas d'utilisateur trouvé avec cet ID" + uid);
                     }
-        });
+        });*/
 
-        return user[0];
+        return user;
     }
 
 }
