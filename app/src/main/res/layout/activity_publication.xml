@@ -8,6 +8,171 @@
     android:backgroundTint="#FFFFFF"
     tools:context=".ui.publication.PublicationActivity">
 
+    <LinearLayout
+        android:id="@+id/sadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="auto"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentaireRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/dislikeButton2"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.28">
+
+        <ImageView
+            android:id="@+id/sad"
+            android:layout_width="50dp"
+            android:layout_height="36dp"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
+            tools:srcCompat="@drawable/emoji_sad" />
+
+        <TextView
+            android:id="@+id/sadCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="123" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/angryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="auto"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentaireRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.28">
+
+        <ImageView
+            android:id="@+id/angry"
+            android:layout_width="49dp"
+            android:layout_height="36dp"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
+            tools:srcCompat="@drawable/emoji_angry" />
+
+        <TextView
+            android:id="@+id/angryCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="123" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/heoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="104dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="auto"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentaireRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/dislikeButton2"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.28">
+
+        <ImageView
+            android:id="@+id/heo"
+            android:layout_width="46dp"
+            android:layout_height="36dp"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
+            tools:srcCompat="@drawable/emoji_heo" />
+
+        <TextView
+            android:id="@+id/heoCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="123" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/superrButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="176dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="auto"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentaireRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/dislikeButton2"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.28">
+
+        <ImageView
+            android:id="@+id/superr"
+            android:layout_width="47dp"
+            android:layout_height="36dp"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
+            tools:srcCompat="@drawable/emoji_super" />
+
+        <TextView
+            android:id="@+id/superrCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="123" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/happyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="252dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="auto"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentaireRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/dislikeButton2"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.28">
+
+        <ImageView
+            android:id="@+id/happy"
+            android:layout_width="46dp"
+            android:layout_height="37dp"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24"
+            tools:srcCompat="@drawable/emoji_happy" />
+
+        <TextView
+            android:id="@+id/happyCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="123" />
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/miniaturePublicationImageView2"
         android:layout_width="wrap_content"
@@ -108,37 +273,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/miniaturePublicationImageView2" />
 
-    <EditText
-        android:id="@+id/commentaireEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/commenterButton"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/commenterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Commenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentaireRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/commentaireEditText"
+        android:layout_marginTop="84dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
