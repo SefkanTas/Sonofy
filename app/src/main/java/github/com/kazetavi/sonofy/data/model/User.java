@@ -69,4 +69,17 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("userId='").append(userId).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", prenom='").append(prenom).append('\'');
+        sb.append(", pseudo='").append(pseudo).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", role='").append(role).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

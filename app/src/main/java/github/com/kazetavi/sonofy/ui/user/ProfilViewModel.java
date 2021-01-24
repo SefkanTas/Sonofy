@@ -3,6 +3,7 @@ package github.com.kazetavi.sonofy.ui.user;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Objects;
 
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
+import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
 
 public class ProfilViewModel extends ViewModel {
@@ -22,6 +24,12 @@ public class ProfilViewModel extends ViewModel {
 
     public void updateNom(String uid, String nom){
         UserFirestore.updateLastName(uid,nom);
+    }
+
+    private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<User> getUserMutableLiveData() {
+        return userMutableLiveData;
     }
 
     public void updatePrenom(String uid, String prenom){
@@ -51,29 +59,23 @@ public class ProfilViewModel extends ViewModel {
         return b[0];
     }
 
-    public User getUser(final String uid){
-        User user = new User();
-        user = Objects.requireNonNull(UserFirestore.getUser(uid).getResult()).toObject(User.class);
-        if(user == null){
-            Log.w(TAG, "Erreur utilisateur vide");
-        }
-        /*UserFirestore.getUser(uid)
+    public void getUser(final String uid){
+        UserFirestore.getUser(uid)
                 .addOnSuccessListener(
                 new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        user[0] = documentSnapshot.toObject(User.class);
-                        Log.w(TAG, "utilisateur trouvé avec cet ID" + uid);
+                        User user = documentSnapshot.toObject(User.class);
+                        userMutableLiveData.postValue(user);
+                        Log.w(TAG, "utilisateur trouvé avec cet ID : " + uid);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Pas d'utilisateur trouvé avec cet ID" + uid);
+                        Log.w(TAG, "Pas d'utilisateur trouvé avec cet ID :" + uid);
                     }
-        });*/
-
-        return user;
+        });
     }
 
 }

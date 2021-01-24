@@ -2,9 +2,12 @@ package github.com.kazetavi.sonofy.ui.user;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +20,7 @@ import java.util.Objects;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.main.MainViewModel;
 
 public class ProfilActivity extends AppCompatActivity {
 
@@ -25,14 +29,19 @@ public class ProfilActivity extends AppCompatActivity {
     private TextView nom,prenom,email,pseudo;
     private ImageView nom_mod, prenom_mod,email_mod,pseudo_mod;
 
+
+    private User u;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
+        profilvm = new ViewModelProvider(this).get(ProfilViewModel.class);
+
         //Champs à afficher à partir de la base de données
         user = FirebaseAuth.getInstance();
-        User u = profilvm.getUser(Objects.requireNonNull(user.getCurrentUser()).getUid());
+
         nom = findViewById(R.id.nom_modif);
         prenom = findViewById(R.id.prenom_modif);
         email = findViewById(R.id.mail_modif);
@@ -44,12 +53,22 @@ public class ProfilActivity extends AppCompatActivity {
         email_mod = findViewById(R.id.email_button);
         pseudo_mod = findViewById(R.id.pseudo_button);
 
-        nom.setText(u.getNom());
-        prenom.setText(u.getPrenom());
-        email.setText(user.getCurrentUser().getEmail());
-        pseudo.setText(u.getPseudo());
 
-        /*nom_mod.setOnClickListener(new View.OnClickListener() {
+        profilvm.getUserMutableLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                u = user;
+                nom.setText(u.getNom());
+                prenom.setText(u.getPrenom());
+                email.setText(u.getEmail());
+                pseudo.setText(u.getPseudo());
+            }
+        });
+
+        profilvm.getUser(user.getCurrentUser().getUid());
+
+
+        nom_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                boutonModNom(v);
@@ -75,13 +94,15 @@ public class ProfilActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boutonModPseudo(v);
             }
-        });*/
+        });
     }
 
-    /*public void boutonModPrenom(View view) {
+    public void boutonModPrenom(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
+        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
+        label.setText("Prénom");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Modifier mon prénom");
         // this is set the view from XML inside AlertDialog
@@ -108,6 +129,8 @@ public class ProfilActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
+        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
+        label.setText("Nom");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Modifier mon nom");
         // this is set the view from XML inside AlertDialog
@@ -134,6 +157,8 @@ public class ProfilActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
+        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
+        label.setText("Pseudo");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Modifier mon pseudo");
         // this is set the view from XML inside AlertDialog
@@ -160,6 +185,8 @@ public class ProfilActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
+        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
+        label.setText("Email");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Modifier mon email");
         // this is set the view from XML inside AlertDialog
@@ -180,6 +207,6 @@ public class ProfilActivity extends AppCompatActivity {
         });
         AlertDialog dialog = alert.create();
         dialog.show();
-    }*/
+    }
 
 }
