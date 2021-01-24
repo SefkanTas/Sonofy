@@ -24,6 +24,7 @@ import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.search.SearchActivity;
+import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private Button sortTitre,sortDate, sortLike, logout;
+    private Button sortTitre,sortDate, sortLike, logout, profil;
 
     private FirebaseAuth firebaseAuth;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         sortDate = findViewById(R.id.sortByDate);
         sortLike = findViewById(R.id.sortByLike);
         logout = findViewById(R.id.logout);
+        profil = findViewById(R.id.profil_button);
 
         newPublicationButton = findViewById(R.id.newPublicationButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
@@ -123,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ProfilActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

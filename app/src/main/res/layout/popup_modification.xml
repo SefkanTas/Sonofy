@@ -23,7 +23,8 @@
             android:layout_weight=".7"
             android:imeOptions="actionDone"
             android:singleLine="true"
-            android:inputType="textPersonName|textCapSentences"/>
+            android:inputType="text"
+            android:autofillHints="Texte" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

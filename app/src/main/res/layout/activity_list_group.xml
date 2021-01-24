@@ -32,12 +32,10 @@
         android:id="@+id/addGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:layout_editor_absoluteX="355dp"
+        tools:layout_editor_absoluteY="243dp" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -51,5 +49,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.619" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/barre"
+        android:layout_width="409dp"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimaryDark"
+        app:constraint_referenced_ids="button_p,addGroupButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Mon profil"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="327dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
