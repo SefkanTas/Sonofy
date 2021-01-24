@@ -16,6 +16,11 @@ public class Commentaire {
     @ServerTimestamp
     private Date dateCreated;
     private String username;
+    private Long sadCount;
+    private Long angryCount;
+    private Long happyCount;
+    private Long superrCount;
+    private Long heoCount;
 
     public Commentaire() {
 
@@ -27,6 +32,11 @@ public class Commentaire {
         this.username = username;
         likeCount = 0L;
         dislikeCount = 0L;
+        sadCount = 0L;
+        angryCount = 0L;
+        happyCount = 0L;
+        superrCount = 0L;
+        heoCount = 0L;
     }
 
 
@@ -81,5 +91,45 @@ public class Commentaire {
 
     public String getUsername() {
         return username;
+    }
+
+    public Long getHappyCount() {
+        return happyCount;
+    }
+
+    public void setHappyCount(Long likeCount) {
+        this.happyCount = happyCount;
+    }
+
+    public Long getAngryCount() {
+        return angryCount;
+    }
+
+    public void setAngryCount(Long likeCount) {
+        this.angryCount = angryCount;
+    }
+
+    public Long getSadCount() {
+        return sadCount;
+    }
+
+    public void setSadCount(Long likeCount) {
+        this.sadCount = sadCount;
+    }
+
+    public Long getSuperrCount() {
+        return superrCount;
+    }
+
+    public void setSupperrCount(Long likeCount) {
+        this.superrCount = superrCount;
+    }
+
+    public Long getHeoCount() {
+        return heoCount;
+    }
+
+    public void setHeoCount(Long likeCount) {
+        this.heoCount = heoCount;
     }
 }

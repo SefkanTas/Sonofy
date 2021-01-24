@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
@@ -38,12 +41,47 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CommentaireViewHolder holder, int position) {
-        Commentaire commentaire = commentaires.get(position);
+        final Commentaire commentaire = commentaires.get(position);
         holder.commentaireTextView.setText(commentaire.getContent());
 
         if(commentaire.getUsername() != null && !commentaire.getUsername().isEmpty()){
             holder.usernameTextView.setText("@" + commentaire.getUsername());
         }
+
+        holder.sadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommentaireFirestore.incrementSad(commentaire);
+            }
+        });
+
+        holder.angryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommentaireFirestore.incrementAngry(commentaire);
+            }
+        });
+
+        holder.happyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommentaireFirestore.incrementHappy(commentaire);
+            }
+        });
+
+        holder.heoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommentaireFirestore.incrementHeo(commentaire);
+            }
+        });
+
+        holder.superrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommentaireFirestore.incrementSuperr(commentaire);
+            }
+        });
     }
 
     @Override
@@ -53,11 +91,21 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
 
     public static class CommentaireViewHolder extends RecyclerView.ViewHolder{
 
+        ImageView sadButton;
+        ImageView angryButton;
+        ImageView superrButton;
+        ImageView happyButton;
+        ImageView heoButton;
         TextView commentaireTextView;
         TextView usernameTextView;
 
         public CommentaireViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.sadButton = itemView.findViewById(R.id.sad);
+            this.happyButton = itemView.findViewById(R.id.happy);
+            this.superrButton = itemView.findViewById(R.id.superr);
+            this.heoButton = itemView.findViewById(R.id.heo);
+            this.angryButton = itemView.findViewById(R.id.angry);
             this.commentaireTextView = itemView.findViewById(R.id.commentaireTextView);
             this.usernameTextView = itemView.findViewById(R.id.usernameTextView);
         }

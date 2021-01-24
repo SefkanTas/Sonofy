@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
@@ -34,6 +35,17 @@ public class PublicationActivity extends AppCompatActivity {
     TextView dislikeCountTextView;
     LinearLayout likeButton;
     LinearLayout dislikeButton;
+    LinearLayout sadButton;
+    LinearLayout angryButton;
+    LinearLayout happyButton;
+    LinearLayout superrButton;
+    LinearLayout heoButton;
+
+    TextView sadCountTextView;
+    TextView happyCountTextView;
+    TextView heoCountTextView;
+    TextView superrCountTextView;
+    TextView angryCountTextView;
 
     EditText commentaireEditText;
     Button commenterButton;
@@ -57,8 +69,19 @@ public class PublicationActivity extends AppCompatActivity {
         likeButton = findViewById(R.id.likeButton2);
         dislikeButton = findViewById(R.id.dislikeButton2);
 
-        commentaireEditText = findViewById(R.id.commentaireEditText);
-        commenterButton = findViewById(R.id.commenterButton);
+        //commentaireEditText = findViewById(R.id.commentaireEditText);
+        //commenterButton = findViewById(R.id.commenterButton);
+
+        sadButton = findViewById(R.id.sadButton);
+        angryButton = findViewById(R.id.angryButton);
+        superrButton = findViewById(R.id.superrButton);
+        happyButton = findViewById(R.id.happyButton);
+        heoButton = findViewById(R.id.heoButton);
+        sadCountTextView = findViewById(R.id.sadCount);
+        angryCountTextView = findViewById(R.id.angryCount);
+        superrCountTextView = findViewById(R.id.superrCount);
+        heoCountTextView = findViewById(R.id.heoCount);
+        happyCountTextView = findViewById(R.id.happyCount);
 
         commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
 
@@ -86,11 +109,14 @@ public class PublicationActivity extends AppCompatActivity {
         publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
             @Override
             public void onChanged(List<Commentaire> commentaires) {
+
                 adapter = new CommentaireAdapter(commentaires);
                 commentaireRecyclerView.setAdapter(adapter);
             }
         });
 
+
+        /*
         commenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +126,8 @@ public class PublicationActivity extends AppCompatActivity {
                 commentaireEditText.setText("");
             }
         });
+
+         */
 
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
