@@ -34,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private Button sortTitre,sortDate, sortLike, logout, profil;
+    private Button sortTitre;
+    private Button sortDate;
+    private Button sortLike;
+    private Button logout;
+    private Button profil;
 
     private FirebaseAuth firebaseAuth;
 

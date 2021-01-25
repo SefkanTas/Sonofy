@@ -33,7 +33,8 @@ public class ListGroupActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
 
     private ListGroupViewModel viewModel;
-    private Button logoutButton, profil;
+    private Button logoutButton;
+    private Button profil;
 
 
     @Override

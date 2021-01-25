@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -16,19 +15,23 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
-import github.com.kazetavi.sonofy.ui.main.MainViewModel;
 
 public class ProfilActivity extends AppCompatActivity {
 
     private FirebaseAuth user;
     private ProfilViewModel profilvm;
-    private TextView nom,prenom,email,pseudo;
-    private ImageView nom_mod, prenom_mod,email_mod,pseudo_mod;
-
+    private TextView nom;
+    private TextView prenom;
+    private TextView email;
+    private TextView pseudo;
+    private ImageView nom_mod;
+    private ImageView prenom_mod;
+    private ImageView email_mod;
+    private ImageView pseudo_mod;
+    public static final String MODIFIER = "Modifier";
+    public static final String ANNULER = "Annuler";
 
     private User u;
 
@@ -109,12 +112,12 @@ public class ProfilActivity extends AppCompatActivity {
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
         alert.setCancelable(false);
-        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        alert.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
@@ -137,12 +140,12 @@ public class ProfilActivity extends AppCompatActivity {
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
         alert.setCancelable(false);
-        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        alert.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
@@ -165,12 +168,12 @@ public class ProfilActivity extends AppCompatActivity {
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
         alert.setCancelable(false);
-        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        alert.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
@@ -193,12 +196,12 @@ public class ProfilActivity extends AppCompatActivity {
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
         alert.setCancelable(false);
-        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        alert.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
