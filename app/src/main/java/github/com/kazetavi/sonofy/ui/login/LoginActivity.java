@@ -133,23 +133,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         passwordEditText.getText().toString());
 
     */
-
-        //reinitialisation mdp
-        /*
-        * FirebaseAuth auth = FirebaseAuth.getInstance();
-        String emailAddress = "user@example.com";
-
-        auth.sendPasswordResetEmail(emailAddress)
-        .addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "Email sent.");
-                }
-            }
-        });
-        *
-        * */
         loginButton.setOnClickListener(this);
 
         new_count.setOnClickListener(new View.OnClickListener(){

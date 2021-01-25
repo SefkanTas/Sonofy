@@ -17,12 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
+import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
 import github.com.kazetavi.sonofy.ui.search.SearchActivity;
-
 
 
 public class ListGroupActivity extends AppCompatActivity {
@@ -34,7 +34,6 @@ public class ListGroupActivity extends AppCompatActivity {
 
     private ListGroupViewModel viewModel;
     private Button logoutButton;
-    private Button profil;
 
 
     @Override
@@ -44,7 +43,6 @@ public class ListGroupActivity extends AppCompatActivity {
 
         logoutButton = findViewById(R.id.logoutButton);
         addGroupButton = findViewById(R.id.addGroupButton);
-        profil = findViewById(R.id.button_p);
         groupeRecyclerView = findViewById(R.id.groupeRecyclerView);
 
         layoutManager = new LinearLayoutManager(this);
@@ -76,14 +74,6 @@ public class ListGroupActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-
-        profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ProfilActivity.class);
                 startActivity(intent);
             }
         });
