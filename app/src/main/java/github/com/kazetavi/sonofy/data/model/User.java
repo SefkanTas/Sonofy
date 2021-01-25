@@ -1,16 +1,14 @@
 package github.com.kazetavi.sonofy.data.model;
 
-import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.Exclude;
+import android.widget.TextView;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 public class User {
 
-    @Exclude
     private String userId;
-    private String nom, prenom, pseudo, email,role;
+    private String nom, prenom, pseudo, email, password,role;
 
     public User(String userId, String displayName) {
         this.userId = userId;
@@ -29,7 +27,7 @@ public class User {
         this.role = r;
     }
 
-    @DocumentId
+
     public String getUserId() {
         return userId;
     }
@@ -68,18 +66,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("userId='").append(userId).append('\'');
-        sb.append(", nom='").append(nom).append('\'');
-        sb.append(", prenom='").append(prenom).append('\'');
-        sb.append(", pseudo='").append(pseudo).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", role='").append(role).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

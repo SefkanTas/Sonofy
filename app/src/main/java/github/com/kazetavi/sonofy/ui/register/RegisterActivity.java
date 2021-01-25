@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import github.com.kazetavi.sonofy.R;
@@ -37,8 +40,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button inscription,login;
     private FirebaseAuth mAuth;
     private ProgressBar prgB;
-    private RadioGroup btn_groupe;
-    private RadioButton role;
+    //private RadioGroup btn_groupe;
+    //private RadioButton role;
 
     private RegisterViewModel registerViewModel;
 
@@ -58,13 +61,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         prgB = findViewById(R.id.progressBar2);
         inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
-        btn_groupe = findViewById(R.id.groupe);
+        //btn_groupe = findViewById(R.id.groupe);
         login = findViewById(R.id.log_button);
 
         if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            //finish();
         }
 
         inscription.setOnClickListener(this);
@@ -92,9 +96,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String name = uNom.getText().toString().trim();
         final String firstname = uPrenom.getText().toString().trim();
         final String pseudo = uPseudo.getText().toString().trim();
-        final int r = btn_groupe.getCheckedRadioButtonId();
-        role = (RadioButton) findViewById(r);
-        final String type = role.getText().toString().trim();
+        //final int r = btn_groupe.getCheckedRadioButtonId();
+        //role = (RadioButton) findViewById(r);
+        //final String type = role.getText().toString().trim();
 
         //Vérification des champs à remplir
         if(name.isEmpty()){
@@ -115,11 +119,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        if(type.isEmpty()){
+        /*if(type.isEmpty()){
             role.setError("Veuillez selectionner un type de compte");
             role.requestFocus();
-            return;
-        }
+        }*/
 
         if(email.isEmpty()){
             uEmail.setError("Veuillez saisir votre email");
@@ -150,20 +153,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User u = new User(name, firstname,pseudo, email,type);
+                            User u = new User(name, firstname,pseudo, email,"normal"/*type*/);
 
                             FirebaseFirestore.getInstance().collection("Users")
-                                    .document(mAuth.getCurrentUser().getUid())
-                                    .set(u)
-                                    .addOnSuccessListener(new OnSuccessListener() {
+                                    .add(u)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
-                                        public void onSuccess(Object o) {
-                                            Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + mAuth.getCurrentUser().getUid());
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + documentReference.getId());
                                             prgB.setVisibility(View.VISIBLE);
 
-                                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
+                                            //Ajout du pseudo dans le displayName
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(pseudo).build();
+                                            user.updateProfile(profileUpdates);
+
+                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {

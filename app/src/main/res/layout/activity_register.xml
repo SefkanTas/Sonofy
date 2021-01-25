@@ -134,14 +134,14 @@
         android:id="@+id/groupe"
         android:layout_width="214dp"
         android:layout_height="56dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.539"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <RadioButton
             android:id="@+id/u_normal"
