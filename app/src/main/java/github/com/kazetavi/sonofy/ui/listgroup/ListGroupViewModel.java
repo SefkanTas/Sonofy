@@ -1,7 +1,6 @@
 package github.com.kazetavi.sonofy.ui.listgroup;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -17,7 +16,7 @@ import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 
 public class ListGroupViewModel extends ViewModel {
-    private MutableLiveData<List<Groupe>> groupesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Groupe>> groupesLiveData = new MutableLiveData<>();
 
     public MutableLiveData<List<Groupe>> getGroupesLiveData() {
         return groupesLiveData;

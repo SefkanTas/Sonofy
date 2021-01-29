@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class AddPublicationActivity extends AppCompatActivity {
 
@@ -22,7 +21,6 @@ public class AddPublicationActivity extends AppCompatActivity {
 
     private EditText titreMusiqueEditText;
     private EditText youtubeVideoIdEditText;
-    private Button publierButton;
     private ProgressBar progressBar;
 
     @Override
@@ -35,7 +33,7 @@ public class AddPublicationActivity extends AppCompatActivity {
 
         titreMusiqueEditText = findViewById(R.id.titreMusiqueEditText);
         youtubeVideoIdEditText = findViewById(R.id.youtubeVideoIdEditText);
-        publierButton = findViewById(R.id.publierButton);
+        Button publierButton = findViewById(R.id.publierButton);
         progressBar = findViewById(R.id.progressBar);
         addPublicationViewModel = new ViewModelProvider(this).get(AddPublicationViewModel.class);
 

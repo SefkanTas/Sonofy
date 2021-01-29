@@ -13,10 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Objects;
-
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
-import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
 
 public class ProfilViewModel extends ViewModel {
@@ -26,7 +23,7 @@ public class ProfilViewModel extends ViewModel {
         UserFirestore.updateLastName(uid,nom);
     }
 
-    private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
 
     public MutableLiveData<User> getUserMutableLiveData() {
         return userMutableLiveData;
@@ -36,8 +33,8 @@ public class ProfilViewModel extends ViewModel {
         UserFirestore.updateFirstName(uid,prenom);
     }
 
-    public void updateEmail(String uid, String email){
-    }
+    /*public void updateEmail(String uid, String email){
+    }*/
 
     public void updatePseudo(String uid, String pseudo){
         UserFirestore.updatePseudo(uid, pseudo);

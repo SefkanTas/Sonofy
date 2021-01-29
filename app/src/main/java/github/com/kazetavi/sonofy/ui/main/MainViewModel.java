@@ -1,21 +1,13 @@
 package github.com.kazetavi.sonofy.ui.main;
 
-import android.util.Log;
-import android.widget.Button;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -29,11 +21,9 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class MainViewModel extends ViewModel {
 
-    private final String TAG = this.getClass().getSimpleName();
-    Button sortTitre;
 
-    MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
-    MutableLiveData<Groupe> groupeMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
+    private final MutableLiveData<Groupe> groupeMutableLiveData = new MutableLiveData<>();
 
 
     MutableLiveData<List<Publication>> getPublications(){

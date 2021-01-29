@@ -27,14 +27,8 @@ import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 
 public class ListGroupActivity extends AppCompatActivity {
 
-    private FloatingActionButton addGroupButton, search_btn;
     private RecyclerView groupeRecyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-
-    private ListGroupViewModel viewModel;
-    private Button logoutButton;
-    private Button profil;
 
 
     @Override
@@ -42,17 +36,17 @@ public class ListGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_group);
 
-        logoutButton = findViewById(R.id.logoutButton);
-        addGroupButton = findViewById(R.id.addGroupButton);
-        profil = findViewById(R.id.button_p);
+        Button logoutButton = findViewById(R.id.logoutButton);
+        FloatingActionButton addGroupButton = findViewById(R.id.addGroupButton);
+        Button profil = findViewById(R.id.button_p);
         groupeRecyclerView = findViewById(R.id.groupeRecyclerView);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         groupeRecyclerView.setLayoutManager(layoutManager);
 
-        viewModel = new ViewModelProvider(this).get(ListGroupViewModel.class);
+        ListGroupViewModel viewModel = new ViewModelProvider(this).get(ListGroupViewModel.class);
 
-        search_btn = findViewById(R.id.search_activity_group);
+        FloatingActionButton search_btn = findViewById(R.id.search_activity_group);
 
         viewModel.getGroupesLiveData().observe(this, new Observer<List<Groupe>>() {
             @Override

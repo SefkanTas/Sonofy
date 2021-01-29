@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,14 +20,14 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class SearchViewModel extends ViewModel {
 
-    MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
-    MutableLiveData<List<Groupe>> groupes = new MutableLiveData<>();
+    private final MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
+    private final MutableLiveData<List<Groupe>> groupes = new MutableLiveData<>();
 
-    MutableLiveData<List<Publication>> getPublications(){
+    public MutableLiveData<List<Publication>> getPublications(){
         return publications;
     }
 
-    MutableLiveData<List<Groupe>> getGroupes(){
+    public MutableLiveData<List<Groupe>> getGroupes(){
         return groupes;
     }
 

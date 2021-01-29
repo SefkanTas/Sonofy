@@ -1,12 +1,10 @@
 package github.com.kazetavi.sonofy.ui.login;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -25,95 +23,36 @@ import com.google.firebase.auth.FirebaseAuth;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.register.RegisterActivity;
-import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private final String TAG = this.getClass().getSimpleName();
-    private LoginViewModel loginViewModel;
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private Button loginButton;
-    private TextView new_count;
-    private TextView mdpo;
-    private ProgressBar loadingProgressBar;
     private FirebaseAuth auth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        loginButton = findViewById(R.id.login);
-        new_count = findViewById(R.id.register);
-        mdpo = findViewById(R.id.mdpoublie);
-        loadingProgressBar = findViewById(R.id.loading);
+        Button loginButton = findViewById(R.id.login);
+        TextView new_count = findViewById(R.id.register);
+        //TextView mdpo = findViewById(R.id.mdpoublie);
+        ProgressBar loadingProgressBar = findViewById(R.id.loading);
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
             Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            //finish();
         }
 
-        /*loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
-            }
-        });
+        /*
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
-            }
-        });
-
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -162,16 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
-
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.login){
@@ -201,6 +130,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(task.isSuccessful()){
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success");
+                    Toast.makeText(LoginActivity.this, "Authentication réussie",
+                            Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getBaseContext(), ListGroupActivity.class));
                 }else{
                     // If sign in fails, display a message to the user.

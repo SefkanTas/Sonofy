@@ -24,12 +24,8 @@ public class ProfilActivity extends AppCompatActivity {
     private ProfilViewModel profilvm;
     private TextView nom;
     private TextView prenom;
-    private TextView email;
+    //private TextView email;
     private TextView pseudo;
-    private ImageView nom_mod;
-    private ImageView prenom_mod;
-    private ImageView email_mod;
-    private ImageView pseudo_mod;
     public static final String MODIFIER = "Modifier";
     public static final String ANNULER = "Annuler";
 
@@ -47,14 +43,14 @@ public class ProfilActivity extends AppCompatActivity {
 
         nom = findViewById(R.id.nom_modif);
         prenom = findViewById(R.id.prenom_modif);
-        email = findViewById(R.id.mail_modif);
+        //email = findViewById(R.id.mail_modif);
         pseudo = findViewById(R.id.pseudo_modif);
 
         //Bouton permettant la modification
-        nom_mod = findViewById(R.id.nom_button);
-        prenom_mod = findViewById(R.id.prenom_button);
-        email_mod = findViewById(R.id.email_button);
-        pseudo_mod = findViewById(R.id.pseudo_button);
+        ImageView nom_mod = findViewById(R.id.nom_button);
+        ImageView prenom_mod = findViewById(R.id.prenom_button);
+        //ImageView email_mod = findViewById(R.id.email_button);
+        ImageView pseudo_mod = findViewById(R.id.pseudo_button);
 
 
         profilvm.getUserMutableLiveData().observe(this, new Observer<User>() {
@@ -63,7 +59,7 @@ public class ProfilActivity extends AppCompatActivity {
                 u = user;
                 nom.setText(u.getNom());
                 prenom.setText(u.getPrenom());
-                email.setText(u.getEmail());
+                //email.setText(u.getEmail());
                 pseudo.setText(u.getPseudo());
             }
         });
@@ -85,12 +81,12 @@ public class ProfilActivity extends AppCompatActivity {
             }
         });
 
-        email_mod.setOnClickListener(new View.OnClickListener() {
+        /*email_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boutonModEmail(v);
             }
-        });
+        });*/
 
         pseudo_mod.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +180,7 @@ public class ProfilActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void boutonModEmail(View view) {
+    /*public void boutonModEmail(View view) {
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
@@ -210,6 +206,6 @@ public class ProfilActivity extends AppCompatActivity {
         });
         AlertDialog dialog = alert.create();
         dialog.show();
-    }
+    }*/
 
 }

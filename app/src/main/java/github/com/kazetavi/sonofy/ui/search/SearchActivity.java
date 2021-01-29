@@ -16,16 +16,12 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
-import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.listgroup.GroupeAdapter;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
 public class SearchActivity extends AppCompatActivity{
     private EditText recherche;
-    private ImageButton btn_recherche, accueil;
     private RecyclerView liste_groupe;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager1;
 
     private SearchViewModel searchViewModel;
 
@@ -35,10 +31,10 @@ public class SearchActivity extends AppCompatActivity{
         setContentView(R.layout.activity_search);
 
         recherche = findViewById(R.id.search_field);
-        btn_recherche = findViewById(R.id.search_button);
-        accueil = findViewById(R.id.back_home);
+        ImageButton btn_recherche = findViewById(R.id.search_button);
+        ImageButton accueil = findViewById(R.id.back_home);
         liste_groupe = findViewById(R.id.groupe_list);
-        layoutManager1 = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this);
         liste_groupe.setLayoutManager(layoutManager1);
 
 

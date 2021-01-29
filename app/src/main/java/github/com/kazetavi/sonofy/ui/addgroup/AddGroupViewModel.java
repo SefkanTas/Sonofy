@@ -1,23 +1,19 @@
 package github.com.kazetavi.sonofy.ui.addgroup;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 
 public class AddGroupViewModel extends ViewModel {
-    private final String TAG = this.getClass().getSimpleName();
 
-    private MutableLiveData<Boolean> isGroupCreated = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isGroupCreated = new MutableLiveData<>();
 
 
     public MutableLiveData<Boolean> isGroupCreated() {

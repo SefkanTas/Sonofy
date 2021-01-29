@@ -9,17 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationViewModel;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 
 public class AddGroupActivity extends AppCompatActivity {
 
     private EditText nomGroupEditText;
-    private Button creerButton;
     private AddGroupViewModel addGroupViewModel;
 
     @Override
@@ -28,7 +25,7 @@ public class AddGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_group);
 
         nomGroupEditText = findViewById(R.id.groupeNameEditText);
-        creerButton = findViewById(R.id.createGroupButton);
+        Button creerButton = findViewById(R.id.createGroupButton);
 
         addGroupViewModel = new ViewModelProvider(this).get(AddGroupViewModel.class);
 

@@ -2,7 +2,6 @@ package github.com.kazetavi.sonofy.ui.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,15 +30,14 @@ import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = this.getClass().getSimpleName();
-    private EditText uPrenom, uNom, uPseudo, uEmail,uMdp;
-    private TextView LoginBtn;
-    private Button inscription,login;
+    private EditText uPrenom;
+    private EditText uNom;
+    private EditText uPseudo;
+    private EditText uEmail;
+    private EditText uMdp;
     private FirebaseAuth mAuth;
     private ProgressBar prgB;
     private RadioGroup btn_groupe;
-    private RadioButton role;
-
-    private RegisterViewModel registerViewModel;
 
 
     @Override
@@ -48,18 +45,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-
         uPrenom = findViewById(R.id.prenom_user);
         uNom = findViewById(R.id.nom_user);
         uPseudo = findViewById(R.id.pseudo_user);
         uEmail = findViewById(R.id.mail_user);
         uMdp = findViewById(R.id.password_user);
         prgB = findViewById(R.id.progressBar2);
-        inscription = findViewById(R.id.inscription);
+        Button inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
         btn_groupe = findViewById(R.id.groupe);
-        login = findViewById(R.id.log_button);
+        Button login = findViewById(R.id.log_button);
 
         if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
@@ -93,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String firstname = uPrenom.getText().toString().trim();
         final String pseudo = uPseudo.getText().toString().trim();
         final int r = btn_groupe.getCheckedRadioButtonId();
-        role = (RadioButton) findViewById(r);
+        RadioButton role = (RadioButton) findViewById(r);
         final String type = role.getText().toString().trim();
 
         //Vérification des champs à remplir

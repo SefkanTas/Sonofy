@@ -30,7 +30,7 @@ import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
 
-    private List<Publication> publications;
+    private final List<Publication> publications;
 
     public PublicationAdapter(List<Publication> publications) {
         this.publications = publications;
