@@ -10,7 +10,11 @@ public class User {
 
     @Exclude
     private String userId;
-    private String nom, prenom, pseudo, email,role;
+    private String nom;
+    private String prenom;
+    private String pseudo;
+    private String email;
+    private String role;
 
     public User(String userId, String displayName) {
         this.userId = userId;
