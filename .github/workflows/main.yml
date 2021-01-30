@@ -36,11 +36,7 @@ jobs:
         
       - name: gradlew rights
         run : chmod a+x gradlew
-<<<<<<< HEAD
 
-=======
-      
->>>>>>> dev
       - name: Cache Gradle packages
         uses: actions/cache@v1
         with:
