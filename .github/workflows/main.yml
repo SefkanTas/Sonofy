@@ -52,10 +52,16 @@ jobs:
         run: |
           ./gradlew assembleRelease
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
-        
-      - name: Deploy APK
-        uses: actions/upload-artifact@v2
+
+      - name: Deploy apk asset
+        if: ${{ github.event_name == 'tags'}}
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: ./app/build/outputs/apk/release/sonofy.apk
-        
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./app/build/outputs/apk/release/sonofy.apk
+          asset_name: sonofy.apk
+          asset_content_type: application/apk        
+
         
