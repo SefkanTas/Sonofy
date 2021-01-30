@@ -22,7 +22,6 @@ jobs:
       KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
       KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      IS_RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
 # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
