@@ -1,6 +1,5 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
-import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
 public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.CommentaireViewHolder> {
 
-    private List<Commentaire> commentaires;
+    private final List<Commentaire> commentaires;
 
     public CommentaireAdapter(List<Commentaire> commentaires) {
         this.commentaires = commentaires;

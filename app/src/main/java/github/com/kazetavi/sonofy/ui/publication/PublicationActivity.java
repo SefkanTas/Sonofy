@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
+import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -28,41 +29,44 @@ import java.util.List;
 
 public class PublicationActivity extends AppCompatActivity {
 
-    TextView titreTextView;
-    ImageView miniatureImageView;
-    TextView likeCountTextView;
-    TextView dislikeCountTextView;
-    LinearLayout likeButton;
-    LinearLayout dislikeButton;
+    private TextView titreTextView;
+    private ImageView miniatureImageView;
+    private TextView likeCountTextView;
+    private TextView dislikeCountTextView;
 
-    EditText commentaireEditText;
-    Button commenterButton;
+    private EditText commentaireEditText;
 
-    Publication publication;
+    private Publication publication;
 
     private RecyclerView commentaireRecyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
+    private User userc;
+    private FirebaseAuth currentUser;
+
+    private String pseudoU;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publication);
 
+        ProfilViewModel uservm = new ViewModelProvider(this).get(ProfilViewModel.class);
+        currentUser = FirebaseAuth.getInstance();
+
         titreTextView = findViewById(R.id.titrePublicationTextView2);
         miniatureImageView = findViewById(R.id.miniaturePublicationImageView2);
         likeCountTextView = findViewById(R.id.likeCountTextView2);
         dislikeCountTextView = findViewById(R.id.dislikeCountTextView2);
-        likeButton = findViewById(R.id.likeButton2);
-        dislikeButton = findViewById(R.id.dislikeButton2);
+        LinearLayout likeButton = findViewById(R.id.likeButton2);
+        LinearLayout dislikeButton = findViewById(R.id.dislikeButton2);
 
         commentaireEditText = findViewById(R.id.commentaireEditText);
-        commenterButton = findViewById(R.id.commenterButton);
+        Button commenterButton = findViewById(R.id.commenterButton);
 
         commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         commentaireRecyclerView.setLayoutManager(layoutManager);
 
         final Intent intent = getIntent();
@@ -71,6 +75,18 @@ public class PublicationActivity extends AppCompatActivity {
         final PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
 
         publicationViewModel.loadPublication(publicationId);
+
+        //Recupérer l'utilisateur courant pour mettre à jour le pseudo afficher dans les commentaires
+        uservm.getUser(currentUser.getCurrentUser().getUid());
+
+        uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                userc = user;
+                pseudoU = userc.getPseudo();
+            }
+        });
+
 
         publicationViewModel.getPublication().observe(this, new Observer<Publication>() {
             @Override
@@ -95,8 +111,8 @@ public class PublicationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String content = commentaireEditText.getText().toString();
-                String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-                publicationViewModel.createCommentaire(publication.getUid(), content, username);
+                //String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                publicationViewModel.createCommentaire(publication.getUid(), content, pseudoU, currentUser.getCurrentUser().getUid());
                 commentaireEditText.setText("");
             }
         });
