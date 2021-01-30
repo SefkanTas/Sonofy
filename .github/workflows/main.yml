@@ -35,6 +35,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         
+      - name: test
+        run : echo $IS_RELEASE
+        
       - name: Restore keystore
         env: 
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
