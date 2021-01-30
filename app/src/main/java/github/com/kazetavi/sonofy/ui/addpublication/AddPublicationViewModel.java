@@ -9,21 +9,17 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
 
 public class AddPublicationViewModel extends ViewModel {
@@ -32,8 +28,8 @@ public class AddPublicationViewModel extends ViewModel {
 
     final OkHttpClient client = new OkHttpClient();
 
-    private MutableLiveData<Boolean> isPublicationSaved = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isPublicationSaved = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> isPublicationSaved() {
         return isPublicationSaved;
@@ -48,7 +44,7 @@ public class AddPublicationViewModel extends ViewModel {
      * @param titre
      * @param videoId
      */
-    void savePublication(String titre, String videoId, String groupId){
+    public void savePublication(String titre, String videoId, String groupId){
         Publication publication = new Publication(titre, videoId, groupId);
         Log.d(TAG, "savePublication: saving publication : " + titre);
         PublicationFirestore.createPublication(publication)
@@ -71,7 +67,7 @@ public class AddPublicationViewModel extends ViewModel {
      * @param titre
      * @param videoId
      */
-    void addPublication(String titre, String videoId, final String groupId){
+    public void addPublication(String titre, String videoId, final String groupId){
         isLoading.postValue(true);
         final String fTitre = titre;
 
