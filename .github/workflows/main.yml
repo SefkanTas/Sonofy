@@ -45,7 +45,7 @@ jobs:
           ./gradlew build
 
       - name: Create Github Release
-        if: IS_RELEASE
+        if: env.IS_RELEASE
         id: create_release
         uses: actions/create-release@v1
         with:
@@ -55,13 +55,13 @@ jobs:
           prerelease: false
 
       - name: Generate APK for release
-        if: IS_RELEASE
+        if: env.IS_RELEASE
         run: |
           ./gradlew assembleRelease
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
 
       - name: Deploy apk asset to release
-        if: IS_RELEASE
+        if: env.IS_RELEASE
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
