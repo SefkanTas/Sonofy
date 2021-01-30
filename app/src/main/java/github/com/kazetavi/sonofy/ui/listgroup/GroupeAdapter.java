@@ -1,7 +1,6 @@
 package github.com.kazetavi.sonofy.ui.listgroup;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,16 @@ import java.util.List;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.main.MainActivity;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
-import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
 public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeViewHolder> {
 
-    private List<Groupe> groupeList;
+    private final List<Groupe> groupeList;
 
     public GroupeAdapter(List<Groupe> groupeList) {
         this.groupeList = groupeList;
     }
 
-    class GroupeViewHolder  extends RecyclerView.ViewHolder{
+    static class GroupeViewHolder  extends RecyclerView.ViewHolder{
 
         TextView groupNameTextView;
 
