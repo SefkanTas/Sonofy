@@ -61,6 +61,8 @@ allprojects {
 
 sonarqube {
     properties {
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'parisnanterre'
         property "sonar.projectKey", "SefkanTas_Sonofy"
     }
 }
