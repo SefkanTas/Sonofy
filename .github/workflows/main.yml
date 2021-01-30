@@ -2,16 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-    - master
-    - dev
-    - gen-apk-actions
     tags:
      - 'v*'
   pull_request:
-    branches:
-    - master
-    - dev
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -39,10 +32,31 @@ jobs:
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
         run: openssl aes-256-cbc -d -k ${{ secrets.secret_keystore_decrypt }} -in sonofy.jks.enc -out sonofy.jks
         
+      - name: gradlew rights
+        run : chmod a+x gradlew
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+        
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+     
       - name: Build
-        run: |
-          chmod a+x gradlew
-          ./gradlew build
+        run: ./gradlew build
+
+      - name: Analyze with SonarCloud
+        run: ./gradlew sonarqube
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Create Github Release
         if: env.IS_RELEASE
@@ -60,7 +74,7 @@ jobs:
           ./gradlew assembleRelease
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
 
-      - name: Deploy apk asset to release
+      - name: Deploy APK to release asset
         if: env.IS_RELEASE
         uses: actions/upload-release-asset@v1
         with:
@@ -68,5 +82,4 @@ jobs:
           asset_path: ./app/build/outputs/apk/release/sonofy.apk
           asset_name: sonofy.apk
           asset_content_type: application/apk        
-
         
