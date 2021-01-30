@@ -48,6 +48,7 @@ jobs:
           ./gradlew build
         
       - name: Generate APK
+        if: ${{ github.event_name == 'tags'}}
         env: 
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
@@ -56,7 +57,23 @@ jobs:
           ./gradlew assembleRelease
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
 
-      - name: Deploy apk asset
+      - name: Create Github Release
+        if: ${{ github.event_name == 'tags'}}
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
+
+      - name: Deploy apk asset to release
         if: ${{ github.event_name == 'tags'}}
         uses: actions/upload-release-asset@v1
         env:
