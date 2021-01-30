@@ -8,28 +8,22 @@ package app{
   package main{
 
           class MainActivity extends AppCompatActivity{
-              - newPublicationButton : FloatingActionButton
-              - search_btn: FloatingActionButton
               - publicationRecyclerView: RecyclerView
               - adapter: RecyclerView.Adapter
-              - layoutManager: RecyclerView.LayoutManager
-              - sortTitre: Button
-              - sortDate: Button
-              - sortLike: Button
-              - logout: Button
 
               + onCreate(savedInstanceState : Bundle): void
           }
 
           class MainViewModel extends ViewModel{
-              - TAG : String
-               sortTitre : Button
-               publications : MutableLiveData<List<Publication>>
+               - publications : MutableLiveData<List<Publication>>
+               - groupeMutableLiveData : MutableLiveData<List<Groupe>>
 
-               getPublications() : MutableLiveData<List<Publication>>
-               loadPublicationsTitre() : void
-               loadPublicationsDate(): void
-               loadPublicationsLike(): void
+               + getPublications() : MutableLiveData<List<Publication>>
+               + getGroupeMutableLiveData() : MutableLiveData<List<Groupe>>
+               + getGroupe(uid : String) : void
+               + loadPublicationsTitre() : void
+               + loadPublicationsDate(): void
+               + loadPublicationsLike(): void
           }
 
           class PublicationAdapter extends RecyclerView.Adapter{
@@ -41,13 +35,14 @@ package app{
               + onBindViewHolder(holder: @NonNull final PublicationViewHolder , position: int): void
               + getItemCount(): int
 
-              class PublicationViewHolder extends RecyclerView.ViewHolder
+              static class PublicationViewHolder extends RecyclerView.ViewHolder
                      titreTextView: TextView
                      miniatureImageView: ImageView
                      likeCountTextView: TextView
                      dislikeCountTextView: TextView
                      likeButton: LinearLayout
                      dislikeButton: LinearLayout
+                     delete_btn : ImageView
 
                      + this: (v: View)
             }
