@@ -3,6 +3,7 @@ package github.com.kazetavi.sonofy.data.api;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -15,7 +16,7 @@ public class CommentaireFirestore {
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
     public static final String PUBLICATION_ID = "publicationId";
-    public static final String USERNAME = "username";
+    public static final String USERNAME_ID = "userid";
 
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -35,4 +36,7 @@ public class CommentaireFirestore {
         return getCollection().add(commentaire);
     }
 
+    public static Task<DocumentSnapshot> getUser(String uid){
+        return UserFirestore.getUserRef(uid).get();
+    }
 }
