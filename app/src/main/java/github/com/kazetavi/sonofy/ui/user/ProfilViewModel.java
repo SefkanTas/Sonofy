@@ -40,7 +40,7 @@ public class ProfilViewModel extends ViewModel {
         UserFirestore.updatePseudo(uid, pseudo);
     }
 
-    public boolean pseudoAlreadyExists(final String uid, final String p){
+    /*public boolean pseudoAlreadyExists(final String uid, final String p){
         final boolean[] b = {true};
         UserFirestore.getPseudo(p).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>(){
             @Override
@@ -54,7 +54,7 @@ public class ProfilViewModel extends ViewModel {
             }
         });
         return b[0];
-    }
+    }*/
 
     public void getUser(final String uid){
         UserFirestore.getUser(uid)

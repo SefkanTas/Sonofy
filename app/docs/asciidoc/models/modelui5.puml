@@ -1,9 +1,5 @@
 @startuml modelui5
 title <size:30><b>Diagramme de classes ui pour la page de connexion</b></size>
-legend
-    |= Couleur |= Description |
-    | <size:11><back:#grey>           </back></size>| Les classes qui ne sont pas encore utilisées |
-endlegend
 
 package app{
 
@@ -11,37 +7,17 @@ package app{
 
       package login{
 
-              class LoggedInUserView #grey{
-
-                }
-
                 class LoginActivity extends AppCompatActivity implements View.OnClickListener{
                      - TAG : String
                      - loginViewModel : LoginViewModel
                      - usernameEditText : EditText
                      - passwordEditText: EditText
-                     - loginButton: Button
-                     - new_count:TextView
-                     - mdpo: TextView
-                     - loadingProgressBar: ProgressBar
                      - auth: FirebaseAuth
 
                      + onCreate(savedInstanceState : Bundle): void
-                     - updateUiWithUser( model: LoggedInUserView): void
-                     - showLoginFailed(errorString : @StringRes Integer): void
-                     - showLoginFailed(@StringRes Integer errorString): void
                      + onClick(v :View): void
                      - loginUser(): void
                 }
-
-                class LoginFormState #grey{}
-
-                class LoginResult #grey{}
-
-                class LoginViewModel #grey{}
-
-                class LoginViewModelFactory #grey{}
-
           }
       }
 }

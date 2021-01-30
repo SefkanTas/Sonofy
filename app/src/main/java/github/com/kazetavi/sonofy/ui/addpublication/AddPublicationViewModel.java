@@ -44,7 +44,7 @@ public class AddPublicationViewModel extends ViewModel {
      * @param titre
      * @param videoId
      */
-    void savePublication(String titre, String videoId, String groupId){
+    public void savePublication(String titre, String videoId, String groupId){
         Publication publication = new Publication(titre, videoId, groupId);
         Log.d(TAG, "savePublication: saving publication : " + titre);
         PublicationFirestore.createPublication(publication)
@@ -67,7 +67,7 @@ public class AddPublicationViewModel extends ViewModel {
      * @param titre
      * @param videoId
      */
-    void addPublication(String titre, String videoId, final String groupId){
+    public void addPublication(String titre, String videoId, final String groupId){
         isLoading.postValue(true);
         final String fTitre = titre;
 

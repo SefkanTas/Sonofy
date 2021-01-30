@@ -47,6 +47,10 @@ image:modelui8.png[]
 
 image:modelui5.png[]
 
+==== For the profil page
+
+image:modelui9.png[]
+
 ==== For the adding publication page
 
 image:modelui3.png[]
@@ -187,7 +191,7 @@ La recherche a été modifiée de manière à ce que les utilisateurs puissent r
 
 == Features prévues
 
-== v1.2
+== v1.2/ v1.3
 
 == Affichage du nom de l'auteur d'une publication
 

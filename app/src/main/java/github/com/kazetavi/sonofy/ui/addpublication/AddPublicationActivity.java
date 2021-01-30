@@ -17,7 +17,7 @@ import github.com.kazetavi.sonofy.R;
 
 public class AddPublicationActivity extends AppCompatActivity {
 
-    AddPublicationViewModel addPublicationViewModel;
+    private AddPublicationViewModel addPublicationViewModel;
 
     private EditText titreMusiqueEditText;
     private EditText youtubeVideoIdEditText;

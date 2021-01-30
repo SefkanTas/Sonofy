@@ -26,7 +26,7 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<Groupe> groupeMutableLiveData = new MutableLiveData<>();
 
 
-    MutableLiveData<List<Publication>> getPublications(){
+    public MutableLiveData<List<Publication>> getPublications(){
         return publications;
     }
 
@@ -34,7 +34,7 @@ public class MainViewModel extends ViewModel {
         return groupeMutableLiveData;
     }
 
-    void getGroupe(String uid){
+    public void getGroupe(String uid){
         GroupeFirestore.getGroupWithId(uid).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -44,7 +44,7 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    void loadPublicationsTitre(String groupeId){
+    public void loadPublicationsTitre(String groupeId){
         final List<Publication> publicationsList = new ArrayList<>();
 
 
@@ -63,7 +63,7 @@ public class MainViewModel extends ViewModel {
                     });
     }
 
-    void loadPublicationsDate(String groupId) {
+    public void loadPublicationsDate(String groupId) {
         final List<Publication> publicationsList = new ArrayList<>();
         PublicationFirestore.getPublicationsByGroup(groupId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

@@ -29,9 +29,9 @@ package app{
               - publications: MutableLiveData<List<Publication>>
               - groupes: MutableLiveData<List<Groupe>>
               + getPublications(): MutableLiveData<List<Publication>>
-              + getGroupes(): MutableLiveData<List<Groupes>>
+              + getGroupes(): MutableLiveData<List<Groupe>>
               # searchPublicationsTitle(titre: String, groupeId : String) : void
-              # searchPublicationsTitle(titre: String): void
+              # searchGroup(groupe : String): void
         }
        }
     }
