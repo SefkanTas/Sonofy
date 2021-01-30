@@ -1,16 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
+    branches: 
+      - '*'
+    tags:
+     - 'v*'
   pull_request:
-    branches:
-    - master
-    - dev
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -21,11 +17,17 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env: 
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+
+# Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+        
       - name: Restore keystore
         env: 
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
@@ -33,7 +35,7 @@ jobs:
         
       - name: gradlew rights
         run : chmod a+x gradlew
-      
+
       - name: Cache Gradle packages
         uses: actions/cache@v1
         with:
@@ -47,17 +49,38 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+     
+      - name: Build
+        run: ./gradlew build
 
       - name: Analyze with SonarCloud
         run: ./gradlew sonarqube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                 
-      - name: Build the app
-        env: 
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew build
+
+      - name: Create Github Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Generate APK for release
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          ./gradlew assembleRelease
+          mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
+
+      - name: Deploy APK to release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./app/build/outputs/apk/release/sonofy.apk
+          asset_name: sonofy.apk
+          asset_content_type: application/apk        
         

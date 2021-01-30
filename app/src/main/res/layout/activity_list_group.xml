@@ -65,6 +65,5 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/newPublicationButton"
         app:srcCompat="@android:drawable/ic_menu_search" />
 </androidx.constraintlayout.widget.ConstraintLayout>
