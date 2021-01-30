@@ -4,6 +4,7 @@ name: CI
 
 # Controls when the action will run. 
 on:
+  
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches:
@@ -16,8 +17,6 @@ on:
     branches:
     - master
     - dev
-
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -38,7 +37,7 @@ jobs:
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
         run: openssl aes-256-cbc -d -k ${{ secrets.secret_keystore_decrypt }} -in sonofy.jks.enc -out sonofy.jks
                  
-      - name: Build the app
+      - name: Build
         env: 
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
@@ -47,8 +46,8 @@ jobs:
           chmod a+x gradlew
           ./gradlew build
         
-      - name: Generate APK
-        if: ${{ github.event_name == 'tags'}}
+      - name: Generate APK for release
+        if: startsWith(github.ref, 'refs/tags/v')
         env: 
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
@@ -58,7 +57,7 @@ jobs:
           mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/sonofy.apk
 
       - name: Create Github Release
-        if: ${{ github.event_name == 'tags'}}
+        if: startsWith(github.ref, 'refs/tags/v')
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -74,7 +73,7 @@ jobs:
           prerelease: false
 
       - name: Deploy apk asset to release
-        if: ${{ github.event_name == 'tags'}}
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
