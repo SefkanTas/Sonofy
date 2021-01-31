@@ -68,11 +68,10 @@
         android:id="@+id/newPublicationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add"
+        tools:layout_editor_absoluteX="307dp"
         tools:layout_editor_absoluteY="439dp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -93,22 +92,17 @@
         android:id="@+id/search_activity_pub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/newPublicationButton"
-        app:layout_constraintEnd_toStartOf="@+id/newPublicationButton"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/newPublicationButton"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_menu_search" />
+        app:srcCompat="@android:drawable/ic_menu_search"
+        tools:layout_editor_absoluteX="203dp" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow2"
         android:layout_width="411dp"
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
-        app:constraint_referenced_ids="profil_button,search_activity,newPublicationButton"
+        app:constraint_referenced_ids="profil_button,search_activity_pub,newPublicationButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -120,8 +114,7 @@
         android:backgroundTint="@color/colorAccent"
         android:text="Mon profil"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/flow2" />
+        app:layout_constraintTop_toTopOf="@+id/flow2"
+        tools:layout_editor_absoluteX="49dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
