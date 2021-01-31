@@ -34,10 +34,14 @@
         android:id="@+id/addGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="151dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:layout_editor_absoluteX="355dp"
-        tools:layout_editor_absoluteY="243dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/barre"
+        app:layout_constraintStart_toEndOf="@+id/button_p"
+        app:layout_constraintTop_toTopOf="@+id/barre"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -53,6 +57,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
         app:layout_constraintVertical_bias="0.428" />
+
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/barre"
         android:layout_width="409dp"
@@ -61,9 +66,7 @@
         app:constraint_referenced_ids="button_p,addGroupButton,search_activity_group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_p"
@@ -71,14 +74,18 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         android:text="Mon profil"
-        tools:layout_editor_absoluteX="89dp"
-        tools:layout_editor_absoluteY="327dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/barre"
+        app:layout_constraintTop_toTopOf="@+id/barre" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_activity_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:layout_constraintTop_toTopOf="@+id/newPublicationButton"
-        app:srcCompat="@android:drawable/ic_menu_search"
-        tools:layout_editor_absoluteX="243dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/barre"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 </androidx.constraintlayout.widget.ConstraintLayout>
