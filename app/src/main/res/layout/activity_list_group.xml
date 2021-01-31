@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/barre"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:layout_editor_absoluteX="355dp" />
 
@@ -79,8 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/barre"
         app:layout_constraintStart_toEndOf="@+id/addGroupButton"
-        app:srcCompat="@android:drawable/ic_menu_search"
-        tools:layout_editor_absoluteY="675dp" />
+        app:layout_constraintTop_toTopOf="@+id/addGroupButton"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 </androidx.constraintlayout.widget.ConstraintLayout>
