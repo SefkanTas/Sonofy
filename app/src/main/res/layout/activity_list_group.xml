@@ -34,10 +34,8 @@
         android:id="@+id/addGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/barre"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:layout_editor_absoluteX="355dp" />
 
@@ -75,12 +73,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/barre"
         tools:layout_editor_absoluteX="89dp" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_activity_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:layout_constraintTop_toTopOf="@+id/newPublicationButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@android:drawable/ic_menu_search"
         tools:layout_editor_absoluteX="243dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
