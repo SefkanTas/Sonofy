@@ -34,11 +34,14 @@
         android:id="@+id/addGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="151dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/barre"
+        app:layout_constraintStart_toEndOf="@+id/button_p"
         app:layout_constraintTop_toTopOf="@+id/barre"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:layout_editor_absoluteX="355dp" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -72,7 +75,7 @@
         android:backgroundTint="@color/colorAccent"
         android:text="Mon profil"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addGroupButton"
+        app:layout_constraintStart_toStartOf="@+id/barre"
         app:layout_constraintTop_toTopOf="@+id/barre" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -81,8 +84,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/barre"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addGroupButton"
-        app:layout_constraintTop_toTopOf="@+id/addGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/barre"
         app:srcCompat="@android:drawable/ic_menu_search" />
 </androidx.constraintlayout.widget.ConstraintLayout>
