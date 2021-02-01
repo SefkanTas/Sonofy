@@ -8,11 +8,10 @@ package app{
   package addpublication{
 
           class AddPublicationActivity extends AppCompatActivity{
-                # addPublicationViewModel : AddPublicationViewModel
+               - addPublicationViewModel : AddPublicationViewModel
                - titreMusiqueEditText : EditText
                - youtubeVideoIdEditText : EditText
-               - publierButton : Button
-               - progressBar : ProgressBar;
+               - progressBar : ProgressBar
 
                + onCreate(savedInstanceState : Bundle) :void
           }
@@ -26,8 +25,9 @@ package app{
               + isPublicationSaved() : MutableLiveData<Boolean>
               + isLoading() : MutableLiveData<Boolean>
 
-              savePublication(titre : String, videoId : String) : void
-              addPublication(titre : String, videoId : String) : void
+              + savePublication(titre : String, videoId : String) : void
+              + addPublication(titre : String, videoId : String) : void
+              + onFailure( request : Request, e IOException) : void
           }
 
           AddPublicationActivity -[hidden]- AddPublicationViewModel

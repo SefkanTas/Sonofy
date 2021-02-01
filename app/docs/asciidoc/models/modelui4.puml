@@ -7,7 +7,7 @@ package app{
         package listgroup{
 
                 class GroupeAdapter extends RecyclerView{
-                    + groupeList: List<Group>
+                    - groupeList: List<Group>
 
                     + this : (groupeList: List<Groupe>)
 
@@ -16,7 +16,7 @@ package app{
                     + onBindViewHolder(holder : GroupeViewHolder, position: int): void
                     + getItemCount() : int
 
-                    class GroupeViewHolder extends RecyclerView.ViewHolder
+                    static class GroupeViewHolder extends RecyclerView.ViewHolder
                          groupNameTextView : TextView
 
                         + this : (itemView : View)
@@ -24,20 +24,16 @@ package app{
                 }
 
                 class ListGroupActivity extends AppCompatActivity {
-                    - addGroupButton : FloatingActionButton
                     - groupeRecyclerView : RecyclerView
                     - adapter : RecyclerView.Adapter
-                    - layoutManager : RecyclerView.LayoutManager
-                    - viewModel : ListGroupViewModel
-                    - logoutButton : Button
 
                     # onCreate(savedInstanceState : Bundle): void
                 }
 
-                class ListGroupViewModel{
-                    - groupesLiveData : MutableLiveData<List<Group>>
+                class ListGroupViewModel extends ViewModel{
+                    - groupesLiveData : MutableLiveData<List<Groupe>>
 
-                    + getGroupesLiveData() : MutableLiveData<List<Group>>
+                    + getGroupesLiveData() : MutableLiveData<List<Groupe>>
                     + loadGroupes() : void
                 }
             }

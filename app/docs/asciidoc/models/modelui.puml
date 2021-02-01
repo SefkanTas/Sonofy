@@ -9,21 +9,29 @@ package app{
 
         class SearchActivity extends AppCompatActivity {
             - recherche: EditText
-            - btn_recherche: ImageButton
-            - accueil: ImageButton
-            - liste_pub: RecyclerView
+            - liste_groupe: RecyclerView
             - adapter: RecyclerView.Adapter
-            - layoutManager: RecyclerView.LayoutManager
             - searchViewModel: SearchViewModel
 
             + onCreate(savedInstanceState : Bundle): void
         }
 
-        class SearchViewModel{
-              - publication: MutableLiveData<Publication>
+         class SearchActivityPublication extends AppCompatActivity {
+                    - recherche: EditText
+                    - liste_pub: RecyclerView
+                    - adapter: RecyclerView.Adapter
+                    - searchViewModel: SearchViewModel
 
-              + getPublications(): MutableLiveData<Publication>
-              searchPublicationsTitle(titre: String): void
+                    + onCreate(savedInstanceState : Bundle): void
+                }
+
+        class SearchViewModel{
+              - publications: MutableLiveData<List<Publication>>
+              - groupes: MutableLiveData<List<Groupe>>
+              + getPublications(): MutableLiveData<List<Publication>>
+              + getGroupes(): MutableLiveData<List<Groupe>>
+              # searchPublicationsTitle(titre: String, groupeId : String) : void
+              # searchGroup(groupe : String): void
         }
        }
     }

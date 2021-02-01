@@ -20,12 +20,10 @@ import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
 public class SearchActivityPublication extends AppCompatActivity {
         private EditText recherche;
-        private ImageButton btn_recherche, accueil;
         private RecyclerView liste_pub;
         private RecyclerView.Adapter adapter;
-        private RecyclerView.LayoutManager layoutManager;
 
-        private SearchViewModelPublication searchViewModelPublication;
+    private SearchViewModel searchViewModelPublication;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +31,18 @@ public class SearchActivityPublication extends AppCompatActivity {
             setContentView(R.layout.activity_search);
 
             recherche = findViewById(R.id.search_field);
-            btn_recherche = findViewById(R.id.search_button);
-            accueil = findViewById(R.id.back_home);
+            ImageButton btn_recherche = findViewById(R.id.search_button);
+            ImageButton accueil = findViewById(R.id.back_home);
             liste_pub = findViewById(R.id.publication_list);
 
-            layoutManager = new LinearLayoutManager(this);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             liste_pub.setLayoutManager(layoutManager);
 
 
             final Intent intent = getIntent();
             final String groupeId = intent.getStringExtra("GROUPE_ID");
 
-            searchViewModelPublication = new ViewModelProvider(this).get(SearchViewModelPublication.class);
+            searchViewModelPublication = new ViewModelProvider(this).get(SearchViewModel.class);
 
             searchViewModelPublication.getPublications().observe(this, new Observer<List<Publication>>() {
                 @Override

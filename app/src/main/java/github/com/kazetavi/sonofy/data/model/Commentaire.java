@@ -1,7 +1,6 @@
 package github.com.kazetavi.sonofy.data.model;
 
 import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -16,15 +15,17 @@ public class Commentaire {
     @ServerTimestamp
     private Date dateCreated;
     private String username;
+    private String userId;
 
     public Commentaire() {
 
     }
 
-    public Commentaire(String publicationId, String content, String username) {
+    public Commentaire(String publicationId, String content, String username, String userId) {
         this.publicationId = publicationId;
         this.content = content;
         this.username = username;
+        this.userId = userId;
         likeCount = 0L;
         dislikeCount = 0L;
     }

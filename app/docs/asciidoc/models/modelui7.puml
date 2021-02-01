@@ -15,37 +15,42 @@ package app{
                 + onCreateViewHolder(parent :@NonNull ViewGroup, viewType: int): CommentaireViewHolder
                 + onBindViewHolder(holder: @NonNull final CommentaireViewHolder , position: int): void
                 + getItemCount(): int
+
+                static class CommentaireViewHolder extends RecyclerView.ViewHolder{
+                     commentaireTextView : TextView
+                     usernameTextView : TextView
+
+                     + this : (itemView : View)
+                }
           }
 
 
           class PublicationActivtiy extends AppCompatActivity{
-                 titreTextView: TextView
-                 miniatureImageView: ImageView
-                 likeCountTextView: TextView
-                 dislikeCountTextView: TextView
-                 likeButton: LinearLayout
-                 dislikeButton:LinearLayout
-                 commentaireEditText: EditText
-                 commenterButton: Button
-                 publication: Publication
-                 - commentaireRecyclerView:  RecyclerView
+                 - titreTextView: TextView
+                 - miniatureImageView: ImageView
+                 - likeCountTextView: TextView
+                 - dislikeCountTextView: TextView
+                 - commentaireEditText: EditText
+                 - publication: Publication
+                 - commentaireRecyclerView: RecyclerView
                  - adapter:  RecyclerView.Adapter
-                 - layoutManager: RecyclerView.LayoutManager
+                 - userc : User
+                 - currentUser : FirebaseAuth
+                 - pseudoU : String
 
                  + onCreate(savedInstanceState : Bundle): void
           }
 
           class PublicationViewModel extends ViewModel{
               - publication: MutableLiveData<Publication>
-              - commentaires: MutableLiveData<Commentaire>
+              - commentaires: MutableLiveData<List<Commentaire>>
 
               + getPublication(): MutableLiveData<Publication>
-              + getCommentaires(): MutableLiveData<Commentaire>
+              + getCommentaires(): MutableLiveData<List<Commentaire>>
               + loadPublication(publicationId : String): void
               + loadCommentaires(publicationId : String): void
               + createCommentaires(publicationId : String, content : String): void
           }
       }
    }
-}
 @enduml
