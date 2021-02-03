@@ -19,20 +19,18 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.functions.Supplier;
 
-public class YoutubePublication {
+public class YoutubePublicationFactory {
 
     /**
      * Vérifie que la vidéo youtube existe en faisant un appel http vers la miniature
      * de la vidéo youtube.
      * Si le code de retour est 200 alors la miniature existe et donc la vidéo existe.
      * @param ressourceId id de la vidéo youtube
-     * @return si la video existe ou non
+     * @return Observable<Boolean>
      */
-    public boolean ressourceExists(String ressourceId){
+    public Observable<Boolean> ressourceExists(String ressourceId){
 
-        boolean ressourceExists;
         final OkHttpClient client = new OkHttpClient();
-        Response response = null;
 
         String videoUrl = "https://i.ytimg.com/vi/" + ressourceId + "/mqdefault.jpg";
 
@@ -40,32 +38,12 @@ public class YoutubePublication {
                 .url(videoUrl)
                 .build();
 
-
-        Observable.defer(new Supplier<ObservableSource<Response>>() {
+        return Observable.fromCallable(new Callable<Boolean>() {
             @Override
-            public ObservableSource<Response> get() throws Throwable {
-                Response response = client.newCall(request).execute();
-                return Observable.just(response);            }
-        });
-
-        Observable.fromCallable(new Callable<Response>() {
-            @Override
-            public Response call() throws Exception {
-                return client.newCall(request).execute();
+            public Boolean call() throws Exception {
+                return client.newCall(request).execute().code() == 200;
             }
         });
-
-        try {
-            response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (response != null && response.code() == 200){
-            return true;
-        }
-        return false;
-
 
     }
 
@@ -85,4 +63,5 @@ public class YoutubePublication {
 
         return videoId;
     }
+
 }

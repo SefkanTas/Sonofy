@@ -13,7 +13,7 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationFirestore {
 
-    private static final String COLLECTION_NAME = "publicationsTestGroup";
+    private static final String COLLECTION_NAME = "publications-publisher-bis";
     public static final String LIKE_COUNT = "likeCount";
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
