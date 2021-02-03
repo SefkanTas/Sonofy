@@ -9,7 +9,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.concurrent.Callable;
+
 import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.data.model.User;
+import io.reactivex.rxjava3.core.Observable;
 
 public class PublicationFirestore {
 
@@ -20,6 +24,7 @@ public class PublicationFirestore {
     public static final String TITRE = "titre";
     public static final String VIDEO_ID = "videoId";
     public static final String GROUP_ID = "groupId";
+    public static final String AUTHOR_ID = "authorId";
 
 
     public static CollectionReference getPublicationsCollection(){
@@ -92,7 +97,6 @@ public class PublicationFirestore {
                 .getAllPublicationsCollectionDesc()
                 .whereEqualTo(GROUP_ID, groupeId);
     }
-
 
     //SEARCH
 
