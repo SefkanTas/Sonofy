@@ -84,4 +84,34 @@ jobs:
           asset_path: ./app/build/outputs/apk/release/sonofy.apk
           asset_name: sonofy.apk
           asset_content_type: application/apk        
-        
+
+      - name: Generate PDF
+        run:
+          - ./gradlew asciidoctor
+          - export VERSION=`./gradlew -q version`
+          - export BINDIR="build/libs"
+          - export BINFILE="Sonofy-${VERSION}"
+          - export DOCDIR="app/build/docs/asciidoc"
+          - export DOCFILE="main"
+          - mv "${DOCDIR}/${DOCFILE}.pdf" "${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
+          - export BINARY="${BINDIR}/${BINFILE}.jar"
+          - export DOCUMENTATION="${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
+          - echo binary is ${BINARY}
+          - echo documentation is ${DOCUMENTATION}
+          - |
+          if [ $TRAVIS_BRANCH = "dev" ]
+          then
+          export TRAVIS_TAG=v${VERSION}-SNAPSHOT
+          else
+          export TRAVIS_TAG=v${VERSION}
+          fi
+          - |
+          if [ $TRAVIS_BRANCH = "dev" ]
+          then
+          git tag ${TRAVIS_TAG}
+          echo tag ${TRAVIS_TAG}
+          else
+          echo no tag
+          fi
+
+
