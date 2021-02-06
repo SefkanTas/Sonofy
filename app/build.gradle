@@ -4,6 +4,10 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    compileOptions {
+       sourceCompatibility 1.8
+       targetCompatibility 1.8
+    }
     buildFeatures {
         dataBinding true
     }
