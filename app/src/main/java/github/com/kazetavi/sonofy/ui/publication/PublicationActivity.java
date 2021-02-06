@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
-import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
+import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -30,62 +29,44 @@ import java.util.List;
 
 public class PublicationActivity extends AppCompatActivity {
 
-    TextView titreTextView;
-    ImageView miniatureImageView;
-    TextView likeCountTextView;
-    TextView dislikeCountTextView;
-    LinearLayout likeButton;
-    LinearLayout dislikeButton;
-    LinearLayout sadButton;
-    LinearLayout angryButton;
-    LinearLayout happyButton;
-    LinearLayout superrButton;
-    LinearLayout heoButton;
+    private TextView titreTextView;
+    private ImageView miniatureImageView;
+    private TextView likeCountTextView;
+    private TextView dislikeCountTextView;
 
-    TextView sadCountTextView;
-    TextView happyCountTextView;
-    TextView heoCountTextView;
-    TextView superrCountTextView;
-    TextView angryCountTextView;
-    ImageView sad;
-    ImageView commentaireEditText;
+    private EditText commentaireEditText;
 
-    Publication publication;
-    Emotion emotion;
+    private Publication publication;
+
     private RecyclerView commentaireRecyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
+    private User userc;
+    private FirebaseAuth currentUser;
+
+    private String pseudoU;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publication);
 
+        ProfilViewModel uservm = new ViewModelProvider(this).get(ProfilViewModel.class);
+        currentUser = FirebaseAuth.getInstance();
+
         titreTextView = findViewById(R.id.titrePublicationTextView2);
         miniatureImageView = findViewById(R.id.miniaturePublicationImageView2);
         likeCountTextView = findViewById(R.id.likeCountTextView2);
         dislikeCountTextView = findViewById(R.id.dislikeCountTextView2);
-        likeButton = findViewById(R.id.likeButton2);
-        dislikeButton = findViewById(R.id.dislikeButton2);
+        LinearLayout likeButton = findViewById(R.id.likeButton2);
+        LinearLayout dislikeButton = findViewById(R.id.dislikeButton2);
 
-        sadButton = findViewById(R.id.sadButton);
-        angryButton = findViewById(R.id.angryButton);
-        superrButton = findViewById(R.id.superrButton);
-        happyButton = findViewById(R.id.happyButton);
-        heoButton = findViewById(R.id.heoButton);
-        sadCountTextView = findViewById(R.id.sadCount);
-        angryCountTextView = findViewById(R.id.angryCount);
-        superrCountTextView = findViewById(R.id.superrCount);
-        heoCountTextView = findViewById(R.id.heoCount);
-        happyCountTextView = findViewById(R.id.happyCount);
-
-        sad = findViewById(R.id.sad);
-
+        commentaireEditText = findViewById(R.id.commentaireEditText);
+        Button commenterButton = findViewById(R.id.commenterButton);
 
         commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         commentaireRecyclerView.setLayoutManager(layoutManager);
 
         final Intent intent = getIntent();
@@ -94,6 +75,18 @@ public class PublicationActivity extends AppCompatActivity {
         final PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
 
         publicationViewModel.loadPublication(publicationId);
+
+        //Recupérer l'utilisateur courant pour mettre à jour le pseudo afficher dans les commentaires
+        uservm.getUser(currentUser.getCurrentUser().getUid());
+
+        uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                userc = user;
+                pseudoU = userc.getPseudo();
+            }
+        });
+
 
         publicationViewModel.getPublication().observe(this, new Observer<Publication>() {
             @Override
@@ -111,20 +104,16 @@ public class PublicationActivity extends AppCompatActivity {
             public void onChanged(List<Commentaire> commentaires) {
                 adapter = new CommentaireAdapter(commentaires);
                 commentaireRecyclerView.setAdapter(adapter);
-            }  
-
+            }
         });
 
-
-        sadButton.setOnClickListener(new View.OnClickListener() {
+        commenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String content = commentaireEditText.getCompoundDrawables().toString();
-                ImageView content = sad;
-                String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-                //String username = "hello";
-                publicationViewModel.createCommentaire(publication.getUid(), content, username);
-                commentaireEditText.setImageResource(R.drawable.emoji_sad);
+                String content = commentaireEditText.getText().toString();
+                //String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                publicationViewModel.createCommentaire(publication.getUid(), content, pseudoU, currentUser.getCurrentUser().getUid());
+                commentaireEditText.setText("");
             }
         });
 

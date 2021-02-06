@@ -1,20 +1,15 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
-import android.widget.ImageView;
-
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +21,15 @@ import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationViewModel extends ViewModel {
 
-    private MutableLiveData<Publication> publication = new MutableLiveData<>();
+    private final MutableLiveData<Publication> publication = new MutableLiveData<>();
     public MutableLiveData<Publication> getPublication() {
         return publication;
     }
 
-    private MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
+    private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
     public MutableLiveData<List<Commentaire>> getCommentaires() {
         return commentaires;
-   }
+    }
 
 
     public void loadPublication(final String publicationId){
@@ -63,15 +58,12 @@ public class PublicationViewModel extends ViewModel {
                 });
     }
 
-    public void createCommentaire(String publicationId, ImageView content, String username){
-        Commentaire commentaire = new Commentaire(publicationId, content, username);
-        //content = content.trim();
-        /*
+    public void createCommentaire(String publicationId, String content,String username ,String userId){
+        Commentaire commentaire = new Commentaire(publicationId, content,username, userId);
+        content = content.trim();
         if(!content.isEmpty()){
             CommentaireFirestore.create(commentaire);
         }
-
-         */
     }
 
 }

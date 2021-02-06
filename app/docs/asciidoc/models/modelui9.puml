@@ -1,0 +1,43 @@
+@startuml modelui9
+title <size:30><b>Diagramme de classes ui de la page de profil</b></size>
+
+package app{
+
+  package ui{
+
+        package user{
+
+                class ProfilActivity extends AppCompatActivity{
+                        - user: FirebaseAuth
+                        - profilvm : ProfilViewModel
+                        - nom: TextView
+                        - prenom: TextView
+                        - pseudo:  TextView
+                        - email: TextView
+                        - uMdp: EditText
+                        - u: User
+                        - MODIFIER : String
+                        - ANNULER : String
+
+                        + onCreate(savedInstanceState : Bundle): void
+                        + boutonModNom(v : View): void
+                        + boutonModPrenom(v : View): void
+                        + boutonModPseudo(v : View): void
+                        + boutonModEmail(v : View): void
+                }
+
+                class ProfilViewModel extends ViewModel{
+                        - TAG : String
+                        - userMutableLiveData : MutableLiveData<User>
+
+                        + getUserMutableLiveData() : MutableLiveData<User>
+                        + updatePrenom(uid : String, prenom : String) : void
+                        + updatePseudo(uid : String, pseudo : String) : void
+                        + updateEmail(uid : String, email : String) : void
+                        + updateNom(uid : String, nom : String) : void
+                        + getUser(uid : String) : void
+                }
+            }
+        }
+  }
+@enduml

@@ -1,9 +1,5 @@
 @startuml modeldata
 title <size:30><b>Diagramme de classes data</b></size>
-legend
-    |= Couleur |= Description |
-    | <size:11><back:#grey>           </back></size>| Les classes qui ne sont pas encore utilisées |
-endlegend
 
 package app{
  package data {
@@ -62,24 +58,32 @@ package app{
                 + deletePublication( uid : String) : Task<Void>
             }
 
+            class UserFirestore{
+                 - COLLECTION_NAME : String
+                 + DISPLAY_NAME : String
+                 + EMAIL : String
+                 + NOM : String
+                 + PRENOM : String
+                 + PSEUDO : String
+                 + ROLE : String
+                 + USER_ID : String
+
+                 + getUsersCollection() : CollectionReference
+                 + getUserRef( uid : String) : DocumentReference
+                 + getUser(uid: String) : Task<DocumentReference>
+                 + getPseudo(pseudo : String) : Task<QuerySnapshot>
+
+                + updateFirstName(uid : String, prenom : String) : Task<Void>
+                + updateFirstName(user : User, prenom : String) : Task<Void>
+                + updateLastName(uid : String, nom : String) : Task<Void>
+                + updateLastName(user : User, nom : String) : Task<Void>
+                + updatePseudo(uid : String, pseudo : String) : Task<Void>
+                + updatePseudo(user : User, pseudo : String) : Task<Void>
+
+            }
+
         }
         'fin api'
-
-        package extra{
-
-            class LoginDataSource #grey{
-                - mAuth : FirebaseAuth
-                - db : FirebaseFirestore
-            }
-
-            class LoginRepository #grey{
-            }
-
-            class Result #grey{
-            }
-
-        }
-        'fin extra'
 
         package model{
 
@@ -90,9 +94,11 @@ package app{
                 - likeCount : Long
                 - dislikeCount : Long
                 - dateCreated : Date
+                - username : String
+                - userId : String
 
                 + this : ()
-                + this : (publicationId : String, content : String)
+                + this : (publicationId : String, content : String, username : String, userId : String)
                 + getUid() : String
                 + setUid(uid : String): void
                 + getPublicationId() : String
@@ -105,6 +111,7 @@ package app{
                 + setDislikeCount(dislikeCount : long) : void
                 + getDateCreated() : Date
                 + setDateCreated(datecreated : Date) : void
+                + getUsername() : String
             }
 
             class Groupe{
@@ -113,6 +120,7 @@ package app{
                 - dateCreated : Date
 
                 + this : ()
+                + this : (name : String)
 
                 + getUid() : String
                 + getName() : String
@@ -125,10 +133,12 @@ package app{
                 - videoId : String
                 - likeCount : Long
                 - dislikeCount : Long
+                - groupId : String
                 - dateCreated : Date
 
                 + this : ()
                 + this : (titre : String, videoId : String)
+                + this : (titre: String, videoId : String, groupId : String)
 
                 + getUid() : String
                 + getTitre() : String
@@ -136,6 +146,7 @@ package app{
                 + getLikeCount() : Long
                 + getDislikeCount() : Long
                 + getDateCreated() : Date
+                + getGroupId() : String
                 + getMiniatureUrl() : String
                 + getVideoUrl() : String
                 + toString() : String
@@ -162,6 +173,7 @@ package app{
                 + getEmail(): String
                 + getRole() : String
                 + setRole(role : String): void
+                + toString() : String
             }
 
             Commentaire -[hidden]- Groupe

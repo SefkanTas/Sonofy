@@ -1,10 +1,6 @@
 package github.com.kazetavi.sonofy.data.model;
 
-import android.provider.ContactsContract;
-import android.widget.ImageView;
-
 import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -13,34 +9,25 @@ public class Commentaire {
 
     private String uid;
     private String publicationId;
-    private ImageView content;
+    private String content;
     private Long likeCount;
     private Long dislikeCount;
     @ServerTimestamp
     private Date dateCreated;
     private String username;
-    private Long sadCount;
-    private Long angryCount;
-    private Long happyCount;
-    private Long superrCount;
-    private Long heoCount;
+    private String userId;
 
     public Commentaire() {
 
     }
 
-    public Commentaire(String publicationId, ImageView content, String username){
+    public Commentaire(String publicationId, String content, String username, String userId) {
         this.publicationId = publicationId;
-        this.uid = uid;
         this.content = content;
         this.username = username;
-        this.likeCount = 0L;
-        this.dislikeCount = 0L;
-        this.sadCount = 0L;
-        this.angryCount = 0L;
-        this.happyCount = 0L;
-        this.superrCount = 0L;
-        this.heoCount = 0L;
+        this.userId = userId;
+        likeCount = 0L;
+        dislikeCount = 0L;
     }
 
 
@@ -61,11 +48,11 @@ public class Commentaire {
         this.publicationId = publicationId;
     }
 
-    public ImageView getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(ImageView content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -96,32 +83,4 @@ public class Commentaire {
     public String getUsername() {
         return username;
     }
-
-    public Long getHappyCount() {
-        return happyCount;
-    }
-
-
-    public Long getAngryCount() {
-        return angryCount;
-    }
-
-
-    public Long getSadCount() {
-        return sadCount;
-    }
-
-    public void setSadCont(Long sadCount) { this.sadCount = sadCount; }
-
-
-    public Long getSuperrCount() {
-        return superrCount;
-    }
-
-
-    public Long getHeoCount() {
-        return heoCount;
-    }
-
-
 }
