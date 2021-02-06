@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
@@ -46,13 +47,11 @@ public class PublicationActivity extends AppCompatActivity {
     TextView heoCountTextView;
     TextView superrCountTextView;
     TextView angryCountTextView;
-
-    EditText commentaireEditText;
-    Button commenterButton;
+    ImageView sad;
+    ImageView commentaireEditText;
 
     Publication publication;
-    Commentaire commentaire;
-
+    Emotion emotion;
     private RecyclerView commentaireRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -70,9 +69,6 @@ public class PublicationActivity extends AppCompatActivity {
         likeButton = findViewById(R.id.likeButton2);
         dislikeButton = findViewById(R.id.dislikeButton2);
 
-        //commentaireEditText = findViewById(R.id.commentaireEditText);
-        //commenterButton = findViewById(R.id.commenterButton);
-
         sadButton = findViewById(R.id.sadButton);
         angryButton = findViewById(R.id.angryButton);
         superrButton = findViewById(R.id.superrButton);
@@ -83,6 +79,9 @@ public class PublicationActivity extends AppCompatActivity {
         superrCountTextView = findViewById(R.id.superrCount);
         heoCountTextView = findViewById(R.id.heoCount);
         happyCountTextView = findViewById(R.id.happyCount);
+
+        sad = findViewById(R.id.sad);
+
 
         commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
 
@@ -112,28 +111,22 @@ public class PublicationActivity extends AppCompatActivity {
             public void onChanged(List<Commentaire> commentaires) {
                 adapter = new CommentaireAdapter(commentaires);
                 commentaireRecyclerView.setAdapter(adapter);
-                angryCountTextView.setText(commentaire.getAngryCount().toString());
-                sadCountTextView.setText(commentaire.getSadCount().toString());
-                happyCountTextView.setText(commentaire.getHappyCount().toString());
-                heoCountTextView.setText(commentaire.getHeoCount().toString());
-                superrCountTextView.setText(commentaire.getSuperrCount().toString());
             }  
 
         });
 
 
-        /*
-        commenterButton.setOnClickListener(new View.OnClickListener() {
+        sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String content = commentaireEditText.getText().toString();
+                //String content = commentaireEditText.getCompoundDrawables().toString();
+                ImageView content = sad;
                 String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                //String username = "hello";
                 publicationViewModel.createCommentaire(publication.getUid(), content, username);
-                commentaireEditText.setText("");
+                commentaireEditText.setImageResource(R.drawable.emoji_sad);
             }
         });
-
-         */
 
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override

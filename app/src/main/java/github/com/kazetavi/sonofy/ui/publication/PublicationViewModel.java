@@ -1,5 +1,7 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -61,12 +63,15 @@ public class PublicationViewModel extends ViewModel {
                 });
     }
 
-    public void createCommentaire(String publicationId, String content, String username){
+    public void createCommentaire(String publicationId, ImageView content, String username){
         Commentaire commentaire = new Commentaire(publicationId, content, username);
-        content = content.trim();
+        //content = content.trim();
+        /*
         if(!content.isEmpty()){
             CommentaireFirestore.create(commentaire);
         }
+
+         */
     }
 
 }

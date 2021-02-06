@@ -8,12 +8,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import github.com.kazetavi.sonofy.data.model.Commentaire;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 
-public class CommentaireFirestore {
-    private static final String COLLECTION_NAME = "commentaires";
-    public static final String CONTENT = "content";
-    public static final String LIKE_COUNT = "likeCount";
-    public static final String DISLIKE_COUNT = "dislikeCount";
+public class EmotionFirestore {
+    private static final String COLLECTION_NAME = "emotions";
     public static final String SAD_COUNT = "sadCount";
     public static final String SUPERR_COUNT = "superrCount";
     public static final String ANGRY_COUNT = "angryCount";
@@ -36,37 +34,36 @@ public class CommentaireFirestore {
         return getCollectionQueryDesc().whereEqualTo(PUBLICATION_ID, publicationId);
     }
 
-    public static DocumentReference getPublicationRef(Commentaire commentaire){
-        return CommentaireFirestore.getCollection().document();
-    }
-
-
     // CREATE
-    public static Task<DocumentReference> create(Commentaire commentaire){
-        return getCollection().add(commentaire);
+    public static Task<DocumentReference> create(Emotion emotion){
+        return getCollection().add(emotion);
     }
 
-    private static Task<Void> incrementValueByN(Commentaire publication, String field, int n){
-        return CommentaireFirestore.getPublicationRef(publication).update(field, FieldValue.increment(n));
+    public static DocumentReference getPublicationRef(Emotion commentaire){
+        return EmotionFirestore.getCollection().document();
     }
 
-    public static Task<Void> incrementSad(Commentaire publication){
+    private static Task<Void> incrementValueByN(Emotion publication, String field, int n){
+        return EmotionFirestore.getPublicationRef(publication).update(field, FieldValue.increment(n));
+    }
+
+    public static Task<Void> incrementSad(Emotion publication){
         return incrementValueByN(publication, SAD_COUNT, 1);
     }
 
-    public static Task<Void> incrementAngry(Commentaire publication){
+    public static Task<Void> incrementAngry(Emotion publication){
         return incrementValueByN(publication, ANGRY_COUNT, 1);
     }
 
-    public static Task<Void> incrementHappy(Commentaire publication){
+    public static Task<Void> incrementHappy(Emotion publication){
         return incrementValueByN(publication, HAPPY_COUNT, 1);
     }
 
-    public static Task<Void> incrementHeo(Commentaire publication){
+    public static Task<Void> incrementHeo(Emotion publication){
         return incrementValueByN(publication, HEO_COUNT, 1);
     }
 
-    public static Task<Void> incrementSuperr(Commentaire publication){
+    public static Task<Void> incrementSuperr(Emotion publication){
         return incrementValueByN(publication, SUPERR_COUNT, 1);
     }
 

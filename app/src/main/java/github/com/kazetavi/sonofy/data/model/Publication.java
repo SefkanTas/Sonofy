@@ -17,6 +17,11 @@ public class Publication {
     private String groupId;
     @ServerTimestamp
     private Date dateCreated;
+    private Long sadCount;
+    private Long angryCount;
+    private Long happyCount;
+    private Long superrCount;
+    private Long heoCount;
 
     //Constructeur vide necessaire pour firebase
     public Publication(){
@@ -28,6 +33,11 @@ public class Publication {
         this.videoId = videoId;
         this.likeCount = 0L;
         this.dislikeCount = 0L;
+        sadCount = 0L;
+        angryCount = 0L;
+        happyCount = 0L;
+        superrCount = 0L;
+        heoCount = 0L;
     }
 
     public Publication(String titre, String videoId, String groupId) {
@@ -63,6 +73,30 @@ public class Publication {
 
     public String getGroupId() {
         return groupId;
+    }
+
+    public Long getHappyCount() {
+        return happyCount;
+    }
+
+
+    public Long getAngryCount() {
+        return angryCount;
+    }
+
+
+    public Long getSadCount() {
+        return sadCount;
+    }
+
+
+    public Long getSuperrCount() {
+        return superrCount;
+    }
+
+
+    public Long getHeoCount() {
+        return heoCount;
     }
 
     @Exclude

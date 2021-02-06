@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationFirestore {
@@ -145,6 +146,5 @@ public class PublicationFirestore {
     public static Task<Void> deletePublication(String uid) {
         return PublicationFirestore.getPublicationsCollection().document(uid).delete();
     }
-
 
 }

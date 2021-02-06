@@ -11,93 +11,91 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
-import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
-import github.com.kazetavi.sonofy.data.model.Commentaire;
-import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 
-public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.CommentaireViewHolder> {
+public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionViewHolder> {
 
-    private List<Commentaire> commentaires;
+    private List<Emotion> emotions;
 
-    public CommentaireAdapter(List<Commentaire> commentaires) {
-        this.commentaires = commentaires;
+    public EmotionAdapter(List<Emotion> emotions) {
+        this.emotions = emotions;
     }
 
 
     @NonNull
     @Override
-    public CommentaireViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EmotionAdapter.EmotionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.commentaire, parent, false);
 
-        return new CommentaireAdapter.CommentaireViewHolder(view);
+        return new EmotionAdapter.EmotionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CommentaireViewHolder holder, int position) {
-        final Commentaire commentaire = commentaires.get(position);
+    public void onBindViewHolder(@NonNull EmotionViewHolder holder, int position) {
+        final Emotion emotion = emotions.get(position);
         //holder.commentaireTextView.setImageResource(R.drawable.emoji_sad);
-        holder.sadCountTextView.setText(commentaire.getSadCount().toString());
-        if(commentaire.getUsername() != null && !commentaire.getUsername().isEmpty()){
-            holder.usernameTextView.setText("@" + commentaire.getUsername());
+        holder.sadCountTextView.setText(emotion.getSadCount().toString());
+        if(emotion.getUsername() != null && !emotion.getUsername().isEmpty()){
+            holder.usernameTextView.setText("@" + emotion.getUsername());
         }
+
+
+
 
         holder.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommentaireFirestore.incrementSad(commentaire);
+                EmotionFirestore.incrementSad(emotion);
             }
         });
 
         holder.angryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommentaireFirestore.incrementAngry(commentaire);
+                EmotionFirestore.incrementAngry(emotion);
             }
         });
 
         holder.happyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommentaireFirestore.incrementHappy(commentaire);
+                EmotionFirestore.incrementHappy(emotion);
             }
         });
 
         holder.heoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommentaireFirestore.incrementHeo(commentaire);
+                EmotionFirestore.incrementHeo(emotion);
             }
         });
 
         holder.superrButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommentaireFirestore.incrementSuperr(commentaire);
+                EmotionFirestore.incrementSuperr(emotion);
             }
         });
 
-        CommentaireFirestore.getPublicationRef(commentaire)
+        /*
+        EFirestore.getPublicationRef(commentaire)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(value != null && value.exists()){
-                            holder.sadCountTextView.setText(value.get(CommentaireFirestore.SAD_COUNT).toString());
-                           //holder.dislikeCountTextView.setText(value.get(PublicationFirestore.DISLIKE_COUNT).toString());
+                            holder.sadCountTextView.setText(value.get(EmotionFirestore.SAD_COUNT).toString());
+                            //holder.dislikeCountTextView.setText(value.get(PublicationFirestore.DISLIKE_COUNT).toString());
                         }
                     }
                 });
+
+         */
 
 
 
@@ -106,10 +104,10 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
 
     @Override
     public int getItemCount() {
-        return commentaires.size();
+        return emotions.size();
     }
 
-    public static class CommentaireViewHolder extends RecyclerView.ViewHolder{
+    public static class EmotionViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout sadButton;
         LinearLayout angryButton;
@@ -127,7 +125,7 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
         TextView heoCountTextView;
 
 
-        public CommentaireViewHolder(@NonNull View itemView) {
+        public EmotionViewHolder(@NonNull View itemView) {
             super(itemView);
             this.sadButton = itemView.findViewById(R.id.sadButton);
             this.happyButton = itemView.findViewById(R.id.happyButton);
@@ -141,3 +139,4 @@ public class CommentaireAdapter extends RecyclerView.Adapter<CommentaireAdapter.
 
 
 }
+

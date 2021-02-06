@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="123" />
+            android:text="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="123" />
+            android:text="2" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="123" />
+            android:text="0" />
     </LinearLayout>
 
     <LinearLayout
@@ -133,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="123" />
+            android:text="2" />
     </LinearLayout>
 
     <LinearLayout
@@ -165,7 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="123" />
+            android:text="4" />
     </LinearLayout>
 
     <ImageView

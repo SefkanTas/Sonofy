@@ -1,17 +1,14 @@
 package github.com.kazetavi.sonofy.data.model;
 
-import android.provider.ContactsContract;
 import android.widget.ImageView;
 
 import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-public class Commentaire {
+public class Emotion {
 
-    private String uid;
     private String publicationId;
     private ImageView content;
     private Long likeCount;
@@ -25,13 +22,8 @@ public class Commentaire {
     private Long superrCount;
     private Long heoCount;
 
-    public Commentaire() {
-
-    }
-
-    public Commentaire(String publicationId, ImageView content, String username){
+    public Emotion(String publicationId, String username){
         this.publicationId = publicationId;
-        this.uid = uid;
         this.content = content;
         this.username = username;
         this.likeCount = 0L;
@@ -43,16 +35,7 @@ public class Commentaire {
         this.heoCount = 0L;
     }
 
-
     @DocumentId
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
     public String getPublicationId() {
         return publicationId;
     }
@@ -122,6 +105,4 @@ public class Commentaire {
     public Long getHeoCount() {
         return heoCount;
     }
-
-
 }
