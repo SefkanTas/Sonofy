@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.core.Observable;
 
 public class PublicationFirestore {
 
-    private static final String COLLECTION_NAME = "publications-publisher-bis";
+    private static final String COLLECTION_NAME = "publications";
     public static final String LIKE_COUNT = "likeCount";
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
