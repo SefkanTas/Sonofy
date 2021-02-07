@@ -9,11 +9,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.concurrent.Callable;
 
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.data.model.User;
-import io.reactivex.rxjava3.core.Observable;
 
 public class PublicationFirestore {
 

@@ -1,23 +1,14 @@
 package github.com.kazetavi.sonofy.business;
 
-import android.util.Log;
 
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableSource;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.functions.Function;
-import io.reactivex.rxjava3.functions.Supplier;
 
 public class YoutubePublicationFactory {
 
@@ -58,7 +49,7 @@ public class YoutubePublicationFactory {
             videoId = matcher.group();
         }
         else {
-            videoId = "";
+            videoId = url;
         }
 
         return videoId;
