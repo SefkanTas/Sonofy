@@ -4,6 +4,10 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    compileOptions {
+       sourceCompatibility 1.8
+       targetCompatibility 1.8
+    }
     buildFeatures {
         dataBinding true
     }
@@ -85,5 +89,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
 
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
+
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
 }

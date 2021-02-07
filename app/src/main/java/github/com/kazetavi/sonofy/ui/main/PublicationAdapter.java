@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -25,7 +26,9 @@ import java.util.List;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.PublicationViewHolder> {
@@ -106,6 +109,14 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
                 }
             }
         });
+
+        UserFirestore.getUser(publication.getAuthorId()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                holder.authorUsernameTextView.setText("@" + user.getPseudo());
+            }
+        });
     }
 
     @Override
@@ -120,6 +131,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         TextView likeCountTextView;
         TextView dislikeCountTextView;
         TextView commentaireCountTextView;
+        TextView authorUsernameTextView;
 
         LinearLayout likeButton;
         LinearLayout dislikeButton;
@@ -136,6 +148,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             this.dislikeButton = v.findViewById(R.id.dislikeButton2);
             this.commentaireCountTextView = v.findViewById(R.id.commentCountTextView);
             this.delete_btn = v.findViewById(R.id.delete);
+            this.authorUsernameTextView = v.findViewById(R.id.publicationAuthorUsernameTextView);
         }
     }
 

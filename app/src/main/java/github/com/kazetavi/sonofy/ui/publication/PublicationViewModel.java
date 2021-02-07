@@ -16,28 +16,47 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
+import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Publication;
+import github.com.kazetavi.sonofy.data.model.User;
 
 public class PublicationViewModel extends ViewModel {
 
-    private final MutableLiveData<Publication> publication = new MutableLiveData<>();
-    public MutableLiveData<Publication> getPublication() {
-        return publication;
+    private final MutableLiveData<Publication> publicationLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
+    private MutableLiveData<User> userLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<Publication> getPublicationLiveData() {
+        return publicationLiveData;
     }
 
-    private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
     public MutableLiveData<List<Commentaire>> getCommentaires() {
         return commentaires;
     }
 
+    public MutableLiveData<User> getUserLiveData() {
+        return userLiveData;
+    }
 
     public void loadPublication(final String publicationId){
         PublicationFirestore.getPublication(publicationId).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                publication.postValue(documentSnapshot.toObject(Publication.class));
+                Publication publication = documentSnapshot.toObject(Publication.class);
+                publicationLiveData.postValue(publication);
                 loadCommentaires(publicationId);
+                loadUser(publication);
+            }
+        });
+    }
+
+    public void loadUser(Publication publication){
+        UserFirestore.getUser(publication.getAuthorId()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                userLiveData.postValue(user);
             }
         });
     }

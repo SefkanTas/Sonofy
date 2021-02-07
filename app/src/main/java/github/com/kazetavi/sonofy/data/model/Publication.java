@@ -15,6 +15,7 @@ public class Publication {
     private Long likeCount;
     private Long dislikeCount;
     private String groupId;
+    private String authorId;
     @ServerTimestamp
     private Date dateCreated;
 
@@ -30,11 +31,11 @@ public class Publication {
         this.dislikeCount = 0L;
     }
 
-    public Publication(String titre, String videoId, String groupId) {
+    public Publication(String titre, String videoId, String groupId, String authorId) {
         this(titre,videoId);
         this.groupId = groupId;
+        this.authorId = authorId;
     }
-
 
     @DocumentId
     public String getUid() {
@@ -63,6 +64,14 @@ public class Publication {
 
     public String getGroupId() {
         return groupId;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     @Exclude

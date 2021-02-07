@@ -33,6 +33,7 @@ public class PublicationActivity extends AppCompatActivity {
     private ImageView miniatureImageView;
     private TextView likeCountTextView;
     private TextView dislikeCountTextView;
+    private TextView authorUsernameTextView;
 
     private EditText commentaireEditText;
 
@@ -58,6 +59,7 @@ public class PublicationActivity extends AppCompatActivity {
         miniatureImageView = findViewById(R.id.miniaturePublicationImageView2);
         likeCountTextView = findViewById(R.id.likeCountTextView2);
         dislikeCountTextView = findViewById(R.id.dislikeCountTextView2);
+        authorUsernameTextView = findViewById(R.id.authorUsernameTextView);
         LinearLayout likeButton = findViewById(R.id.likeButton2);
         LinearLayout dislikeButton = findViewById(R.id.dislikeButton2);
 
@@ -87,8 +89,14 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
+        uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                authorUsernameTextView.setText("@" + user.getPseudo());
+            }
+        });
 
-        publicationViewModel.getPublication().observe(this, new Observer<Publication>() {
+        publicationViewModel.getPublicationLiveData().observe(this, new Observer<Publication>() {
             @Override
             public void onChanged(Publication publicationLiveData) {
                 publication = publicationLiveData;
