@@ -14,9 +14,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
+import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
-import github.com.kazetavi.sonofy.data.model.Commentaire;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationViewModel extends ViewModel {
@@ -26,9 +26,9 @@ public class PublicationViewModel extends ViewModel {
         return publication;
     }
 
-    private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
-    public MutableLiveData<List<Commentaire>> getCommentaires() {
-        return commentaires;
+    private final MutableLiveData<List<Emotion>> emotions = new MutableLiveData<>();
+    public MutableLiveData<List<Emotion>> getEmotions() {
+        return emotions;
     }
 
 
@@ -37,32 +37,31 @@ public class PublicationViewModel extends ViewModel {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 publication.postValue(documentSnapshot.toObject(Publication.class));
-                loadCommentaires(publicationId);
+                loadEmotions(publicationId);
             }
         });
     }
 
-    public void loadCommentaires(String publicationId){
-        final List<Commentaire> commentaireList = new ArrayList<>();
+    public void loadEmotions(String publicationId){
+        final List<Emotion> emotionsList = new ArrayList<>();
 
-        CommentaireFirestore.getCollectionQueryByPublication(publicationId)
+        EmotionFirestore.getCollectionQueryByPublication(publicationId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        commentaireList.clear();
+                        emotionsList.clear();
                         for(QueryDocumentSnapshot doc : value){
-                            commentaireList.add(doc.toObject(Commentaire.class));
+                            emotionsList.add(doc.toObject(Emotion.class));
                         }
-                        commentaires.setValue(commentaireList);
+                        emotions.setValue(emotionsList);
                     }
                 });
     }
 
-    public void createCommentaire(String publicationId, String content,String username ,String userId){
-        Commentaire commentaire = new Commentaire(publicationId, content,username, userId);
-        content = content.trim();
-        if(!content.isEmpty()){
-            CommentaireFirestore.create(commentaire);
+    public void createEmotion(String publicationId, String username){
+        Emotion emotion = new Emotion(publicationId, username);
+        if(!username.isEmpty()){
+            EmotionFirestore.create(emotion);
         }
     }
 

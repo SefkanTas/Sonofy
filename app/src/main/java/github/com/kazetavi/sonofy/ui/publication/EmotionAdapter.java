@@ -12,6 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
@@ -37,16 +41,14 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EmotionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final EmotionViewHolder holder, int position) {
         final Emotion emotion = emotions.get(position);
         //holder.commentaireTextView.setImageResource(R.drawable.emoji_sad);
         holder.sadCountTextView.setText(emotion.getSadCount().toString());
         if(emotion.getUsername() != null && !emotion.getUsername().isEmpty()){
             holder.usernameTextView.setText("@" + emotion.getUsername());
+            holder.sadCountTextView.setText(emotion.getSadCount().toString());
         }
-
-
-
 
         holder.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +56,7 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
                 EmotionFirestore.incrementSad(emotion);
             }
         });
-
+        /*
         holder.angryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,23 +85,15 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
             }
         });
 
-        /*
-        EFirestore.getPublicationRef(commentaire)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(value != null && value.exists()){
-                            holder.sadCountTextView.setText(value.get(EmotionFirestore.SAD_COUNT).toString());
-                            //holder.dislikeCountTextView.setText(value.get(PublicationFirestore.DISLIKE_COUNT).toString());
-                        }
-                    }
-                });
-
          */
-
-
-
-
+        EmotionFirestore.getPublicationRef(emotion).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value != null && value.exists()){
+                    holder.sadCountTextView.setText(value.get(EmotionFirestore.SAD_COUNT).toString());
+                }
+            }
+        });
     }
 
     @Override

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.model.Commentaire;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,8 +32,10 @@ public class PublicationActivity extends AppCompatActivity {
     private ImageView miniatureImageView;
     private TextView likeCountTextView;
     private TextView dislikeCountTextView;
+    private TextView sadCountTextView;
 
-    private EditText commentaireEditText;
+
+    private ImageView commentaireEditText;
 
     private Publication publication;
 
@@ -45,6 +46,7 @@ public class PublicationActivity extends AppCompatActivity {
     private FirebaseAuth currentUser;
 
     private String pseudoU;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +62,8 @@ public class PublicationActivity extends AppCompatActivity {
         dislikeCountTextView = findViewById(R.id.dislikeCountTextView2);
         LinearLayout likeButton = findViewById(R.id.likeButton2);
         LinearLayout dislikeButton = findViewById(R.id.dislikeButton2);
-
-        commentaireEditText = findViewById(R.id.commentaireEditText);
-        Button commenterButton = findViewById(R.id.commenterButton);
+        sadCountTextView = findViewById(R.id.sadCount);
+        LinearLayout sadButton = findViewById(R.id.sadButton);
 
         commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
 
@@ -77,8 +78,8 @@ public class PublicationActivity extends AppCompatActivity {
         publicationViewModel.loadPublication(publicationId);
 
         //Recupérer l'utilisateur courant pour mettre à jour le pseudo afficher dans les commentaires
-        uservm.getUser(currentUser.getCurrentUser().getUid());
-
+       // uservm.getUser(currentUser.getCurrentUser().getUid());
+        /*
         uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
@@ -86,6 +87,8 @@ public class PublicationActivity extends AppCompatActivity {
                 pseudoU = userc.getPseudo();
             }
         });
+
+         */
 
 
         publicationViewModel.getPublication().observe(this, new Observer<Publication>() {
@@ -99,23 +102,25 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
-        publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
+        publicationViewModel.getEmotions().observe(this, new Observer<List<Emotion>>() {
             @Override
-            public void onChanged(List<Commentaire> commentaires) {
-                adapter = new CommentaireAdapter(commentaires);
+            public void onChanged(List<Emotion> emotions) {
+                adapter = new EmotionAdapter(emotions);
                 commentaireRecyclerView.setAdapter(adapter);
             }
         });
 
-        commenterButton.setOnClickListener(new View.OnClickListener() {
+        sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String content = commentaireEditText.getText().toString();
-                //String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-                publicationViewModel.createCommentaire(publication.getUid(), content, pseudoU, currentUser.getCurrentUser().getUid());
-                commentaireEditText.setText("");
+                ImageView image = null;
+                username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                publicationViewModel.createEmotion(publication.getUid(), username);
+                //commentaireEditText.setImageResource(R.drawable.emoji_sad);
             }
         });
+
+
 
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override

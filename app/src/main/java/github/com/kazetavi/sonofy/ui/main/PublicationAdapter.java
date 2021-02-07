@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
+import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.publication.PublicationActivity;
@@ -97,7 +97,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             }
         });
 
-        CommentaireFirestore.getCollectionQueryByPublication(publication.getUid()).get()
+        EmotionFirestore.getCollectionQueryByPublication(publication.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

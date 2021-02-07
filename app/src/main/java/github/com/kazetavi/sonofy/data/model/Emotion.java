@@ -22,10 +22,12 @@ public class Emotion {
     private Long superrCount;
     private Long heoCount;
 
-    public Emotion(String publicationId, String username){
-        this.publicationId = publicationId;
+
+
+    public Emotion(String publicationId, String username) {
+        this.publicationId = this.publicationId;
         this.content = content;
-        this.username = username;
+        this.username = this.username;
         this.likeCount = 0L;
         this.dislikeCount = 0L;
         this.sadCount = 0L;
