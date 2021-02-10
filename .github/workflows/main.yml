@@ -107,6 +107,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: $DOCDIR/$DOCFILE-$VERSION.pdf
-          asset_name: $DOCFILE-$VERSION.pdf
-          asset_content_type: application/text
+          asset_path: app/build/docs/asciidoc/sonofy-v1.4.pdf
+          asset_name: sonofy-v1.4.pdf
+          asset_content_type: application/pdf
