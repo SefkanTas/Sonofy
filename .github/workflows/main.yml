@@ -90,9 +90,13 @@ jobs:
         run: |
           ./gradlew asciidoctor
           export VERSION=`./gradlew -q version`
+          echo $VERSION
           export BINDIR="build/libs"
+          echo $BINDIR
           export BINFILE="Sonofy-${VERSION}"
+          echo $BINFILE
           export DOCDIR="app/build/docs/asciidoc"
+          echo $DOCDIR
           export DOCFILE="sonofy"
           mv "${DOCDIR}/${DOCFILE}.pdf" "${DOCDIR}/${DOCFILE}-${VERSION}.pdf"
           export BINARY="${BINDIR}/${BINFILE}.jar"
