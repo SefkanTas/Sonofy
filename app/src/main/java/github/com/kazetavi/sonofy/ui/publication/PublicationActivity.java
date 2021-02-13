@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,20 +10,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.model.Emotion;
+import github.com.kazetavi.sonofy.data.model.ListeEmoji;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -115,6 +125,14 @@ public class PublicationActivity extends AppCompatActivity {
             @Override
             public void onChanged(Emotion emotion) {
                 emoji = emotion;
+            }
+        });
+
+        publicationViewModel.getEmotions().observe(this, new Observer<List<ListeEmoji>>() {
+            @Override
+            public void onChanged(List<ListeEmoji> emotions) {
+                adapter = new EmotionAdapter(emotions);
+                commentaireRecyclerView.setAdapter(adapter);
                 sadCountTextView.setText(emoji.getSadCount().toString());
                 superrCountTextView.setText(emoji.getSadCount().toString());
                 happyCountTextView.setText(emoji.getSadCount().toString());
@@ -123,21 +141,16 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
-        publicationViewModel.getEmotions().observe(this, new Observer<List<Emotion>>() {
-            @Override
-            public void onChanged(List<Emotion> emotions) {
-                adapter = new EmotionAdapter(emotions);
-                commentaireRecyclerView.setAdapter(adapter);
-            }
-        });
-
         sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageView image = null;
                 username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 publicationViewModel.createEmotion(publication.getUid());
-                //commentaireEditText.setImageResource(R.drawable.emoji_sad);
+
+                StorageReference mImageRef = FirebaseStorage.getInstance().getReference("emoji/emoji_sad.jpg");
+                Glide.with(sadButton.getContext())
+                        .load(mImageRef)
+                        .into(commentaireEditText );
             }
         });
 

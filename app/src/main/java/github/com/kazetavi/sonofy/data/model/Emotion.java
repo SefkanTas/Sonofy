@@ -21,6 +21,7 @@ public class Emotion {
     private Long happyCount;
     private Long superrCount;
     private Long heoCount;
+    private String typeEmoji;
 
 
 
@@ -33,6 +34,7 @@ public class Emotion {
         this.happyCount = 0L;
         this.superrCount = 0L;
         this.heoCount = 0L;
+        this.typeEmoji = typeEmoji;
     }
 
     @DocumentId
@@ -42,6 +44,14 @@ public class Emotion {
 
     public void setPublicationId(String publicationId) {
         this.publicationId = publicationId;
+    }
+
+    public String getTypeEmoji() {
+        return typeEmoji;
+    }
+
+    public void setTypeEmoji(String typeEmoji) {
+        this.typeEmoji = typeEmoji;
     }
 
     public Long getLikeCount() {

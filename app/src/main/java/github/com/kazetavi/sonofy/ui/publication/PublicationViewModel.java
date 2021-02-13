@@ -19,6 +19,7 @@ import java.util.List;
 import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Emotion;
+import github.com.kazetavi.sonofy.data.model.ListeEmoji;
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationViewModel extends ViewModel {
@@ -33,10 +34,11 @@ public class PublicationViewModel extends ViewModel {
         return emotion;
     }
 
-    private final MutableLiveData<List<Emotion>> emotions = new MutableLiveData<>();
-    public MutableLiveData<List<Emotion>> getEmotions() {
+    private final MutableLiveData<List<ListeEmoji>> emotions = new MutableLiveData<>();
+    public MutableLiveData<List<ListeEmoji>> getEmotions() {
         return emotions;
     }
+
 
 
     public void loadPublication(final String publicationId){
@@ -50,7 +52,7 @@ public class PublicationViewModel extends ViewModel {
     }
 
     public void loadEmotions(String publicationId){
-        final List<Emotion> emotionsList = new ArrayList<>();
+        final List<ListeEmoji> emotionsList = new ArrayList<>();
 
         EmotionFirestore.getCollectionQueryByPublication(publicationId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -58,7 +60,7 @@ public class PublicationViewModel extends ViewModel {
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         emotionsList.clear();
                         for(QueryDocumentSnapshot doc : value){
-                            emotionsList.add(doc.toObject(Emotion.class));
+                            emotionsList.add(doc.toObject(ListeEmoji.class));
                         }
                         emotions.setValue(emotionsList);
                     }

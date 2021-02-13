@@ -12,23 +12,32 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.model.Emotion;
+import github.com.kazetavi.sonofy.data.model.ListeEmoji;
 
 public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionViewHolder> {
 
     private List<Emotion> emotions;
+    private List<ListeEmoji> listeEmojis;
+    ImageView commentaireEditText;
 
-    public EmotionAdapter(List<Emotion> emotions) {
-        this.emotions = emotions;
+    public EmotionAdapter(List<ListeEmoji> listeEmojis) {
+        this.listeEmojis = listeEmojis;
     }
+    //public EmotionAdapter(List<Emotion> emotions) {
+        //this.emotions = emotions;
+    //}
 
 
     @NonNull
@@ -43,13 +52,13 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
     @Override
     public void onBindViewHolder(@NonNull final EmotionViewHolder holder, int position) {
         final Emotion emotion = emotions.get(position);
-        //holder.commentaireTextView.setImageResource(R.drawable.emoji_sad);
-        holder.sadCountTextView.setText(emotion.getSadCount().toString());
+        final ListeEmoji emoji = listeEmojis.get(position);
+
 
         holder.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //EmotionFirestore.incrementSad(emotion);
+                EmotionFirestore.incrementSad(emotion);
             }
         });
 
