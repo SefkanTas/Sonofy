@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
@@ -43,6 +44,7 @@ public class PublicationActivity extends AppCompatActivity {
     private Publication publication;
 
     private RecyclerView commentaireRecyclerView;
+    private RecyclerView emotionRecyclerView;
     private RecyclerView.Adapter adapter;
 
     private User userc;
@@ -160,6 +162,25 @@ public class PublicationActivity extends AppCompatActivity {
         sadCountTV = findViewById(R.id.sadCountTV);
         verySadCountTV = findViewById(R.id.verySadCountTV);
 
+        emotionRecyclerView = findViewById(R.id.emotionsRecylcerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        emotionRecyclerView.setLayoutManager(layoutManager);
+
+        publicationViewModel.getEmotionsLiveData().observe(this, emotions -> {
+            adapter = new EmotionAdapter(emotions);
+            emotionRecyclerView.setAdapter(adapter);
+
+            // Refactoriser -> à ne pas faire ici
+            long veryHappyCount = emotions.stream().filter(e -> e.getEmotion().equals("veryHappy")).count();
+            long happyCount = emotions.stream().filter(e -> e.getEmotion().equals("happy")).count();
+            long sadCount = emotions.stream().filter(e -> e.getEmotion().equals("sad")).count();
+            long verySadCount = emotions.stream().filter(e -> e.getEmotion().equals("verySad")).count();
+
+            veryHappyCountTV.setText(String.valueOf(veryHappyCount));
+            happyCountTV.setText(String.valueOf(happyCount));
+            sadCountTV.setText(String.valueOf(sadCount));
+            verySadCountTV.setText(String.valueOf(verySadCount));
+        });
 
         veryHappyEmotionIV.setOnClickListener(v -> {
             publicationViewModel.addEmotion("veryHappy");

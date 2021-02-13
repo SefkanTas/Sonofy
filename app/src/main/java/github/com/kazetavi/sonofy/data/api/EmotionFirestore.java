@@ -5,6 +5,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -15,6 +16,8 @@ public class EmotionFirestore {
     public static final String EMOTION = "emotion";
     public static final String USER_ID = "userId";
     public static final String PUBLICATION_ID = "publicationId";
+    public static final String DATE_CREATED = "dateCreated";
+
 
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -30,6 +33,12 @@ public class EmotionFirestore {
 
     public static Task<DocumentSnapshot> get(String uid){
         return getRef(uid).get();
+    }
+
+    public static Query getByPublication(String publicationId){
+        return getCollection()
+                .whereEqualTo(PUBLICATION_ID, publicationId)
+                .orderBy(DATE_CREATED, Query.Direction.DESCENDING);
     }
 
     public static Task<Void> delete(String uid) {
