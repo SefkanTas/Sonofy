@@ -125,30 +125,31 @@
         android:id="@+id/happyEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/veryHappyEmotion"
         app:srcCompat="@drawable/ic_baseline_sentiment_satisfied_alt_48"
-        tools:layout_editor_absoluteX="48dp"
         tools:layout_editor_absoluteY="331dp" />
 
     <ImageView
         android:id="@+id/sadEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/happyEmotion"
         app:srcCompat="@drawable/ic_baseline_sentiment_dissatisfied_24"
-        tools:layout_editor_absoluteX="96dp"
         tools:layout_editor_absoluteY="331dp" />
 
     <ImageView
         android:id="@+id/verySadEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/sadEmotion"
         app:srcCompat="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
-        tools:layout_editor_absoluteX="363dp"
         tools:layout_editor_absoluteY="331dp" />
 
     <ImageView
         android:id="@+id/veryHappyEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/flow3"
         app:srcCompat="@drawable/ic_baseline_sentiment_very_satisfied_24"
         tools:layout_editor_absoluteY="322dp" />
 
@@ -157,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        tools:layout_editor_absoluteX="89dp"
+        app:layout_constraintStart_toStartOf="@+id/veryHappyEmotion"
         tools:layout_editor_absoluteY="366dp" />
 
     <TextView
@@ -165,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        tools:layout_editor_absoluteX="132dp"
+        app:layout_constraintStart_toEndOf="@+id/veryHappyCountTV"
         tools:layout_editor_absoluteY="248dp" />
 
     <TextView
@@ -173,14 +174,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        tools:layout_editor_absoluteX="222dp"
+        app:layout_constraintStart_toEndOf="@+id/happyCountTV"
         tools:layout_editor_absoluteY="248dp" />
 
     <TextView
         android:id="@+id/verySadCountTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0" />
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/sadCountTV"
+        tools:layout_editor_absoluteY="248dp" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow3"
@@ -192,6 +195,7 @@
         app:flow_maxElementsWrap="4"
         app:flow_wrapMode="aligned"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
