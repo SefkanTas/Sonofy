@@ -122,36 +122,36 @@
         app:layout_constraintTop_toBottomOf="@+id/miniaturePublicationImageView2" />
 
     <ImageView
+        android:id="@+id/veryHappyEmotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/flow3"
+        app:layout_constraintTop_toTopOf="@+id/happyEmotion"
+        app:srcCompat="@drawable/ic_baseline_sentiment_very_satisfied_24" />
+
+    <ImageView
         android:id="@+id/happyEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/veryHappyEmotion"
-        app:srcCompat="@drawable/ic_baseline_sentiment_satisfied_alt_48"
-        tools:layout_editor_absoluteY="331dp" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:srcCompat="@drawable/ic_baseline_sentiment_satisfied_alt_48" />
 
     <ImageView
         android:id="@+id/sadEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/happyEmotion"
-        app:srcCompat="@drawable/ic_baseline_sentiment_dissatisfied_24"
-        tools:layout_editor_absoluteY="331dp" />
+        app:layout_constraintTop_toTopOf="@+id/happyEmotion"
+        app:srcCompat="@drawable/ic_baseline_sentiment_dissatisfied_24" />
 
     <ImageView
         android:id="@+id/verySadEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/sadEmotion"
-        app:srcCompat="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
-        tools:layout_editor_absoluteY="331dp" />
-
-    <ImageView
-        android:id="@+id/veryHappyEmotion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/flow3"
-        app:srcCompat="@drawable/ic_baseline_sentiment_very_satisfied_24"
-        tools:layout_editor_absoluteY="322dp" />
+        app:layout_constraintTop_toTopOf="@+id/sadEmotion"
+        app:srcCompat="@drawable/ic_baseline_sentiment_very_dissatisfied_24" />
 
     <TextView
         android:id="@+id/veryHappyCountTV"
@@ -159,7 +159,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         app:layout_constraintStart_toStartOf="@+id/veryHappyEmotion"
-        tools:layout_editor_absoluteY="366dp" />
+        app:layout_constraintTop_toTopOf="@+id/veryHappyEmotion" />
 
     <TextView
         android:id="@+id/happyCountTV"
@@ -167,7 +167,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         app:layout_constraintStart_toEndOf="@+id/veryHappyCountTV"
-        tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintTop_toTopOf="@+id/happyEmotion" />
 
     <TextView
         android:id="@+id/sadCountTV"
@@ -175,7 +175,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         app:layout_constraintStart_toEndOf="@+id/happyCountTV"
-        tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintTop_toTopOf="@+id/sadEmotion" />
 
     <TextView
         android:id="@+id/verySadCountTV"
@@ -183,7 +183,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         app:layout_constraintStart_toEndOf="@+id/sadCountTV"
-        tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintTop_toTopOf="@+id/verySadEmotion" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow3"
