@@ -35,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 public class PublicationActivity extends AppCompatActivity {
@@ -82,6 +83,7 @@ public class PublicationActivity extends AppCompatActivity {
         happyCountTextView = findViewById(R.id.happyCount);
         heoCountTextView = findViewById(R.id.heoCount);
         superrCountTextView = findViewById(R.id.superrCount);
+        commentaireEditText = findViewById(R.id.commentaireTextView);
         final LinearLayout sadButton = findViewById(R.id.sadButton);
 
         commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
@@ -110,6 +112,8 @@ public class PublicationActivity extends AppCompatActivity {
          */
 
 
+
+
         publicationViewModel.getPublication().observe(this, new Observer<Publication>() {
             @Override
             public void onChanged(Publication publicationLiveData) {
@@ -121,6 +125,7 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
+        /*
         publicationViewModel.getEmotion().observe(this, new Observer<Emotion>() {
             @Override
             public void onChanged(Emotion emotion) {
@@ -141,16 +146,25 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
+
+         */
         sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 publicationViewModel.createEmotion(publication.getUid());
 
-                StorageReference mImageRef = FirebaseStorage.getInstance().getReference("emoji/emoji_sad.jpg");
-                Glide.with(sadButton.getContext())
-                        .load(mImageRef)
-                        .into(commentaireEditText );
+                commentaireEditText.setImageResource(R.drawable.emoji_sad);
+
+
+
+
+                File imgFile = new File("/Users/anisoaravida/Desktop/Sonofy/app/src/main/res/drawable/emoji_sad.png");
+                ImageView myImage = findViewById(R.id.commentaireTextView);
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                System.out.println(myBitmap);
+                myImage.setImageBitmap(myBitmap);
+                //commentaireEditText.setImageBitmap(BitmapFactory.decodeFile("/app/src/main/res/drawable/emoji_sad.png"));
             }
         });
 

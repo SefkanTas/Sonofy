@@ -5,14 +5,14 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-public class Emoji {
+public class ListeEmoji {
     private String publicationId;
     @ServerTimestamp
     private Date dateCreated;
     private String uidUser;
     private String typeEmoji;
 
-    public Emoji(String publicationId, String uidUser) {
+    public ListeEmoji(String publicationId, String typeEmoji, String uidUser) {
         this.publicationId = this.publicationId;
         this.typeEmoji = typeEmoji;
         this.uidUser = uidUser;
@@ -46,3 +46,4 @@ public class Emoji {
 
 
 }
+

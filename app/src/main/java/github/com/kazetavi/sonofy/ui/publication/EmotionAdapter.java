@@ -53,7 +53,7 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
     public void onBindViewHolder(@NonNull final EmotionViewHolder holder, int position) {
         final Emotion emotion = emotions.get(position);
         final ListeEmoji emoji = listeEmojis.get(position);
-
+    /*
 
         holder.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +89,8 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
                 EmotionFirestore.incrementSuperr(emotion);
             }
         });
+
+     */
 
 
         EmotionFirestore.getEmotionRef(emotion).addSnapshotListener(new EventListener<DocumentSnapshot>() {
