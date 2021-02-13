@@ -1,5 +1,7 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -24,6 +26,11 @@ public class PublicationViewModel extends ViewModel {
     private final MutableLiveData<Publication> publication = new MutableLiveData<>();
     public MutableLiveData<Publication> getPublication() {
         return publication;
+    }
+
+    private final MutableLiveData<Emotion> emotion = new MutableLiveData<>();
+    public MutableLiveData<Emotion> getEmotion() {
+        return emotion;
     }
 
     private final MutableLiveData<List<Emotion>> emotions = new MutableLiveData<>();
@@ -58,11 +65,9 @@ public class PublicationViewModel extends ViewModel {
                 });
     }
 
-    public void createEmotion(String publicationId, String username){
-        Emotion emotion = new Emotion(publicationId, username);
-        if(!username.isEmpty()){
-            EmotionFirestore.create(emotion);
-        }
+    public void createEmotion(String publicationId){
+        Emotion emotion = new Emotion(publicationId);
+
     }
 
 }

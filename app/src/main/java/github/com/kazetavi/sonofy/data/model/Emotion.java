@@ -24,10 +24,8 @@ public class Emotion {
 
 
 
-    public Emotion(String publicationId, String username) {
+    public Emotion(String publicationId) {
         this.publicationId = this.publicationId;
-        this.content = content;
-        this.username = this.username;
         this.likeCount = 0L;
         this.dislikeCount = 0L;
         this.sadCount = 0L;
@@ -44,14 +42,6 @@ public class Emotion {
 
     public void setPublicationId(String publicationId) {
         this.publicationId = publicationId;
-    }
-
-    public ImageView getContent() {
-        return content;
-    }
-
-    public void setContent(ImageView content) {
-        this.content = content;
     }
 
     public Long getLikeCount() {
@@ -76,10 +66,6 @@ public class Emotion {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public Long getHappyCount() {

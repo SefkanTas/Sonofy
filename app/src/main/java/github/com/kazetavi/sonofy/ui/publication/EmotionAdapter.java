@@ -45,18 +45,14 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
         final Emotion emotion = emotions.get(position);
         //holder.commentaireTextView.setImageResource(R.drawable.emoji_sad);
         holder.sadCountTextView.setText(emotion.getSadCount().toString());
-        if(emotion.getUsername() != null && !emotion.getUsername().isEmpty()){
-            holder.usernameTextView.setText("@" + emotion.getUsername());
-            holder.sadCountTextView.setText(emotion.getSadCount().toString());
-        }
 
         holder.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EmotionFirestore.incrementSad(emotion);
+                //EmotionFirestore.incrementSad(emotion);
             }
         });
-        /*
+
         holder.angryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,8 +81,8 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionV
             }
         });
 
-         */
-        EmotionFirestore.getPublicationRef(emotion).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+        EmotionFirestore.getEmotionRef(emotion).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value != null && value.exists()){
