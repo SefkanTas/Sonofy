@@ -9,17 +9,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+
 import github.com.kazetavi.sonofy.data.model.Publication;
 
 public class PublicationFirestore {
 
-    private static final String COLLECTION_NAME = "publicationsTestGroup";
+    private static final String COLLECTION_NAME = "publications";
     public static final String LIKE_COUNT = "likeCount";
     public static final String DISLIKE_COUNT = "dislikeCount";
     public static final String DATE_CREATED = "dateCreated";
     public static final String TITRE = "titre";
     public static final String VIDEO_ID = "videoId";
     public static final String GROUP_ID = "groupId";
+    public static final String AUTHOR_ID = "authorId";
 
 
     public static CollectionReference getPublicationsCollection(){
@@ -92,7 +94,6 @@ public class PublicationFirestore {
                 .getAllPublicationsCollectionDesc()
                 .whereEqualTo(GROUP_ID, groupeId);
     }
-
 
     //SEARCH
 
