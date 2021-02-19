@@ -106,4 +106,4 @@ jobs:
         uses: actions/upload-release-asset@v1
         with: |
           app/build/outputs/apk/release/sonofy.apk
-          app/build/docs/asciidoc/sonofy-v1.4.pdf
+          app/build/docs/asciidoc/sonofy-v*.pdf
