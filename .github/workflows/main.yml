@@ -100,10 +100,10 @@ jobs:
         with:
           repo-token : ${{ secrets.GITHUB_TOKEN }}
           title : ${{ github.ref }}
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          #tag_name: ${{ github.ref }}
+          #release_name: ${{ github.ref }}
           draft: false
           prerelease: false
           files : |
-            ./app/build/outputs/apk/release/sonofy.apk
-            ./app/build/docs/asciidoc/sonofy-v1.4.pdf
+            ./app/build/outputs/apk/release/*.apk
+            ./app/build/docs/asciidoc/*.pdf
