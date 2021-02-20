@@ -37,7 +37,7 @@
         android:layout_height="59dp"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/barre_b"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/barre_b"
         app:srcCompat="@drawable/ic_baseline_home_24"
