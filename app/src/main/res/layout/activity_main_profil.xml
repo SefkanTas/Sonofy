@@ -27,6 +27,7 @@
         android:background="@color/colorPrimaryDark"
         app:constraint_referenced_ids="home_page"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
@@ -36,9 +37,10 @@
         android:layout_height="59dp"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/barre_b"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/barre_b"
         app:srcCompat="@drawable/ic_baseline_home_24"
-        tools:layout_editor_absoluteX="171dp"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
