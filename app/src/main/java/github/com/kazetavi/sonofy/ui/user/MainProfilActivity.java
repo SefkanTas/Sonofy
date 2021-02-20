@@ -57,6 +57,8 @@ public class MainProfilActivity extends AppCompatActivity {
             }
         });
 
+        profilViewModel.getUser(user.getCurrentUser().getUid());
+
         //Retour à la liste des groupes --> à modifier lorsque la page d'accueil sera OK
         home.setOnClickListener(new View.OnClickListener() {
             @Override
