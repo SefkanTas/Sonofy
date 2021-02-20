@@ -11,6 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.xmlpull.v1.XmlPullParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +27,18 @@ import github.com.kazetavi.sonofy.data.model.User;
 public class PublicationViewModel extends ViewModel {
 
     private final MutableLiveData<Publication> publicationLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Publication>> publicationLiveData2 = new MutableLiveData<>();
     private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
     private final MutableLiveData<List<Emotion>> emotionsLiveData = new MutableLiveData<>();
-    private MutableLiveData<User> authorUserLiveData = new MutableLiveData<>();
-    private MutableLiveData<User> currentUserLiveData = new MutableLiveData<>();
+    private final MutableLiveData<User> authorUserLiveData = new MutableLiveData<>();
+    private final MutableLiveData<User> currentUserLiveData = new MutableLiveData<>();
 
     public MutableLiveData<Publication> getPublicationLiveData() {
         return publicationLiveData;
+    }
+
+    public MutableLiveData<List<Publication>> getPublicationLiveData2() {
+        return publicationLiveData2;
     }
 
     public MutableLiveData<List<Emotion>> getEmotionsLiveData() {
@@ -58,6 +65,32 @@ public class PublicationViewModel extends ViewModel {
         });
     }
 
+    //Permet de retrouver toutes les publications d'un utilisateur donné
+    public void getPublicationAuthor(String authorId){
+        final List<Publication> publicationList = new ArrayList<>();
+        PublicationFirestore.getPublicationByAuthorId(authorId)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        publicationList.clear();
+                        for(QueryDocumentSnapshot documentSnapshot : value){
+                            Publication publication = documentSnapshot.toObject(Publication.class);
+                            publicationList.add(publication);
+                        }
+                        publicationLiveData2.postValue(publicationList);
+                        loadPublicationAuthor();
+                    }
+                });
+    }
+
+    public void loadPublicationAuthor(){
+        List<Publication> publicationList = publicationLiveData2.getValue();
+
+        for(Publication publication : publicationList){
+            loadPublication(publication.getUid());
+        }
+    }
+
     public void loadEmotions(String publicationId){
 
         final List<Emotion> emotionList = new ArrayList<>();
@@ -73,6 +106,31 @@ public class PublicationViewModel extends ViewModel {
                 emotionsLiveData.postValue(emotionList);
             }
         });
+    }
+
+    public void getEmotionsAuthor(String authorId){
+        final List<Emotion> emotionList = new ArrayList<>();
+        EmotionFirestore.getEmotionByAuthorId(authorId)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        emotionList.clear();
+                        for(QueryDocumentSnapshot documentSnapshot : value){
+                            Emotion emotion = documentSnapshot.toObject(Emotion.class);
+                            emotionList.add(emotion);
+                        }
+                        emotionsLiveData.postValue(emotionList);
+                        loadEmotionsAuthor();
+                    }
+                });
+    }
+
+    public void loadEmotionsAuthor(){
+        List<Emotion> emotionList = emotionsLiveData.getValue();
+
+        for(Emotion emotion : emotionList){
+            loadEmotions(emotion.getUid());
+        }
     }
 
     public void loadAuthorUser(Publication publication){

@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
+import github.com.kazetavi.sonofy.ui.publication.PublicationViewModel;
 
 public class MainProfilActivity extends AppCompatActivity {
     private RecyclerView resultats;
@@ -25,6 +26,7 @@ public class MainProfilActivity extends AppCompatActivity {
     private TextView id_user;
     private TextView pseudo_user;
     private User donnesUser;
+    private FirebaseAuth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class MainProfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_profil);
 
         ProfilViewModel profilViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
+        PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
+
+        user = FirebaseAuth.getInstance();
 
         ImageButton home = findViewById(R.id.home_page);
         resultats = findViewById(R.id.publication_user);
@@ -73,14 +78,14 @@ public class MainProfilActivity extends AppCompatActivity {
         mesPublications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                publicationViewModel.getPublicationAuthor(user.getUid());
             }
         });
 
         mesEmotions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                publicationViewModel.getEmotionsAuthor(user.getUid());
             }
         });
     }

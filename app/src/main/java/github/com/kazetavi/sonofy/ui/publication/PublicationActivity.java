@@ -48,15 +48,9 @@ public class PublicationActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private User userc;
-    private FirebaseAuth currentUser;
 
     private String pseudoU;
 
-
-    private ImageView veryHappyEmotionIV;
-    private ImageView happyEmotionIV;
-    private ImageView sadEmotionIV;
-    private ImageView verySadEmotionIV;
 
     private TextView veryHappyCountTV;
     private TextView happyCountTV;
@@ -70,7 +64,7 @@ public class PublicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_publication);
 
         ProfilViewModel uservm = new ViewModelProvider(this).get(ProfilViewModel.class);
-        currentUser = FirebaseAuth.getInstance();
+        FirebaseAuth currentUser = FirebaseAuth.getInstance();
 
         titreTextView = findViewById(R.id.titrePublicationTextView2);
         miniatureImageView = findViewById(R.id.miniaturePublicationImageView2);
@@ -152,10 +146,10 @@ public class PublicationActivity extends AppCompatActivity {
         });
 
 
-        veryHappyEmotionIV = findViewById(R.id.veryHappyEmotion);
-        happyEmotionIV = findViewById(R.id.happyEmotion);
-        sadEmotionIV = findViewById(R.id.sadEmotion);
-        verySadEmotionIV = findViewById(R.id.verySadEmotion);
+        ImageView veryHappyEmotionIV = findViewById(R.id.veryHappyEmotion);
+        ImageView happyEmotionIV = findViewById(R.id.happyEmotion);
+        ImageView sadEmotionIV = findViewById(R.id.sadEmotion);
+        ImageView verySadEmotionIV = findViewById(R.id.verySadEmotion);
 
         veryHappyCountTV = findViewById(R.id.veryHappyCountTV);
         happyCountTV = findViewById(R.id.happyCountTV);

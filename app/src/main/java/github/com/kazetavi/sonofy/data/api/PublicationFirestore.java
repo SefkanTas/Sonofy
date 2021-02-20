@@ -95,6 +95,11 @@ public class PublicationFirestore {
                 .whereEqualTo(GROUP_ID, groupeId);
     }
 
+    public static Query getPublicationByAuthorId(String authorId){
+        return PublicationFirestore.getAllPublicationsCollectionDesc()
+                .whereEqualTo(AUTHOR_ID, authorId);
+    }
+
     //SEARCH
 
     public static Query searchByTitle(String title){
