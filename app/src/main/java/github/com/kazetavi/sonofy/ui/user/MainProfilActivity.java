@@ -3,6 +3,7 @@ package github.com.kazetavi.sonofy.ui.user;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -37,6 +38,9 @@ public class MainProfilActivity extends AppCompatActivity {
         PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
 
         user = FirebaseAuth.getInstance();
+        resultats = findViewById(R.id.publication_user);
+        layoutManager = new LinearLayoutManager(this);
+        resultats.setLayoutManager(layoutManager);
 
         ImageButton home = findViewById(R.id.home_page);
         resultats = findViewById(R.id.publication_user);
@@ -80,7 +84,7 @@ public class MainProfilActivity extends AppCompatActivity {
         mesPublications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publicationViewModel.getPublicationAuthor(user.getUid());
+                profilViewModel.loadPublicationsAuthor(user.getUid());
             }
         });
 

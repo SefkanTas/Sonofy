@@ -65,32 +65,6 @@ public class PublicationViewModel extends ViewModel {
         });
     }
 
-    //Permet de retrouver toutes les publications d'un utilisateur donné
-    public void getPublicationAuthor(String authorId){
-        final List<Publication> publicationList = new ArrayList<>();
-        PublicationFirestore.getPublicationByAuthorId(authorId)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        publicationList.clear();
-                        for(QueryDocumentSnapshot documentSnapshot : value){
-                            Publication publication = documentSnapshot.toObject(Publication.class);
-                            publicationList.add(publication);
-                        }
-                        publicationLiveData2.postValue(publicationList);
-                        loadPublicationAuthor();
-                    }
-                });
-    }
-
-    public void loadPublicationAuthor(){
-        List<Publication> publicationList = publicationLiveData2.getValue();
-
-        for(Publication publication : publicationList){
-            loadPublication(publication.getUid());
-        }
-    }
-
     public void loadEmotions(String publicationId){
 
         final List<Emotion> emotionList = new ArrayList<>();
