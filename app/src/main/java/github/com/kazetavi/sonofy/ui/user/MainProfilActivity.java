@@ -74,6 +74,9 @@ public class MainProfilActivity extends AppCompatActivity {
             }
         });
 
+        //Permet d'afficher les publications de l'utilisateur courant directement
+        profilViewModel.loadPublicationsAuthor(user.getUid());
+
         //Retour à la liste des groupes --> à modifier lorsque la page d'accueil sera OK
         home.setOnClickListener(new View.OnClickListener() {
             @Override
