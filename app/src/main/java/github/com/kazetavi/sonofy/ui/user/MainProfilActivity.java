@@ -105,7 +105,7 @@ public class MainProfilActivity extends AppCompatActivity {
         mesEmotions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publicationViewModel.getEmotionsAuthor(user.getUid());
+                profilViewModel.loadEmotionsAuthor(user.getUid());
             }
         });
     }
