@@ -7,10 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -20,8 +18,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 
@@ -30,18 +30,25 @@ public class ProfilViewModel extends ViewModel {
 
     private final MutableLiveData<List<Publication>> publications = new MutableLiveData<>();
 
+    private final MutableLiveData<List<Emotion>> emotionsLiveData = new MutableLiveData<>();
+
+    private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<User> getUserMutableLiveData() {
+        return userMutableLiveData;
+    }
+
+
+    public MutableLiveData<List<Emotion>> getEmotionsLiveData() {
+        return emotionsLiveData;
+    }
+
     public MutableLiveData<List<Publication>> getPublications(){
         return publications;
     }
 
     public void updateNom(String uid, String nom){
         UserFirestore.updateLastName(uid,nom);
-    }
-
-    private final MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
-
-    public MutableLiveData<User> getUserMutableLiveData() {
-        return userMutableLiveData;
     }
 
     public void updatePrenom(String uid, String prenom){
@@ -90,6 +97,7 @@ public class ProfilViewModel extends ViewModel {
         });
     }
 
+
     public void loadPublicationsAuthor(String authorId) {
         final List<Publication> publicationsList = new ArrayList<>();
         PublicationFirestore.getPublicationByAuthorId(authorId)
@@ -104,4 +112,21 @@ public class ProfilViewModel extends ViewModel {
                     }
                 });
     }
+
+
+    public void loadEmotionsAuthor(String authorId) {
+        final List<Emotion> emotionsList = new ArrayList<>();
+        EmotionFirestore.getEmotionByAuthorId(authorId)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        emotionsList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            emotionsList.add(doc.toObject(Emotion.class));
+                            emotionsLiveData.setValue(emotionsList);
+                        }
+                    }
+                });
+    }
+
 }

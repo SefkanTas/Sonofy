@@ -27,7 +27,6 @@ import github.com.kazetavi.sonofy.data.model.User;
 public class PublicationViewModel extends ViewModel {
 
     private final MutableLiveData<Publication> publicationLiveData = new MutableLiveData<>();
-    private final MutableLiveData<List<Publication>> publicationLiveData2 = new MutableLiveData<>();
     private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
     private final MutableLiveData<List<Emotion>> emotionsLiveData = new MutableLiveData<>();
     private final MutableLiveData<User> authorUserLiveData = new MutableLiveData<>();
@@ -35,10 +34,6 @@ public class PublicationViewModel extends ViewModel {
 
     public MutableLiveData<Publication> getPublicationLiveData() {
         return publicationLiveData;
-    }
-
-    public MutableLiveData<List<Publication>> getPublicationLiveData2() {
-        return publicationLiveData2;
     }
 
     public MutableLiveData<List<Emotion>> getEmotionsLiveData() {
@@ -80,31 +75,6 @@ public class PublicationViewModel extends ViewModel {
                 emotionsLiveData.postValue(emotionList);
             }
         });
-    }
-
-    public void getEmotionsAuthor(String authorId){
-        final List<Emotion> emotionList = new ArrayList<>();
-        EmotionFirestore.getEmotionByAuthorId(authorId)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        emotionList.clear();
-                        for(QueryDocumentSnapshot documentSnapshot : value){
-                            Emotion emotion = documentSnapshot.toObject(Emotion.class);
-                            emotionList.add(emotion);
-                        }
-                        emotionsLiveData.postValue(emotionList);
-                        loadEmotionsAuthor();
-                    }
-                });
-    }
-
-    public void loadEmotionsAuthor(){
-        List<Emotion> emotionList = emotionsLiveData.getValue();
-
-        for(Emotion emotion : emotionList){
-            loadEmotions(emotion.getUid());
-        }
     }
 
     public void loadAuthorUser(Publication publication){
