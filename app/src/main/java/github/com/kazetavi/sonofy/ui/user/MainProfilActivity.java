@@ -15,15 +15,18 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
+import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 import github.com.kazetavi.sonofy.ui.publication.PublicationViewModel;
 
 public class MainProfilActivity extends AppCompatActivity {
     private RecyclerView resultats;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private TextView id_user;
     private TextView pseudo_user;
     private User donnesUser;
@@ -39,7 +42,7 @@ public class MainProfilActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance();
         resultats = findViewById(R.id.publication_user);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         resultats.setLayoutManager(layoutManager);
 
         ImageButton home = findViewById(R.id.home_page);
@@ -62,6 +65,14 @@ public class MainProfilActivity extends AppCompatActivity {
         });
 
         profilViewModel.getUser(user.getCurrentUser().getUid());
+
+        profilViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
+            @Override
+            public void onChanged(List<Publication> publications) {
+                adapter = new PublicationAdapter(publications);
+                resultats.setAdapter(adapter);
+            }
+        });
 
         //Retour à la liste des groupes --> à modifier lorsque la page d'accueil sera OK
         home.setOnClickListener(new View.OnClickListener() {
