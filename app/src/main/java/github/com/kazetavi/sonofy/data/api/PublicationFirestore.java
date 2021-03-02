@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
 
 
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -98,6 +99,10 @@ public class PublicationFirestore {
     public static Query getPublicationByAuthorId(String authorId){
         return PublicationFirestore.getAllPublicationsCollectionDesc()
                 .whereEqualTo(AUTHOR_ID, authorId);
+    }
+
+    public static Task<DocumentSnapshot> getPublicationById(String id){
+        return getPublicationsCollection().document(id).get();
     }
 
     //SEARCH

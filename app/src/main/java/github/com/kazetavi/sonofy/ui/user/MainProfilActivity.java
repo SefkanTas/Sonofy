@@ -18,15 +18,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
-import github.com.kazetavi.sonofy.ui.publication.PublicationViewModel;
+import github.com.kazetavi.sonofy.ui.publication.EmotionMainProfileAdapter;
 
 public class MainProfilActivity extends AppCompatActivity {
     private RecyclerView resultats;
-    private RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter adapter, adapter2;
     private TextView id_user;
     private TextView pseudo_user;
     private User donnesUser;
@@ -38,7 +39,6 @@ public class MainProfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_profil);
 
         ProfilViewModel profilViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
-        PublicationViewModel publicationViewModel = new ViewModelProvider(this).get(PublicationViewModel.class);
 
         user = FirebaseAuth.getInstance();
         resultats = findViewById(R.id.publication_user);
@@ -71,6 +71,14 @@ public class MainProfilActivity extends AppCompatActivity {
             public void onChanged(List<Publication> publications) {
                 adapter = new PublicationAdapter(publications);
                 resultats.setAdapter(adapter);
+            }
+        });
+
+        profilViewModel.getEmotionsLiveData().observe(this, new Observer<List<Emotion>>() {
+            @Override
+            public void onChanged(List<Emotion> emotions) {
+                adapter2 = new EmotionMainProfileAdapter(emotions);
+                resultats.setAdapter(adapter2);
             }
         });
 
