@@ -82,12 +82,14 @@ public class Publication {
                 .toString();
     }
 
+    ////soundcloud link => image
     @Exclude
     public String getVideoUrl(){
         return new StringBuilder("https://www.youtube.com/watch?v=")
                 .append(this.videoId)
                 .toString();
     }
+    ////soundcloud link => video
 
     @Override
     public String toString() {
