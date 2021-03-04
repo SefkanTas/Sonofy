@@ -118,6 +118,7 @@ public class ProfilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
                 profilvm.updatePrenom(user.getUid(), name);
+                recreate();
             }
         });
         AlertDialog dialog = alert.create();
@@ -146,6 +147,7 @@ public class ProfilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
                 profilvm.updateNom(user.getUid(), name);
+                recreate();
             }
         });
         AlertDialog dialog = alert.create();
@@ -174,6 +176,7 @@ public class ProfilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
                 profilvm.updatePseudo(user.getUid(), name);
+                recreate();
             }
         });
         AlertDialog dialog = alert.create();
@@ -202,6 +205,7 @@ public class ProfilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
                 profilvm.updateEmail(user.getUid(), name);
+                recreate();
             }
         });
         AlertDialog dialog = alert.create();

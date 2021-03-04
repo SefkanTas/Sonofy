@@ -42,7 +42,6 @@ public class EmotionMainProfileAdapter extends RecyclerView.Adapter<EmotionMainP
     @Override
     public void onBindViewHolder(@NonNull EmotionMainProfileViewHolder holder, int position) {
         Emotion emotion = emotions.get(position);
-        AtomicReference<String> groupId = new AtomicReference<>("erreur");
         switch (emotion.getEmotion()){
             case "veryHappy":
                 holder.emotion_user.setImageResource(R.drawable.ic_baseline_sentiment_very_satisfied_24);
@@ -59,35 +58,31 @@ public class EmotionMainProfileAdapter extends RecyclerView.Adapter<EmotionMainP
             default:
                 holder.emotion_user.setImageResource(R.drawable.ic_baseline_error_outline_24);
         }
-        UserFirestore.getUser(emotion.getUserId()).addOnSuccessListener(documentSnapshot -> {
-            User user = documentSnapshot.toObject(User.class);
-            if(user.getPseudo() != null){
-                holder.username_emotion.setText(user.getPseudo());
-            }
-            else {
-                holder.username_emotion.setText("anonymous");
-            }
-        });
         PublicationFirestore.getPublicationById(emotion.getPublicationId()).addOnSuccessListener(documentSnapshot -> {
             Publication publication = documentSnapshot.toObject(Publication.class);
+            assert publication != null;
             if(publication.getTitre() != null){
-                holder.publication_name.setText(publication.getTitre());
-                groupId.set(publication.getGroupId());
-                Log.d("Emotion group id "," suivant "+groupId);
+                String s = "Publication : " + publication.getTitre();
+                holder.publication_name.setText(s);
+                groupName(holder, publication.getGroupId());
             }else{
                 String erreur = "Erreur";
                 holder.publication_name.setText(erreur);
             }
         });
+    }
+
+    //Permet de recupérer le nom du groupe pour l'affichage
+    public void groupName(@NonNull EmotionMainProfileViewHolder holder, String groupId){
         if(groupId != null) {
-            Log.d("Je suis "," la à groupid !=null");
-            GroupeFirestore.getGroupWithId(groupId.get()).addOnSuccessListener(documentSnapshot -> {
+            GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
                 Groupe groupe = documentSnapshot.toObject(Groupe.class);
-                Log.d("nom du groupe "," suivant "+groupe.getName());
+                assert groupe != null;
                 if (groupe.getName() != null) {
-                    holder.group_name.setText(groupe.getName());
+                    String group = "Groupe : " + groupe.getName();
+                    holder.group_name.setText(group);
                 } else {
-                    holder.group_name.setText(groupId.get());
+                    holder.group_name.setText(groupId);
                 }
             });
         }

@@ -37,7 +37,6 @@ public class MainProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_profil);
-
         ProfilViewModel profilViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
 
         user = FirebaseAuth.getInstance();
