@@ -11,12 +11,14 @@ import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -119,6 +121,17 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
+        authorUsernameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String test = authorUsernameTextView.getText().toString().substring(1);
+                Log.i("Clique auteur : ", "l'id est "+ publication.getAuthorId());
+                Log.i("clic auteur","le current iduser : "+userc.getUserId());
+                Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
+                //intent.putExtra("userPseudo", authorUsernameTextView.getText());
+                startActivity(intent);
+            }
+        });
 //        publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
 //            @Override
 //            public void onChanged(List<Commentaire> commentaires) {
