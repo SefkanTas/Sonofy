@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 
 public class EmotionMainProfileAdapter extends RecyclerView.Adapter<EmotionMainProfileAdapter.EmotionMainProfileViewHolder>{
 
@@ -68,6 +70,15 @@ public class EmotionMainProfileAdapter extends RecyclerView.Adapter<EmotionMainP
             }else{
                 String erreur = "Erreur";
                 holder.publication_name.setText(erreur);
+            }
+        });
+
+        holder.emotion_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(v.getContext(), MainProfilActivity.class);
+                intent.putExtra("userID", emotion.getUserId());
+                v.getContext().startActivity(intent);
             }
         });
     }

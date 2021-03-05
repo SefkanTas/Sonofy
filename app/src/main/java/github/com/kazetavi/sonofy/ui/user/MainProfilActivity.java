@@ -32,7 +32,6 @@ public class MainProfilActivity extends AppCompatActivity {
     private TextView pseudo_user;
     private User donnesUser;
     private String id;
-    private Button retour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class MainProfilActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         resultats.setLayoutManager(layoutManager);
 
-        retour = findViewById(R.id.retour2);
+        Button retour = findViewById(R.id.retour2);
         ImageButton home = findViewById(R.id.home_page);
         resultats = findViewById(R.id.publication_user);
         ImageButton modification = findViewById(R.id.imageEdit);
@@ -64,10 +63,11 @@ public class MainProfilActivity extends AppCompatActivity {
         if(res != null){
             id = res;
             String pub = "Publications";
-            String emo = "Emotions";
+            //String emo = "Emotions";
             modification.setVisibility(View.GONE);
             mesPublications.setText(pub);
-            mesEmotions.setText(emo);
+            mesEmotions.setVisibility(View.GONE);
+            //mesEmotions.setText(emo);
         }
         profilViewModel.getUserMutableLiveData().observe(this , new Observer<User>() {
             @Override
