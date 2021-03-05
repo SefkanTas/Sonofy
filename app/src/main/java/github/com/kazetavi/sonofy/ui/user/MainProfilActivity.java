@@ -31,15 +31,21 @@ public class MainProfilActivity extends AppCompatActivity {
     private TextView id_user;
     private TextView pseudo_user;
     private User donnesUser;
-    private FirebaseAuth user;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_profil);
+
         ProfilViewModel profilViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
 
-        user = FirebaseAuth.getInstance();
+        final Intent intent = getIntent();
+        final String res = intent.getStringExtra("userID");
+
+        FirebaseAuth user = FirebaseAuth.getInstance();
+        id = user.getUid();
+
         resultats = findViewById(R.id.publication_user);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         resultats.setLayoutManager(layoutManager);
@@ -52,6 +58,15 @@ public class MainProfilActivity extends AppCompatActivity {
         Button mesPublications = findViewById(R.id.button_publication_user);
         Button mesEmotions = findViewById(R.id.button_emotion_user);
 
+        //On vérifie quel profil on doit afficher
+        if(res != null){
+            id = res;
+            String pub = "Publications";
+            String emo = "Emotions";
+            modification.setVisibility(View.GONE);
+            mesPublications.setText(pub);
+            mesEmotions.setText(emo);
+        }
         profilViewModel.getUserMutableLiveData().observe(this , new Observer<User>() {
             @Override
             public void onChanged(User user) {
@@ -63,7 +78,7 @@ public class MainProfilActivity extends AppCompatActivity {
             }
         });
 
-        profilViewModel.getUser(user.getCurrentUser().getUid());
+        profilViewModel.getUser(id);
 
         profilViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
             @Override
@@ -82,7 +97,7 @@ public class MainProfilActivity extends AppCompatActivity {
         });
 
         //Permet d'afficher les publications de l'utilisateur courant directement
-        profilViewModel.loadPublicationsAuthor(user.getUid());
+        profilViewModel.loadPublicationsAuthor(id);
 
         //Retour à la liste des groupes --> à modifier lorsque la page d'accueil sera OK
         home.setOnClickListener(new View.OnClickListener() {
@@ -105,14 +120,14 @@ public class MainProfilActivity extends AppCompatActivity {
         mesPublications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profilViewModel.loadPublicationsAuthor(user.getUid());
+                profilViewModel.loadPublicationsAuthor(id);
             }
         });
 
         mesEmotions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profilViewModel.loadEmotionsAuthor(user.getUid());
+                profilViewModel.loadEmotionsAuthor(id);
             }
         });
     }

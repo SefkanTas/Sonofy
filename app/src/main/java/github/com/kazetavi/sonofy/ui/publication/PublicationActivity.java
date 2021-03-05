@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Commentaire;
 import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -26,7 +27,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -103,17 +106,19 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
-        uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                authorUsernameTextView.setText("@" + user.getPseudo());
-            }
-        });
-
         publicationViewModel.getPublicationLiveData().observe(this, new Observer<Publication>() {
             @Override
             public void onChanged(Publication publicationLiveData) {
                 publication = publicationLiveData;
+                UserFirestore.getUser(publication.getAuthorId()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        User user = documentSnapshot.toObject(User.class);
+                        String res = "@" + user.getPseudo();
+                        authorUsernameTextView.setText(res);
+                        intent.putExtra("userId", user.getUserId());
+                    }
+                });
                 Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
                 titreTextView.setText(publication.getTitre());
                 likeCountTextView.setText(publication.getLikeCount().toString());
@@ -124,12 +129,9 @@ public class PublicationActivity extends AppCompatActivity {
         authorUsernameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String test = authorUsernameTextView.getText().toString().substring(1);
-                Log.i("Clique auteur : ", "l'id est "+ publication.getAuthorId());
-                Log.i("clic auteur","le current iduser : "+userc.getUserId());
-                Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
-                //intent.putExtra("userPseudo", authorUsernameTextView.getText());
-                startActivity(intent);
+                Intent intent2 = new Intent(getBaseContext(), MainProfilActivity.class);
+                intent2.putExtra("userID", intent.getStringExtra("userId"));
+                startActivity(intent2);
             }
         });
 //        publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
@@ -149,6 +151,8 @@ public class PublicationActivity extends AppCompatActivity {
 //                commentaireEditText.setText("");
 //            }
 //        });
+
+       // Log.i("test extra : ", intent.getStringExtra("userId"));
 
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,5 +209,4 @@ public class PublicationActivity extends AppCompatActivity {
             publicationViewModel.addEmotion("verySad");
         });
     }
-
 }
