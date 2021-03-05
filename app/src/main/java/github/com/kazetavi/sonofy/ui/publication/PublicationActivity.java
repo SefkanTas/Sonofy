@@ -8,20 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
-import github.com.kazetavi.sonofy.data.model.Commentaire;
-import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,10 +26,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class PublicationActivity extends AppCompatActivity {
 

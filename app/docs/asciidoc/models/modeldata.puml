@@ -28,6 +28,8 @@ package app{
                 + getCollection() : CollectionReference
                 + getCollectionQueryDesc() : Query
                 + getGroup(nom : String): Task<QuerySnapshot>
+                + getGroupWithId(uid : String): Task<DocumentSnapshot>
+                + searchByGroupe(groupe : String): Query
                 + create(groupe : Groupe): Task<DocumentReference>
             }
 
@@ -43,9 +45,22 @@ package app{
                 + createPublication( publication : Publication) : Task<DocumentReference>
                 + getAllPublications() : Task<QuerySnapshot>
                 + getAllPublicationsDesc() : Query
+                + getAllPublicationsDesc() : Task<QuerySnapshot>
+                + getAllPublicationsCollectionTitre() : Query
+                + getAllPublicationsCollectionTitreByGroupe(groupId : String): Query
+                + getAllPublicationsTitre() : Task<QuerySnapshot>
+                + getAllPublicationsCollectionLike() : Query
+                + getAllPublicationsCollectionLikeByGroup(groupId : String) : Query
+                + getAllPublicationsLike() : Task<QuerySnapshot>
                 + getPublicationRef( uid : String) : DocumentReference
                 + getPublicationRef( publication : Publication) : DocumentReference
                 + getPublication(uid : String) : Task<DocumentSnapshot>
+                + getPublicationsByGroup(groupeId : String): Query
+                + getPublicationByAuthorId(authorId : String): Query
+                + getPublicationById(id : String): Task<DocumentSnapshot>
+
+                + searchByTitle(title : String): Query
+                + searchByTitleAndGroupe(title : String, groupeId : String): Query
 
                 + updateTitre(uid : String, titre : String) : Task<Void>
                 + updateTitre(publication : Publication, titre : String) : Task<Void>

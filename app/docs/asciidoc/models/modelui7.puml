@@ -33,23 +33,36 @@ package app{
                  - commentaireEditText: EditText
                  - publication: Publication
                  - commentaireRecyclerView: RecyclerView
+                 - emotionRecyclerView: RecyclerView
                  - adapter:  RecyclerView.Adapter
                  - userc : User
                  - currentUser : FirebaseAuth
                  - pseudoU : String
+                 - veryHappyCountTV : TextView
+                 - happyCountTV : TextView
+                 - sadCountTV : TextView
+                 - verySadCountTV : TextView
 
                  + onCreate(savedInstanceState : Bundle): void
           }
 
           class PublicationViewModel extends ViewModel{
-              - publication: MutableLiveData<Publication>
+              - publicationLiveData: MutableLiveData<Publication>
               - commentaires: MutableLiveData<List<Commentaire>>
+              - emotionsLiveData : MutableLiveData<List<Emotion>>
+              - authorUserLiveData: MutableLiveData<User>
+              - currentUserLiveData: MutableLiveData<User>
 
               + getPublication(): MutableLiveData<Publication>
               + getCommentaires(): MutableLiveData<List<Commentaire>>
+              + getEmotionsLiveData() : MutableLiveData<List<Emotion>>
+              + getAuthorUserLiveData(): MutableLiveData<User>
               + loadPublication(publicationId : String): void
-              + loadCommentaires(publicationId : String): void
-              + createCommentaires(publicationId : String, content : String): void
+              + loadEmotions(publicationId : String): void
+              + loadAuthorUser(publication : Publication): void
+              + loadCurrentUser(userId : String): void
+              + removeOldEmotion(userId : String, publicationId : String, newEmotionId : String): void
+              + addEmotion(emotionName: String): void
           }
       }
    }

@@ -16,10 +16,10 @@ package app{
 
           class MainViewModel extends ViewModel{
                - publications : MutableLiveData<List<Publication>>
-               - groupeMutableLiveData : MutableLiveData<List<Groupe>>
+               - groupeMutableLiveData : MutableLiveData<Groupe>
 
                + getPublications() : MutableLiveData<List<Publication>>
-               + getGroupeMutableLiveData() : MutableLiveData<List<Groupe>>
+               + getGroupeMutableLiveData() : MutableLiveData<Groupe>
                + getGroupe(uid : String) : void
                + loadPublicationsTitre() : void
                + loadPublicationsDate(): void
