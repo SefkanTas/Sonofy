@@ -152,8 +152,6 @@ public class PublicationActivity extends AppCompatActivity {
 //            }
 //        });
 
-       // Log.i("test extra : ", intent.getStringExtra("userId"));
-
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

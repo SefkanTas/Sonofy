@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow4"
-        android:layout_width="408dp"
-        android:layout_height="123dp"
+        android:layout_width="437dp"
+        android:layout_height="120dp"
         android:background="#EDEAEA"
         app:constraint_referenced_ids="imageEdit,np_user,p_user"
         app:layout_constraintBottom_toTopOf="@+id/publication_user"
@@ -25,7 +25,7 @@
         android:layout_width="413dp"
         android:layout_height="65dp"
         android:background="@color/colorPrimaryDark"
-        app:constraint_referenced_ids="home_page"
+        app:constraint_referenced_ids="home_page,retour2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,5 +111,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_publication_user"
         app:layout_constraintTop_toBottomOf="@+id/flow4" />
+
+    <Button
+        android:id="@+id/retour2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:text="Retour"
+        app:layout_constraintBottom_toBottomOf="@+id/barre_b"
+        app:layout_constraintEnd_toStartOf="@+id/home_page"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/barre_b" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
