@@ -15,6 +15,7 @@ import github.com.kazetavi.sonofy.business.SoundcloudPublicationFactory;
 import github.com.kazetavi.sonofy.business.YoutubePublicationFactory;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -65,27 +66,18 @@ public class AddPublicationViewModel extends ViewModel {
     public void addPublication(final String titre, final String sourceUrl, final String groupId){
         isLoading.postValue(true);
 
-        YoutubePublicationFactory youtubePublicationFactory = new YoutubePublicationFactory();
+        //YoutubePublicationFactory youtubePublicationFactory = new YoutubePublicationFactory();
         SoundcloudPublicationFactory soundcloudPublicationFactory = new SoundcloudPublicationFactory();
         ////
-        final String videoId = youtubePublicationFactory.getVideoIdFromUrl(sourceUrl);
-        final String authorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //final String videoId = youtubePublicationFactory.getVideoIdFromUrl(sourceUrl);
+        //final String authorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final String soundcloudVideoId = soundcloudPublicationFactory.getVideoIdFromUrl(sourceUrl);
         final String soundcloudAuthorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        soundcloudPublicationFactory.ressourceExists(videoId)
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean videoExists) throws Throwable {
-                        if(videoExists) savePublication(titre, videoId, groupId, authorId);
-                        else isPublicationSaved.postValue(false);
-                        isLoading.postValue(false);
-                    }
-                });
+        if(!soundcloudVideoId.isEmpty()) savePublication(titre, soundcloudVideoId, groupId, soundcloudAuthorId);
 
-        youtubePublicationFactory.ressourceExists(videoId)
-                .subscribeOn(Schedulers.io())
+        /*youtubePublicationFactory.ressourceExists(videoId)
+                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean videoExists) throws Throwable {
@@ -97,7 +89,7 @@ public class AddPublicationViewModel extends ViewModel {
                         }
                     isLoading.postValue(false);
                     }
-                });
+                });*/
 
     }
 }
