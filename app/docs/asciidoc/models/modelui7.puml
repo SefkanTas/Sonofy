@@ -16,14 +16,51 @@ package app{
                 + onBindViewHolder(holder: @NonNull final CommentaireViewHolder , position: int): void
                 + getItemCount(): int
 
-                static class CommentaireViewHolder extends RecyclerView.ViewHolder{
+                - Class CommentaireViewHolder extends RecyclerView.ViewHolder
                      commentaireTextView : TextView
                      usernameTextView : TextView
 
                      + this : (itemView : View)
-                }
+
           }
 
+          class EmotionAdapater extends RecyclerView.Adapter {
+                 - emotions: List<Emotion>
+
+                 + this: (emotions : List<Emotion>)
+
+                 + onCreateViewHolder(parent :@NonNull ViewGroup, viewType: int): EmotionViewHolder
+                 + onBindViewHolder(holder: @NonNull final EmotionViewHolder , position: int): void
+                 + getItemCount(): int
+
+                 static class EmotionViewHolder extends RecyclerView.ViewHolder
+                         emotionIV : ImageView
+                         usernameTV : TextView
+
+                       + this : (itemView : View)
+
+          }
+
+          class EmotionMainProfileAdapater extends RecyclerView.Adapter {
+                 - emotions: List<Emotion>
+
+                 + this: (emotions : List<Emotion>)
+
+                 + onCreateViewHolder(parent :@NonNull ViewGroup, viewType: int): EmotionMainProfileViewHolder
+                 + onBindViewHolder(holder: @NonNull final EmotionMainProfileViewHolder , position: int): void
+                 + groupName(holder : EmotionMainProfileViewHolder, groupId : String): void
+                 + getItemCount(): int
+
+                 - Class EmotionMainProfileViewHolder extends RecyclerView.ViewHolder
+                         emotion_user : ImageView
+                         username_emotion : TextView
+                         publication_name : TextView
+                         group_name : TextView
+
+                       + this : (itemView : View)
+
+
+          }
 
           class PublicationActivtiy extends AppCompatActivity{
                  - titreTextView: TextView
@@ -64,6 +101,6 @@ package app{
               + removeOldEmotion(userId : String, publicationId : String, newEmotionId : String): void
               + addEmotion(emotionName: String): void
           }
-      }
-   }
+
+
 @enduml

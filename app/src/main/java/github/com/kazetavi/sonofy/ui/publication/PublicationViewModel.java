@@ -11,8 +11,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.xmlpull.v1.XmlPullParser;
-
 import java.util.ArrayList;
 import java.util.List;
 

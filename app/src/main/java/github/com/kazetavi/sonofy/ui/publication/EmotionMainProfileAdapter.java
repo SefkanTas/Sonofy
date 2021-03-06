@@ -13,16 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
-import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 
 public class EmotionMainProfileAdapter extends RecyclerView.Adapter<EmotionMainProfileAdapter.EmotionMainProfileViewHolder>{

@@ -63,11 +63,11 @@ public class MainProfilActivity extends AppCompatActivity {
         if(res != null){
             id = res;
             String pub = "Publications";
-            //String emo = "Emotions";
+            String emo = "Emotions";
             modification.setVisibility(View.GONE);
             mesPublications.setText(pub);
-            mesEmotions.setVisibility(View.GONE);
-            //mesEmotions.setText(emo);
+            //mesEmotions.setVisibility(View.GONE);
+            mesEmotions.setText(emo);
         }
         profilViewModel.getUserMutableLiveData().observe(this , new Observer<User>() {
             @Override

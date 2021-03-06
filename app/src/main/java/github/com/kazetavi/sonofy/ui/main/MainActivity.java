@@ -24,7 +24,6 @@ import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
-import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
 import github.com.kazetavi.sonofy.ui.search.SearchActivityPublication;
 
 

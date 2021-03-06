@@ -20,6 +20,25 @@ package app{
                 + create(commentaire : Commentaire) : Task<DocumentReference>
             }
 
+            class EmotionFirestore{
+                - COLLECTION_NAME : String
+                + EMOTION : String
+                + USER_ID : String
+                + PUBLICATION_ID : String
+                + DATE_CREATED : String
+
+                + getCollection() : CollectionReference
+                + getAllEmotionsCollectionDesc() : Query
+                + getRef(uid : String): DocumentReference
+                + create(emotion : Emotion) : Task<DocumentReference>
+                + get(uid : String): Task<DocumentReference>
+                + getByPublication(publicationId : String): Query
+                + getEmotionBuAuthorId(authorId : String): Query
+                + delete(uid : String): Task<Void>
+                + deleteByUserAndPublication(userId : String, publicationId :String, newEmotionId): Task<QuerySnapshot>
+            }
+
+
             class GroupeFirestore{
                 - COLLECTION_NAME : String
                 + NAME : String
@@ -40,6 +59,8 @@ package app{
                 + DATE_CREATED : String
                 + TITRE : String
                 + VIDEO_ID : String
+                + GROUP_ID : String
+                + AUTHOR_ID : String
 
                 + getPublicationsCollection() : CollectionReference
                 + createPublication( publication : Publication) : Task<DocumentReference>
@@ -72,6 +93,7 @@ package app{
                 + incrementDislike( publication : Publication) : Task<Void>
                 + deletePublication( uid : String) : Task<Void>
             }
+
 
             class UserFirestore{
                  - COLLECTION_NAME : String
@@ -127,6 +149,24 @@ package app{
                 + getDateCreated() : Date
                 + setDateCreated(datecreated : Date) : void
                 + getUsername() : String
+            }
+
+
+            class Emotion{
+                - uid :String
+                - emotion : String
+                - userId : String
+                - publicationId : String
+                - dateCreated : Timestamp
+
+                + this : ()
+                + this : (emotion : String, userId : String, publicationId : String)
+
+                + getUid() : String
+                + getEmotion() : String
+                + getUserId() :String
+                + getPublicationId() : String
+                + getDateCreated() : Timestamp
             }
 
             class Groupe{
