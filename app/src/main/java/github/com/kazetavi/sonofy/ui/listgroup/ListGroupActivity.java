@@ -20,7 +20,7 @@ import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 
 
@@ -77,7 +77,7 @@ public class ListGroupActivity extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ProfilActivity.class);
+                Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
                 startActivity(intent);
             }
         });

@@ -27,8 +27,8 @@ public class PublicationViewModel extends ViewModel {
     private final MutableLiveData<Publication> publicationLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<Commentaire>> commentaires = new MutableLiveData<>();
     private final MutableLiveData<List<Emotion>> emotionsLiveData = new MutableLiveData<>();
-    private MutableLiveData<User> authorUserLiveData = new MutableLiveData<>();
-    private MutableLiveData<User> currentUserLiveData = new MutableLiveData<>();
+    private final MutableLiveData<User> authorUserLiveData = new MutableLiveData<>();
+    private final MutableLiveData<User> currentUserLiveData = new MutableLiveData<>();
 
     public MutableLiveData<Publication> getPublicationLiveData() {
         return publicationLiveData;

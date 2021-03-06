@@ -7,29 +7,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.model.Commentaire;
-import github.com.kazetavi.sonofy.data.model.Emotion;
+import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class PublicationActivity extends AppCompatActivity {
 
@@ -48,15 +44,9 @@ public class PublicationActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private User userc;
-    private FirebaseAuth currentUser;
 
     private String pseudoU;
 
-
-    private ImageView veryHappyEmotionIV;
-    private ImageView happyEmotionIV;
-    private ImageView sadEmotionIV;
-    private ImageView verySadEmotionIV;
 
     private TextView veryHappyCountTV;
     private TextView happyCountTV;
@@ -70,7 +60,7 @@ public class PublicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_publication);
 
         ProfilViewModel uservm = new ViewModelProvider(this).get(ProfilViewModel.class);
-        currentUser = FirebaseAuth.getInstance();
+        FirebaseAuth currentUser = FirebaseAuth.getInstance();
 
         titreTextView = findViewById(R.id.titrePublicationTextView2);
         miniatureImageView = findViewById(R.id.miniaturePublicationImageView2);
@@ -107,17 +97,19 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
-        uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                authorUsernameTextView.setText("@" + user.getPseudo());
-            }
-        });
-
         publicationViewModel.getPublicationLiveData().observe(this, new Observer<Publication>() {
             @Override
             public void onChanged(Publication publicationLiveData) {
                 publication = publicationLiveData;
+                UserFirestore.getUser(publication.getAuthorId()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        User user = documentSnapshot.toObject(User.class);
+                        String res = "@" + user.getPseudo();
+                        authorUsernameTextView.setText(res);
+                        intent.putExtra("userId", user.getUserId());
+                    }
+                });
                 Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
                 titreTextView.setText(publication.getTitre());
                 likeCountTextView.setText(publication.getLikeCount().toString());
@@ -125,6 +117,14 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
+        authorUsernameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getBaseContext(), MainProfilActivity.class);
+                intent2.putExtra("userID", intent.getStringExtra("userId"));
+                startActivity(intent2);
+            }
+        });
 //        publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
 //            @Override
 //            public void onChanged(List<Commentaire> commentaires) {
@@ -152,10 +152,10 @@ public class PublicationActivity extends AppCompatActivity {
         });
 
 
-        veryHappyEmotionIV = findViewById(R.id.veryHappyEmotion);
-        happyEmotionIV = findViewById(R.id.happyEmotion);
-        sadEmotionIV = findViewById(R.id.sadEmotion);
-        verySadEmotionIV = findViewById(R.id.verySadEmotion);
+        ImageView veryHappyEmotionIV = findViewById(R.id.veryHappyEmotion);
+        ImageView happyEmotionIV = findViewById(R.id.happyEmotion);
+        ImageView sadEmotionIV = findViewById(R.id.sadEmotion);
+        ImageView verySadEmotionIV = findViewById(R.id.verySadEmotion);
 
         veryHappyCountTV = findViewById(R.id.veryHappyCountTV);
         happyCountTV = findViewById(R.id.happyCountTV);
@@ -198,5 +198,4 @@ public class PublicationActivity extends AppCompatActivity {
             publicationViewModel.addEmotion("verySad");
         });
     }
-
 }
