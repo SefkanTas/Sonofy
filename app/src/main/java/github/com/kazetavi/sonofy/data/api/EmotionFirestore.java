@@ -35,10 +35,25 @@ public class EmotionFirestore {
         return getRef(uid).get();
     }
 
+    public static Task<QuerySnapshot> getAll(){
+        return getCollection().get();
+    }
+
     public static Query getByPublication(String publicationId){
         return getCollection()
                 .whereEqualTo(PUBLICATION_ID, publicationId)
                 .orderBy(DATE_CREATED, Query.Direction.DESCENDING);
+    }
+
+    public static Query getByUser(String userId){
+        return getCollection()
+                .whereEqualTo(USER_ID, userId);
+    }
+
+    public static Task<QuerySnapshot> getByUser2(String userId){
+        return getCollection()
+                .whereEqualTo(USER_ID, userId)
+                .get();
     }
 
     public static Task<Void> delete(String uid) {
