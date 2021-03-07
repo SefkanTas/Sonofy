@@ -20,6 +20,7 @@ import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
+import github.com.kazetavi.sonofy.ui.recommandation.RecommandationActivity;
 import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 
@@ -29,6 +30,7 @@ public class ListGroupActivity extends AppCompatActivity {
 
     private RecyclerView groupeRecyclerView;
     private RecyclerView.Adapter adapter;
+    private Button recommandationButton;
 
 
     @Override
@@ -39,6 +41,7 @@ public class ListGroupActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logoutButton);
         FloatingActionButton addGroupButton = findViewById(R.id.addGroupButton);
         Button profil = findViewById(R.id.button_p);
+        recommandationButton = findViewById(R.id.button_recommandation);
         groupeRecyclerView = findViewById(R.id.groupeRecyclerView);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -88,6 +91,11 @@ public class ListGroupActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), SearchActivity.class);
                 startActivity(intent);
             }
+        });
+
+        recommandationButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getBaseContext(), RecommandationActivity.class);
+            startActivity(intent);
         });
 
         viewModel.loadGroupes();

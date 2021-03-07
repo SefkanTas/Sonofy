@@ -60,10 +60,10 @@
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/barre"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="65dp"
         android:background="@color/colorPrimaryDark"
-        app:constraint_referenced_ids="button_p,addGroupButton,search_activity_group"
+        app:constraint_referenced_ids="button_p,button_recommandation,addGroupButton,search_activity_group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -74,6 +74,16 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         android:text="Mon profil"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/barre"
+        app:layout_constraintTop_toTopOf="@+id/barre" />
+
+    <Button
+        android:id="@+id/button_recommandation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Pour moi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/barre"
         app:layout_constraintTop_toTopOf="@+id/barre" />

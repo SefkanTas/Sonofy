@@ -103,8 +103,8 @@
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow2"
-        android:layout_width="411dp"
-        android:layout_height="56dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         app:constraint_referenced_ids="profil_button,search_activity_pub,newPublicationButton"
         app:layout_constraintBottom_toBottomOf="parent"
