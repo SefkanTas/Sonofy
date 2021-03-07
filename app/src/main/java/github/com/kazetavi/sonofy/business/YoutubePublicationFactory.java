@@ -23,7 +23,7 @@ public class YoutubePublicationFactory {
 
         final OkHttpClient client = new OkHttpClient();
 
-        String videoUrl = "https://i.ytimg.com/vi/" + ressourceId + "/mqdefault.jpg";
+       String videoUrl = "https://i.ytimg.com/vi/" + ressourceId + "/mqdefault.jpg";
 
         final Request request = new Request.Builder()
                 .url(videoUrl)
