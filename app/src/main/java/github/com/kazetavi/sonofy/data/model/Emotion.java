@@ -42,4 +42,16 @@ public class Emotion {
     public Timestamp getDateCreated() {
         return dateCreated;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Emotion{");
+        sb.append("uid='").append(uid).append('\'');
+        sb.append(", emotion='").append(emotion).append('\'');
+        sb.append(", userId='").append(userId).append('\'');
+        sb.append(", publicationId='").append(publicationId).append('\'');
+        sb.append(", dateCreated=").append(dateCreated);
+        sb.append('}');
+        return sb.toString();
+    }
 }
