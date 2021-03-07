@@ -23,6 +23,10 @@ public class EmotionFirestore {
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
 
+    public static Query getAllEmotionsCollectionDesc(){
+        return EmotionFirestore.getCollection().orderBy(DATE_CREATED, Query.Direction.DESCENDING);
+    }
+
     public static DocumentReference getRef(String uid){
         return getCollection().document(uid);
     }
@@ -45,15 +49,14 @@ public class EmotionFirestore {
                 .orderBy(DATE_CREATED, Query.Direction.DESCENDING);
     }
 
-    public static Query getByUser(String userId){
-        return getCollection()
-                .whereEqualTo(USER_ID, userId);
-    }
-
-    public static Task<QuerySnapshot> getByUser2(String userId){
+    public static Task<QuerySnapshot> getByUser(String userId){
         return getCollection()
                 .whereEqualTo(USER_ID, userId)
                 .get();
+    }
+    public static Query getEmotionByAuthorId(String authorId){
+        return EmotionFirestore.getAllEmotionsCollectionDesc()
+                .whereEqualTo(USER_ID, authorId);
     }
 
     public static Task<Void> delete(String uid) {

@@ -39,7 +39,7 @@ public class RecommandationViewModel extends ViewModel {
         List<Emotion> emotionList = new ArrayList<>();
         this.userId = userId;
 
-        EmotionFirestore.getByUser2(userId).addOnSuccessListener(queryDocumentSnapshots -> {
+        EmotionFirestore.getByUser(userId).addOnSuccessListener(queryDocumentSnapshots -> {
             queryDocumentSnapshots.getDocuments()
                     .forEach(doc -> emotionList.add(doc.toObject(Emotion.class)));
             getUserReactedPublication(emotionList);

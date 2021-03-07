@@ -26,16 +26,35 @@ package app{
                         + boutonModEmail(v : View): void
                 }
 
+                class MainProfileActivity extends AppCompatActivity{
+                        - resultats : RecyclerView
+                        - adapter : RecyclerView.Adapter
+                        - adapter2 : RecyclerView.Adapter
+                        - id_user : TextView
+                        - pseudo_user : TextView
+                        - donnesUser : User
+                        - id : String
+
+                        + onCreate(savedInstanceState : Bundle): void
+                }
+
                 class ProfilViewModel extends ViewModel{
                         - TAG : String
                         - userMutableLiveData : MutableLiveData<User>
+                        - emotionsLiveData: MutableLiveData<List<Emotion>>
+                        - publications : MutableLiveData<List<Publication>>
 
                         + getUserMutableLiveData() : MutableLiveData<User>
+                        + getEmotionsLiveData() : MutableLiveData<List<Emotion>>
+                        + getPublications(): MutableLiveData<List<Publication>>
+
                         + updatePrenom(uid : String, prenom : String) : void
                         + updatePseudo(uid : String, pseudo : String) : void
                         + updateEmail(uid : String, email : String) : void
                         + updateNom(uid : String, nom : String) : void
                         + getUser(uid : String) : void
+                        + loadPublicationsAuthor(authorId : String): void
+                        + loadEmotionsAuthor(authorId : String): void
                 }
             }
         }
