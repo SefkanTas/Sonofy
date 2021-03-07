@@ -38,6 +38,10 @@ public class User {
         return userId;
     }
 
+    private void setUserId(String userId){
+        this.userId = userId;
+    }
+
     public String getDisplayName() {
         return getPrenom() + " " + getNom();
     }
