@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.register.RegisterActivity;
 
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
+            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d(TAG, "signInWithEmail:success");
                     Toast.makeText(LoginActivity.this, "Authentication réussie",
                             Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getBaseContext(), ListGroupActivity.class));
+                    startActivity(new Intent(getBaseContext(), HomeActivity.class));
                 }else{
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.getException());

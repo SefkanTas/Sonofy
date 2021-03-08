@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.data.model.Groupe;
+import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.addpublication.AddPublicationActivity;
 import github.com.kazetavi.sonofy.R;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         
         final Intent intent = getIntent();
         final String groupeId = intent.getStringExtra("GROUPE_ID");
-
+        ImageButton home = findViewById(R.id.home_page4);
         Button sortTitre = findViewById(R.id.sortByTitre);
         Button sortDate = findViewById(R.id.sortByDate);
         Button sortLike = findViewById(R.id.sortByLike);
@@ -128,6 +130,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                 startActivity(intent);
             }
         });
