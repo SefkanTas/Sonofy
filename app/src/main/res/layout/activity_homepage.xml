@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.homepage.HomeActivity">
 
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/logout1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        app:constraint_referenced_ids="logout"
+        app:constraint_referenced_ids="logout1"
         app:flow_horizontalStyle="spread_inside"
         app:flow_verticalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/publicationRecyclerView"
+        android:id="@+id/publicationRecyclerView1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:layout_constraintTop_toBottomOf="@+id/logout1"
         app:layout_constraintVertical_bias="1.0" />
 
 
@@ -58,14 +58,14 @@
         android:layout_width="411dp"
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
-        app:constraint_referenced_ids="profil_button"
+        app:constraint_referenced_ids="profil_button1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/profil_button"
+        android:id="@+id/profil_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="49dp"
