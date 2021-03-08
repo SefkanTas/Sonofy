@@ -13,6 +13,7 @@
         <activity android:name=".ui.recommandation.RecommandationActivity"/>
         <activity android:name=".ui.user.MainProfilActivity"/>
         <activity android:name=".ui.user.ProfilActivity" />
+        <activity android:name=".ui.homepage.HomeActivity" />
         <activity android:name=".ui.addgroup.AddGroupActivity" />
         <activity android:name=".ui.listgroup.ListGroupActivity" />
         <activity android:name=".ui.register.RegisterActivity" />

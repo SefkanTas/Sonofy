@@ -22,6 +22,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/recommendation1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:text="Recommandation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout1" />
+
+    <Button
+        android:id="@+id/listeGroupe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:text="Liste des groupes"
+        app:layout_constraintStart_toEndOf="@+id/recommendation1"
+        app:layout_constraintTop_toBottomOf="@+id/logout1" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Les publications les plus récentes"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/listeGroupe"
+        tools:ignore="MissingConstraints" />
+
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flow"
         android:layout_width="0dp"
@@ -29,7 +63,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        app:constraint_referenced_ids="logout1"
+        app:constraint_referenced_ids=""
         app:flow_horizontalStyle="spread_inside"
         app:flow_verticalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout1"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
         app:layout_constraintVertical_bias="1.0" />
 
 
@@ -68,10 +102,10 @@
         android:id="@+id/profil_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Mon profil"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/flow2"
         app:layout_constraintStart_toStartOf="@+id/flow2"
         app:layout_constraintTop_toTopOf="@+id/flow2" />
 
