@@ -20,6 +20,7 @@ import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 import github.com.kazetavi.sonofy.ui.recommandation.RecommandationActivity;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
 
 public class HomeActivity extends AppCompatActivity {
@@ -71,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ProfilActivity.class);
+                Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
                 startActivity(intent);
             }
         });
