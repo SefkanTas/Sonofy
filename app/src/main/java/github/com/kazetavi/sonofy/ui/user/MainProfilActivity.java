@@ -61,7 +61,7 @@ public class MainProfilActivity extends AppCompatActivity {
         Button mesEmotions = findViewById(R.id.button_emotion_user);
 
         //On vérifie quel profil on doit afficher
-        if(res != null){
+        if(!res.equals(user.getUid()) && res != null ){
             id = res;
             String pub = "Publications";
             String emo = "Emotions";
