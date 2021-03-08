@@ -43,7 +43,6 @@ public class ListGroupActivity extends AppCompatActivity {
         Button logoutButton = findViewById(R.id.logoutButton);
         FloatingActionButton addGroupButton = findViewById(R.id.addGroupButton);
         Button profil = findViewById(R.id.button_p);
-        recommandationButton = findViewById(R.id.button_recommandation);
         groupeRecyclerView = findViewById(R.id.groupeRecyclerView);
         ImageButton home = findViewById(R.id.home_page1);
 
@@ -96,10 +95,6 @@ public class ListGroupActivity extends AppCompatActivity {
             }
         });
 
-        recommandationButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getBaseContext(), RecommandationActivity.class);
-            startActivity(intent);
-        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
