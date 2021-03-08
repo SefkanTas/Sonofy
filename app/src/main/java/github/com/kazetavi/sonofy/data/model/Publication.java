@@ -85,7 +85,7 @@ public class Publication {
 
     ////soundcloud link => image
     @Exclude
-    public String getVideoUrl(){
+    public String getVideoUrlYoutube(){
         return new StringBuilder("https://www.youtube.com/watch?v=")
                 .append(this.videoId)
                 .toString();
