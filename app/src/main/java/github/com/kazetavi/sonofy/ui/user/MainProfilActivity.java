@@ -21,6 +21,7 @@ import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 import github.com.kazetavi.sonofy.ui.publication.EmotionMainProfileAdapter;
@@ -105,7 +106,7 @@ public class MainProfilActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                 startActivity(intent);
             }
         });

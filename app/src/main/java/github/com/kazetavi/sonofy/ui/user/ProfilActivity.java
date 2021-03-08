@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 
 public class ProfilActivity extends AppCompatActivity {
@@ -106,7 +107,7 @@ public class ProfilActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ListGroupActivity.class);
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

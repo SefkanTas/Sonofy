@@ -106,11 +106,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        app:constraint_referenced_ids="profil_button,search_activity_pub,newPublicationButton"
+        app:constraint_referenced_ids="profil_button,home_page4,search_activity_pub,newPublicationButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_page4"
+        android:layout_width="68dp"
+        android:layout_height="59dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logoutButton"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_home_24"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/profil_button"
