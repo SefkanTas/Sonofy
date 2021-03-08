@@ -82,6 +82,7 @@ public class Publication {
                 .toString();
     }
 
+
     ////soundcloud link => image
     @Exclude
     public String getVideoUrl(){
@@ -90,7 +91,11 @@ public class Publication {
                 .toString();
     }
     ////soundcloud link => video
-
+    public String getVideoUrlSoundCloud(){
+     return new StringBuilder("https://soundcloud.com/")
+                    .append(this.videoId)
+                    .toString();
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Publication{");

@@ -32,15 +32,7 @@ public class SoundcloudPublicationFactory {
 
     }
     public String getVideoIdFromUrl(String url){
-
-        String videoId;
-
-        String pattern = "https://soundcloud.com/";
-        if(url.contains(pattern))
-            videoId = url;
-        else
-            videoId = pattern + url;
-        //soundcloud
+        String videoId = url;
         return videoId;
     }
 
