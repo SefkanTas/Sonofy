@@ -111,8 +111,10 @@ public class PublicationActivity extends AppCompatActivity {
             public void onChanged(Publication publicationLiveData) {
                 publication = publicationLiveData;
                 Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
+                if(miniatureImageView.getDrawable() != null)
+                    Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
                 if(miniatureImageView.getDrawable() == null)
-                    Picasso.get().load("https://upload.wikimedia.org/wikipedia/fr/b/bb/SoundCloud_logo.png").into(miniatureImageView);
+                    Picasso.get().load("https://upload.wikimedia.org/wikipedia/fr/b/bb/SoundCloud_logo.png").fit().into(miniatureImageView);
                 titreTextView.setText(publication.getTitre());
                 likeCountTextView.setText(publication.getLikeCount().toString());
                 dislikeCountTextView.setText(publication.getDislikeCount().toString());
