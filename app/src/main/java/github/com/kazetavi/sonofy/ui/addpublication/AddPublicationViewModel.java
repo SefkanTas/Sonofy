@@ -31,17 +31,18 @@ public class AddPublicationViewModel extends ViewModel {
         return isPublicationSaved;
     }
 
-    public MutableLiveData<Boolean> isLoading(){
+    public MutableLiveData<Boolean> isLoading() {
         return isLoading;
     }
 
     /**
      * Sauvegarde une publication dans Firestore (notre base de données)
+     *
      * @param titre
      * @param videoId
      */
-    public void savePublication(String titre, String videoId, String groupId, String authorId){
-        Publication publication = new Publication(titre, videoId, groupId, authorId);
+    public void savePublication(String titre, String videoId, String groupId, String authorId, String support) {
+        Publication publication = new Publication(titre, videoId, groupId, authorId, support);
         Log.d(TAG, "savePublication: saving publication : " + titre);
         PublicationFirestore.createPublication(publication)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -63,7 +64,7 @@ public class AddPublicationViewModel extends ViewModel {
     /**
      * Vérifie si la vidéo existe et fait appel savePublication pour créer la publication
      */
-    public void addPublication(final String titre, final String sourceUrl, final String groupId){
+    public void addPublication(final String titre, final String sourceUrl, final String groupId, final String support) {
         isLoading.postValue(true);
 
         //YoutubePublicationFactory youtubePublicationFactory = new YoutubePublicationFactory();
@@ -74,22 +75,7 @@ public class AddPublicationViewModel extends ViewModel {
         final String soundcloudVideoId = soundcloudPublicationFactory.getVideoIdFromUrl(sourceUrl);
         final String soundcloudAuthorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if(!soundcloudVideoId.isEmpty()) savePublication(titre, soundcloudVideoId, groupId, soundcloudAuthorId);
-
-        /*youtubePublicationFactory.ressourceExists(videoId)
-                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean videoExists) throws Throwable {
-                        if(videoExists){
-                            savePublication(titre, videoId, groupId, authorId);
-                        }
-                        else {
-                            isPublicationSaved.postValue(false);
-                        }
-                    isLoading.postValue(false);
-                    }
-                });*/
+        savePublication(titre, soundcloudVideoId, groupId, soundcloudAuthorId, support);
 
     }
 }

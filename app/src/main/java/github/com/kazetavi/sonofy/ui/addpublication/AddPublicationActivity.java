@@ -30,6 +30,7 @@ public class AddPublicationActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         final String groupeId = intent.getStringExtra("GROUPE_ID");
+        final String support = intent.getStringExtra("SUPPORT");
 
         titreMusiqueEditText = findViewById(R.id.titreMusiqueEditText);
         youtubeVideoIdEditText = findViewById(R.id.youtubeVideoIdEditText);
@@ -77,7 +78,7 @@ public class AddPublicationActivity extends AppCompatActivity {
                     titre = titreMusiqueEditText.getText().toString().trim();
                     videoId = youtubeVideoIdEditText.getText().toString().trim();
 
-                    addPublicationViewModel.addPublication(titre, videoId, groupeId);
+                    addPublicationViewModel.addPublication(titre, videoId, groupeId, support);
                 }
             }
         });

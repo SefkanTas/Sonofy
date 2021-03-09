@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Button profil = findViewById(R.id.profil_button);
 
         FloatingActionButton newPublicationButton = findViewById(R.id.newPublicationButton);
+        FloatingActionButton newSoundcloudPublicationButton = findViewById(R.id.newPublicationSoundcloudButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
 
         FloatingActionButton search_btn = findViewById(R.id.search_activity_pub);
@@ -100,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);
                 intent.putExtra("GROUPE_ID", groupeId);
+                intent.putExtra("SUPPORT", "youtube");
+                startActivity(intent);
+            }
+        });
+
+        newSoundcloudPublicationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);
+                intent.putExtra("GROUPE_ID", groupeId);
+                intent.putExtra("SUPPORT", "soundcloud");
                 startActivity(intent);
             }
         });

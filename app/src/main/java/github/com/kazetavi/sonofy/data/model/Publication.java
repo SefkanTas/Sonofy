@@ -18,6 +18,7 @@ public class Publication {
     private String authorId;
     @ServerTimestamp
     private Date dateCreated;
+    private String support;
 
     //Constructeur vide necessaire pour firebase
     public Publication(){
@@ -31,10 +32,11 @@ public class Publication {
         this.dislikeCount = 0L;
     }
 
-    public Publication(String titre, String videoId, String groupId, String authorId) {
+    public Publication(String titre, String videoId, String groupId, String authorId, String support) {
         this(titre,videoId);
         this.groupId = groupId;
         this.authorId = authorId;
+        this.support = support;
     }
 
     @DocumentId
@@ -74,14 +76,20 @@ public class Publication {
         this.authorId = authorId;
     }
 
+    public String getSupport() { return support; }
+
+    public void setSupport(String support) { this.support = support; }
+
     @Exclude
     public String getMiniatureUrl(){
-        return new StringBuilder("https://img.youtube.com/vi/")
+        if(support.equals("youtube"))
+            return new StringBuilder("https://img.youtube.com/vi/")
                 .append(this.videoId)
                 .append("/mqdefault.jpg")
                 .toString();
+        else
+            return "https://upload.wikimedia.org/wikipedia/fr/b/bb/SoundCloud_logo.png";
     }
-
 
     ////soundcloud link => image
     @Exclude
@@ -96,6 +104,7 @@ public class Publication {
                     .append(this.videoId)
                     .toString();
     }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Publication{");

@@ -111,10 +111,6 @@ public class PublicationActivity extends AppCompatActivity {
             public void onChanged(Publication publicationLiveData) {
                 publication = publicationLiveData;
                 Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
-                if(miniatureImageView.getDrawable() != null)
-                    Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
-                if(miniatureImageView.getDrawable() == null)
-                    Picasso.get().load("https://upload.wikimedia.org/wikipedia/fr/b/bb/SoundCloud_logo.png").fit().into(miniatureImageView);
                 titreTextView.setText(publication.getTitre());
                 likeCountTextView.setText(publication.getLikeCount().toString());
                 dislikeCountTextView.setText(publication.getDislikeCount().toString());
@@ -142,13 +138,14 @@ public class PublicationActivity extends AppCompatActivity {
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Uri.parse(publication.getVideoUrlYoutube()) != null) {
+                if(publication.getSupport().equals("youtube")) {
                     Intent intentYoutube = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrlYoutube()));
                     startActivity(intentYoutube);
                 }
-
-                Intent intentSoundCloud = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrlSoundCloud()));
-                startActivity(intentSoundCloud);
+                else {
+                    Intent intentSoundCloud = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrlSoundCloud()));
+                    startActivity(intentSoundCloud);
+                }
             }
         });
 

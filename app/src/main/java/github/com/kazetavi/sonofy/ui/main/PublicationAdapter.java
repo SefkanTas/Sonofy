@@ -22,6 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
@@ -53,10 +54,6 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         final Publication publication = publications.get(position);
         holder.titreTextView.setText(publication.getTitre());
         Picasso.get().load(publication.getMiniatureUrl()).into(holder.miniatureImageView);
-        if(holder.miniatureImageView.getDrawable() != null)
-            Picasso.get().load(publication.getMiniatureUrl()).into(holder.miniatureImageView);
-        if(holder.miniatureImageView.getDrawable() == null)
-            Picasso.get().load("https://upload.wikimedia.org/wikipedia/fr/b/bb/SoundCloud_logo.png").fit().into(holder.miniatureImageView);
         holder.likeCountTextView.setText(publication.getLikeCount().toString());
         holder.dislikeCountTextView.setText(publication.getDislikeCount().toString());
 
