@@ -13,14 +13,14 @@ import io.reactivex.rxjava3.core.Observable;
 public class SoundcloudPublicationFactory {
 
 
-    public Observable<Boolean> ressourceExists(String ressourceId){
+    public Observable<Boolean> ressourceExists(String id){
 
         final OkHttpClient client = new OkHttpClient();
 
-        String videoUrl = "./res/mipmap-anydpi-v26";
+        String url = "https://soundcloud.com/" + id;
 
         final Request request = new Request.Builder()
-                .url(videoUrl)
+                .url(url)
                 .build();
 
         return Observable.fromCallable(new Callable<Boolean>() {
@@ -29,7 +29,6 @@ public class SoundcloudPublicationFactory {
                 return client.newCall(request).execute().code() == 200;
             }
         });
-
     }
     public String getVideoIdFromUrl(String url){
         String videoId = url;

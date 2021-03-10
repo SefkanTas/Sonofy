@@ -78,6 +78,7 @@ public class AddPublicationActivity extends AppCompatActivity {
                     titre = titreMusiqueEditText.getText().toString().trim();
                     videoId = youtubeVideoIdEditText.getText().toString().trim();
 
+
                     addPublicationViewModel.addPublication(titre, videoId, groupeId, support);
                 }
             }

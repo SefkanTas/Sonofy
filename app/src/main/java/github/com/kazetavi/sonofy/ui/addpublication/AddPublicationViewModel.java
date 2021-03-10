@@ -67,15 +67,37 @@ public class AddPublicationViewModel extends ViewModel {
     public void addPublication(final String titre, final String sourceUrl, final String groupId, final String support) {
         isLoading.postValue(true);
 
-        //YoutubePublicationFactory youtubePublicationFactory = new YoutubePublicationFactory();
+        YoutubePublicationFactory youtubePublicationFactory = new YoutubePublicationFactory();
         SoundcloudPublicationFactory soundcloudPublicationFactory = new SoundcloudPublicationFactory();
-        ////
-        //final String videoId = youtubePublicationFactory.getVideoIdFromUrl(sourceUrl);
-        //final String authorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final String soundcloudVideoId = soundcloudPublicationFactory.getVideoIdFromUrl(sourceUrl);
-        final String soundcloudAuthorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        savePublication(titre, soundcloudVideoId, groupId, soundcloudAuthorId, support);
+        final String videoId;
+        final String authorId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        if (support.equals("youtube")) {
+            videoId = youtubePublicationFactory.getVideoIdFromUrl(sourceUrl);
+            youtubePublicationFactory.ressourceExists(sourceUrl)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean soundExist) throws Throwable {
+                            if (soundExist == Boolean.TRUE) savePublication(titre, videoId, groupId, authorId, support);
+                            else isPublicationSaved.postValue(false);
+                            isLoading.postValue(false);
+                        }
+                    });
+        } else {
+            videoId = soundcloudPublicationFactory.getVideoIdFromUrl(sourceUrl);
+            soundcloudPublicationFactory.ressourceExists(sourceUrl)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean soundExist) throws Throwable {
+                            if (soundExist == Boolean.TRUE)
+                                savePublication(titre, videoId, groupId, authorId, support);
+                            else isPublicationSaved.postValue(false);
+                            isLoading.postValue(false);
+                        }
+                    });
+        }
     }
 }
