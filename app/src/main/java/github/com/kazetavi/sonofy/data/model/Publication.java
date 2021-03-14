@@ -5,6 +5,7 @@ import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 public class Publication {
 
@@ -19,6 +20,9 @@ public class Publication {
     @ServerTimestamp
     private Date dateCreated;
     private String support;
+
+    @Exclude
+    private List<Emotion> emotions;
 
     //Constructeur vide necessaire pour firebase
     public Publication(){
@@ -37,6 +41,11 @@ public class Publication {
         this.groupId = groupId;
         this.authorId = authorId;
         this.support = support;
+    }
+
+    public Publication(String titre, String videoId, String groupId, String authorId, List<Emotion> emotions) {
+        this(titre,videoId, groupId, authorId);
+        this.emotions = emotions;
     }
 
     @DocumentId
@@ -79,6 +88,16 @@ public class Publication {
     public String getSupport() { return support; }
 
     public void setSupport(String support) { this.support = support; }
+
+    @Exclude
+    public List<Emotion> getEmotions() {
+        return emotions;
+    }
+
+    @Exclude
+    public void setEmotions(List<Emotion> emotions) {
+        this.emotions = emotions;
+    }
 
     @Exclude
     public String getMiniatureUrl(){

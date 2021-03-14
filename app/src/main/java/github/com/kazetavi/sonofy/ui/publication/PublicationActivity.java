@@ -7,14 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.model.Commentaire;
+import github.com.kazetavi.sonofy.data.model.Emotion;
 import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +26,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class PublicationActivity extends AppCompatActivity {
 
@@ -138,14 +146,8 @@ public class PublicationActivity extends AppCompatActivity {
         miniatureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(publication.getSupport().equals("youtube")) {
-                    Intent intentYoutube = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrlYoutube()));
-                    startActivity(intentYoutube);
-                }
-                else {
-                    Intent intentSoundCloud = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrlSoundCloud()));
-                    startActivity(intentSoundCloud);
-                }
+                Intent intentYoutube = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+                startActivity(intentYoutube);
             }
         });
 

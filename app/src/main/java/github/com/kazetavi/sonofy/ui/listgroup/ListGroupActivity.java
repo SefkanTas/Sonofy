@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,8 +20,10 @@ import java.util.List;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
+import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
+import github.com.kazetavi.sonofy.ui.recommandation.RecommandationActivity;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 
 
@@ -29,6 +32,7 @@ public class ListGroupActivity extends AppCompatActivity {
 
     private RecyclerView groupeRecyclerView;
     private RecyclerView.Adapter adapter;
+    private Button recommandationButton;
 
 
     @Override
@@ -40,6 +44,7 @@ public class ListGroupActivity extends AppCompatActivity {
         FloatingActionButton addGroupButton = findViewById(R.id.addGroupButton);
         Button profil = findViewById(R.id.button_p);
         groupeRecyclerView = findViewById(R.id.groupeRecyclerView);
+        ImageButton home = findViewById(R.id.home_page1);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         groupeRecyclerView.setLayoutManager(layoutManager);
@@ -77,7 +82,7 @@ public class ListGroupActivity extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ProfilActivity.class);
+                Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,6 +91,15 @@ public class ListGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                 startActivity(intent);
             }
         });
