@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Button logout = findViewById(R.id.logout);
         Button profil = findViewById(R.id.profil_button);
 
-        FloatingActionButton newPublicationButton = findViewById(R.id.newPublicationButton);
-        FloatingActionButton newSoundcloudPublicationButton = findViewById(R.id.newPublicationSoundcloudButton);
+        FloatingActionButton newPublicationYoutubeButton = findViewById(R.id.newPublicationYoutubeButton);
+        FloatingActionButton newPublicationSoundcloudButton = findViewById(R.id.newPublicationSoundcloudButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
 
         FloatingActionButton search_btn = findViewById(R.id.search_activity_pub);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        newPublicationButton.setOnClickListener(new View.OnClickListener() {
+        newPublicationYoutubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        newSoundcloudPublicationButton.setOnClickListener(new View.OnClickListener() {
+        newPublicationSoundcloudButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), AddPublicationActivity.class);

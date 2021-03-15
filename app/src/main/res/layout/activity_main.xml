@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newPublicationButton"
+        android:id="@+id/newPublicationYoutubeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -73,7 +73,7 @@
         android:src="@drawable/youtube"
         app:layout_constraintBottom_toBottomOf="@+id/publicationRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/flow2"
-        app:layout_constraintStart_toEndOf="@+id/search_activity_pub"
+        app:layout_constraintStart_toEndOf="@+id/newPublicationSoundcloudButton"
         app:layout_constraintTop_toTopOf="@+id/flow2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -81,10 +81,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/soundcloud"
-        app:layout_constraintBottom_toBottomOf="@+id/newPublicationButton"
+        app:layout_constraintBottom_toBottomOf="@+id/newPublicationYoutubeButton"
         app:layout_constraintEnd_toEndOf="@+id/flow2"
-        app:layout_constraintStart_toEndOf="@+id/profil_button"
+        app:layout_constraintStart_toEndOf="@+id/search_activity_pub"
         app:layout_constraintTop_toTopOf="@+id/flow2" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -106,9 +107,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/newPublicationButton"
+        app:layout_constraintBottom_toBottomOf="@+id/newPublicationSoundcloudButton"
         app:layout_constraintEnd_toEndOf="@+id/flow2"
-        app:layout_constraintStart_toEndOf="@+id/profil_button"
+        app:layout_constraintStart_toEndOf="@+id/home_page4"
         app:layout_constraintTop_toTopOf="@+id/flow2"
         app:srcCompat="@android:drawable/ic_menu_search" />
 
@@ -117,7 +118,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        app:constraint_referenced_ids="profil_button,home_page4,search_activity_pub,newPublicationButton"
+        app:constraint_referenced_ids="profil_button,home_page4,search_activity_pub, newPublicationSoundcloudButton,newPublicationYoutubeButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

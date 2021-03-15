@@ -43,8 +43,8 @@ public class Publication {
         this.support = support;
     }
 
-    public Publication(String titre, String videoId, String groupId, String authorId, List<Emotion> emotions) {
-        this(titre,videoId, groupId, authorId);
+    public Publication(String titre, String videoId, String groupId, String authorId, List<Emotion> emotions, String support) {
+        this(titre,videoId, groupId, authorId, support);
         this.emotions = emotions;
     }
 
@@ -112,16 +112,16 @@ public class Publication {
 
     ////soundcloud link => image
     @Exclude
-    public String getVideoUrlYoutube(){
-        return new StringBuilder("https://www.youtube.com/watch?v=")
-                .append(this.videoId)
-                .toString();
-    }
-    ////soundcloud link => video
-    public String getVideoUrlSoundCloud(){
-     return new StringBuilder("https://soundcloud.com/")
+    public String getVideoUrl(){
+        if(support.equals("youtube")) {
+            return new StringBuilder("https://www.youtube.com/watch?v=")
                     .append(this.videoId)
                     .toString();
+        } else {
+            return new StringBuilder("https://soundcloud.com/")
+                    .append(this.videoId)
+                    .toString();
+        }
     }
 
     @Override
@@ -135,4 +135,6 @@ public class Publication {
         sb.append('}');
         return sb.toString();
     }
+
+
 }
