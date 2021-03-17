@@ -42,7 +42,7 @@ jobs:
       - name : Java home 1
         run: |
           echo $JAVA_HOME
-          gradlew -version
+          ./gradlew -version
 
       - name: Cache Gradle packages
         uses: actions/cache@v1
@@ -64,7 +64,7 @@ jobs:
       - name : Java home 2
         run: |
           echo $JAVA_HOME
-          gradlew -version
+          ./gradlew -version
       
       - name: Analyze with SonarCloud
         run: ./gradlew sonarqube
