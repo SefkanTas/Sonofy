@@ -31,11 +31,6 @@ jobs:
       - name: Check Java version
         run: java -version
         
-      - name : Java home 1
-        run: |
-          echo $JAVA_HOME
-          gradlew -version
-        
       - name: Restore keystore
         env: 
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
@@ -43,6 +38,11 @@ jobs:
         
       - name: gradlew rights
         run : chmod a+x gradlew
+        
+      - name : Java home 1
+        run: |
+          echo $JAVA_HOME
+          gradlew -version
 
       - name: Cache Gradle packages
         uses: actions/cache@v1
