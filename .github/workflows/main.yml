@@ -32,7 +32,9 @@ jobs:
         run: java -version
         
       - name : Java home 1
-        run: echo $JAVA_HOME
+        run: |
+          echo $JAVA_HOME
+          gradlew -version
         
       - name: Restore keystore
         env: 
@@ -60,7 +62,9 @@ jobs:
         run: ./gradlew build
 
       - name : Java home 2
-        run: echo $JAVA_HOME
+        run: |
+          echo $JAVA_HOME
+          gradlew -version
       
       - name: Analyze with SonarCloud
         run: ./gradlew sonarqube
