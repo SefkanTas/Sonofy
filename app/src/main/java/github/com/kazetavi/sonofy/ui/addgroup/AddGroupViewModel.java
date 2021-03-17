@@ -21,16 +21,13 @@ public class AddGroupViewModel extends ViewModel {
     }
 
     private void checkGroupExists(final String nomGroupe){
-        GroupeFirestore.getGroup(nomGroupe).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.getResult().size() == 0){
-                    createGroupe(nomGroupe);
-                    isGroupCreated.setValue(true);
-                }
-                else {
-                    isGroupCreated.setValue(false);
-                }
+        GroupeFirestore.getGroup(nomGroupe).addOnCompleteListener(task -> {
+            if (task.getResult().size() == 0){
+                createGroupe(nomGroupe);
+                isGroupCreated.setValue(true);
+            }
+            else {
+                isGroupCreated.setValue(false);
             }
         });
     }

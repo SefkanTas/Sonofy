@@ -19,6 +19,10 @@ public class EmotionFirestore {
     public static final String DATE_CREATED = "dateCreated";
 
 
+    //for sonar code smell
+    private EmotionFirestore() {
+    }
+
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }

@@ -42,12 +42,9 @@ public class AddPublicationViewModel extends ViewModel {
         Publication publication = new Publication(titre, videoId, groupId, authorId);
         Log.d(TAG, "savePublication: saving publication : " + titre);
         PublicationFirestore.createPublication(publication)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        isPublicationSaved.postValue(true);
-                        Log.d(TAG, "onSuccess: publication saved : " + documentReference.getId());
-                    }
+                .addOnSuccessListener(documentReference -> {
+                    isPublicationSaved.postValue(true);
+                    Log.d(TAG, "onSuccess: publication saved : " + documentReference.getId());
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -71,17 +68,14 @@ public class AddPublicationViewModel extends ViewModel {
 
         youtubePublicationFactory.ressourceExists(videoId)
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean videoExists) throws Throwable {
-                        if(videoExists){
-                            savePublication(titre, videoId, groupId, authorId);
-                        }
-                        else {
-                            isPublicationSaved.postValue(false);
-                        }
-                    isLoading.postValue(false);
+                .subscribe(videoExists -> {
+                    if(videoExists){
+                        savePublication(titre, videoId, groupId, authorId);
                     }
+                    else {
+                        isPublicationSaved.postValue(false);
+                    }
+                isLoading.postValue(false);
                 });
 
     }
