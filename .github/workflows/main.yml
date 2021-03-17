@@ -28,9 +28,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         
-      - name: Check Java version
-        run: java -version
-        
       - name: Restore keystore
         env: 
           SECRET_KEYSTORE_DECRYPT: ${{ secrets.secret_keystore_decrypt }}
@@ -38,11 +35,6 @@ jobs:
         
       - name: gradlew rights
         run : chmod a+x gradlew
-        
-      - name : Java home 1
-        run: |
-          echo $JAVA_HOME
-          ./gradlew -version
 
       - name: Cache Gradle packages
         uses: actions/cache@v1
@@ -60,11 +52,6 @@ jobs:
      
       - name: Build
         run: ./gradlew build
-
-      - name : Java home 2
-        run: |
-          echo $JAVA_HOME
-          ./gradlew -version
       
       - name: Analyze with SonarCloud
         run: ./gradlew sonarqube
