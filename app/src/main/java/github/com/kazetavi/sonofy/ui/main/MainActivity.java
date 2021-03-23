@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView publicationRecyclerView;
     private RecyclerView.Adapter adapter;
+    private final FirebaseAuth user = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,9 @@ public class MainActivity extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String uid = user.getUid();
                 Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
+                intent.putExtra("userID", uid);
                 startActivity(intent);
             }
         });
