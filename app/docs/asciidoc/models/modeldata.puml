@@ -35,6 +35,7 @@ package app{
                 + getByPublication(publicationId : String): Query
                 + getEmotionBuAuthorId(authorId : String): Query
                 + delete(uid : String): Task<Void>
+                + deleteByPublicationId(publicationId : String): void
                 + deleteByUserAndPublication(userId : String, publicationId :String, newEmotionId): Task<QuerySnapshot>
             }
 
