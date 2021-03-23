@@ -79,14 +79,14 @@ public class ProfilActivity extends AppCompatActivity {
         nom_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               boutonModNom(v);
+                boutonModifier(v, "Nom");
             }
         });
 
         prenom_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boutonModPrenom(v);
+                boutonModifier(v, "Prénom");
             }
         });
 
@@ -100,7 +100,7 @@ public class ProfilActivity extends AppCompatActivity {
         pseudo_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boutonModPseudo(v);
+                boutonModifier(v, "Pseudo");
             }
         });
 
@@ -121,14 +121,14 @@ public class ProfilActivity extends AppCompatActivity {
         });
     }
 
-    public void boutonModPrenom(View view) {
+    public void boutonModifier(View view, String champ){
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
         final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Prénom");
+        label.setText(champ);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon prénom");
+        alert.setTitle("Modifier mon "+champ);
         // this is set the view from XML inside AlertDialog
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
@@ -142,99 +142,17 @@ public class ProfilActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = etUsername.getText().toString();
-                profilvm.updatePrenom(user.getUid(), name);
+                if(champ.equals("Prénom")){
+                    profilvm.updatePrenom(user.getUid(), name);
+                }else if (champ.equals("Nom")){
+                    profilvm.updateNom(user.getUid(), name);
+                }else{
+                    profilvm.updatePseudo(user.getUid(), name);
+                }
                 recreate();
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
-    public void boutonModNom(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.popup_modification, null);
-        final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
-        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Nom");
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon nom");
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
-                profilvm.updateNom(user.getUid(), name);
-                recreate();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
-    public void boutonModPseudo(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.popup_modification, null);
-        final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
-        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Pseudo");
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon pseudo");
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
-                profilvm.updatePseudo(user.getUid(), name);
-                recreate();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
-    /*public void boutonModEmail(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.popup_modification, null);
-        final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
-        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Email");
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon email");
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
-                profilvm.updateEmail(user.getUid(), name);
-                recreate();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }*/
-
 }
