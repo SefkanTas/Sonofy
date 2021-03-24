@@ -11,12 +11,14 @@ public class Groupe {
     private String name;
     @ServerTimestamp
     private Date dateCreated;
+    private boolean isPrivate;
 
     public Groupe() {
     }
 
-    public Groupe(String name) {
+    public Groupe(String name, boolean isPrivate) {
         this.name = name;
+        this.isPrivate = isPrivate;
     }
 
     @DocumentId
@@ -28,8 +30,11 @@ public class Groupe {
         return name;
     }
 
-
     public Date getDateCreated() {
         return dateCreated;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
     }
 }
