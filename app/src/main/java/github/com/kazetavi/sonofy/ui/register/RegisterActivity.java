@@ -1,6 +1,5 @@
 package github.com.kazetavi.sonofy.ui.register;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,16 +9,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText uEmail;
     private EditText uMdp;
     private FirebaseAuth mAuth;
-    private ProgressBar prgB;
     private RadioGroup btn_groupe;
 
 
@@ -50,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         uPseudo = findViewById(R.id.pseudo_user);
         uEmail = findViewById(R.id.mail_user);
         uMdp = findViewById(R.id.password_user);
-        prgB = findViewById(R.id.progressBar2);
         Button inscription = findViewById(R.id.inscription);
         mAuth = FirebaseAuth.getInstance();
         btn_groupe = findViewById(R.id.groupe);
@@ -64,13 +56,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         inscription.setOnClickListener(this);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
+        login.setOnClickListener(v -> {
+            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
     }
 
@@ -141,37 +130,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         mAuth.createUserWithEmailAndPassword(email,mdp)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            User u = new User(name, firstname,pseudo, email,type);
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        User u = new User(name, firstname,pseudo, email,type);
 
-                            FirebaseFirestore.getInstance().collection("Users")
-                                    .document(mAuth.getCurrentUser().getUid())
-                                    .set(u)
-                                    .addOnSuccessListener(new OnSuccessListener() {
-                                        @Override
-                                        public void onSuccess(Object o) {
-                                            Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + mAuth.getCurrentUser().getUid());
-                                            prgB.setVisibility(View.VISIBLE);
+                        FirebaseFirestore.getInstance().collection("Users")
+                                .document(mAuth.getCurrentUser().getUid())
+                                .set(u)
+                                .addOnSuccessListener(new OnSuccessListener() {
+                                    @Override
+                                    public void onSuccess(Object o) {
+                                        Log.d(TAG, "Nouvel utilisateur créé avec succès avec ID: " + mAuth.getCurrentUser().getUid());
 
-                                            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Création d'un nouvel utilisateur échouée", e);
-                                            prgB.setVisibility(View.GONE);
-                                        }
-                                    });
-                        }else{
-                            Toast.makeText(RegisterActivity.this, "Création nouvel utilisateur échoué . Veuillez réessayer", Toast.LENGTH_SHORT).show();
-                            prgB.setVisibility(View.GONE);
-                        }
+                                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .addOnFailureListener(e -> Log.w(TAG, "Création d'un nouvel utilisateur échouée", e));
+                    }else{
+                        Toast.makeText(RegisterActivity.this, "Création nouvel utilisateur échoué . Veuillez réessayer", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
