@@ -26,6 +26,7 @@ import java.util.Objects;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.CommentaireFirestore;
+import github.com.kazetavi.sonofy.data.api.EmotionFirestore;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
@@ -85,6 +86,7 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
             @Override
             public void onClick(View view) {
                 PublicationFirestore.deletePublication(publication.getUid());
+                EmotionFirestore.deleteByPublicationId(publication.getUid());
             }
         });
 

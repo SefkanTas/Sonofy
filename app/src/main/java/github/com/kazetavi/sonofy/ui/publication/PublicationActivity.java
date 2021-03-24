@@ -39,11 +39,11 @@ public class PublicationActivity extends AppCompatActivity {
     private TextView dislikeCountTextView;
     private TextView authorUsernameTextView;
 
-    private EditText commentaireEditText;
+    //private EditText commentaireEditText;
 
     private Publication publication;
 
-    private RecyclerView commentaireRecyclerView;
+    //private RecyclerView commentaireRecyclerView;
     private RecyclerView emotionRecyclerView;
     private RecyclerView.Adapter adapter;
 
