@@ -7,14 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 
 import github.com.kazetavi.sonofy.business.YoutubePublicationFactory;
 import github.com.kazetavi.sonofy.data.api.PublicationFirestore;
 import github.com.kazetavi.sonofy.data.model.Publication;
-import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -42,12 +39,9 @@ public class AddPublicationViewModel extends ViewModel {
         Publication publication = new Publication(titre, videoId, groupId, authorId);
         Log.d(TAG, "savePublication: saving publication : " + titre);
         PublicationFirestore.createPublication(publication)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        isPublicationSaved.postValue(true);
-                        Log.d(TAG, "onSuccess: publication saved : " + documentReference.getId());
-                    }
+                .addOnSuccessListener(documentReference -> {
+                    isPublicationSaved.postValue(true);
+                    Log.d(TAG, "onSuccess: publication saved : " + documentReference.getId());
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -71,17 +65,14 @@ public class AddPublicationViewModel extends ViewModel {
 
         youtubePublicationFactory.ressourceExists(videoId)
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean videoExists) throws Throwable {
-                        if(videoExists){
-                            savePublication(titre, videoId, groupId, authorId);
-                        }
-                        else {
-                            isPublicationSaved.postValue(false);
-                        }
-                    isLoading.postValue(false);
+                .subscribe(videoExists -> {
+                    if(videoExists){
+                        savePublication(titre, videoId, groupId, authorId);
                     }
+                    else {
+                        isPublicationSaved.postValue(false);
+                    }
+                isLoading.postValue(false);
                 });
 
     }

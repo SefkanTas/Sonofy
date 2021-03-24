@@ -18,6 +18,10 @@ public class CommentaireFirestore {
     public static final String PUBLICATION_ID = "publicationId";
     public static final String USERNAME_ID = "userid";
 
+    //For Sonar code smell
+    private CommentaireFirestore() {
+    }
+
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }

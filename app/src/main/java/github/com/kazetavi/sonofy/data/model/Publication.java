@@ -69,7 +69,7 @@ public class Publication {
 
     public Date getDateCreated() {
         return dateCreated;
-    };
+    }
 
     public String getGroupId() {
         return groupId;

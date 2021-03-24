@@ -1,7 +1,6 @@
 package github.com.kazetavi.sonofy.ui.addpublication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -39,46 +38,37 @@ public class AddPublicationActivity extends AppCompatActivity {
 
 
         //Barre / cercle de chargement lorsqu'on ajoute la publication
-        addPublicationViewModel.isLoading().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLoading) {
-                if(isLoading){
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-                else {
-                    progressBar.setVisibility(View.INVISIBLE);
-                }
+        addPublicationViewModel.isLoading().observe(this, isLoading -> {
+            if(isLoading){
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            else {
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
 
         //Check si la publication a pu être ajoutée dans la base de données
-        addPublicationViewModel.isPublicationSaved().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean publicationIsSaved) {
-                if(publicationIsSaved){
-                    //Retour sur la page de la liste des publications
-                    onBackPressed();
-                }
-                else {
-                    Toast.makeText(getBaseContext(), "L'identifiant de la vidéo n'est pas valide", Toast.LENGTH_SHORT).show();
-                }
+        addPublicationViewModel.isPublicationSaved().observe(this, publicationIsSaved -> {
+            if(publicationIsSaved){
+                //Retour sur la page de la liste des publications
+                onBackPressed();
+            }
+            else {
+                Toast.makeText(getBaseContext(), "L'identifiant de la vidéo n'est pas valide", Toast.LENGTH_SHORT).show();
             }
         });
 
 
         //Appui sur le bouton publication
-        publierButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!youtubeVideoIdEditText.getText().toString().isEmpty() && !titreMusiqueEditText.getText().toString().isEmpty()){
-                    String titre;
-                    String videoId;
+        publierButton.setOnClickListener(view -> {
+            if(!youtubeVideoIdEditText.getText().toString().isEmpty() && !titreMusiqueEditText.getText().toString().isEmpty()){
+                String titre;
+                String videoId;
 
-                    titre = titreMusiqueEditText.getText().toString().trim();
-                    videoId = youtubeVideoIdEditText.getText().toString().trim();
+                titre = titreMusiqueEditText.getText().toString().trim();
+                videoId = youtubeVideoIdEditText.getText().toString().trim();
 
-                    addPublicationViewModel.addPublication(titre, videoId, groupeId);
-                }
+                addPublicationViewModel.addPublication(titre, videoId, groupeId);
             }
         });
     }

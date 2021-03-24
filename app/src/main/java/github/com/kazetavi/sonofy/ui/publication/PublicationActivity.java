@@ -21,9 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 public class PublicationActivity extends AppCompatActivity {
@@ -34,11 +32,8 @@ public class PublicationActivity extends AppCompatActivity {
     private TextView dislikeCountTextView;
     private TextView authorUsernameTextView;
 
-    //private EditText commentaireEditText;
-
     private Publication publication;
 
-    //private RecyclerView commentaireRecyclerView;
     private RecyclerView emotionRecyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -69,14 +64,6 @@ public class PublicationActivity extends AppCompatActivity {
         LinearLayout likeButton = findViewById(R.id.likeButton2);
         LinearLayout dislikeButton = findViewById(R.id.dislikeButton2);
 
-//        commentaireEditText = findViewById(R.id.commentaireEditText);
-//        Button commenterButton = findViewById(R.id.commenterButton);
-//
-//        commentaireRecyclerView = findViewById(R.id.commentaireRecyclerView);
-
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//        commentaireRecyclerView.setLayoutManager(layoutManager);
-
         final Intent intent = getIntent();
         final String publicationId = intent.getStringExtra("PUBLICATION_ID");
 
@@ -96,24 +83,18 @@ public class PublicationActivity extends AppCompatActivity {
             }
         });
 
-        publicationViewModel.getPublicationLiveData().observe(this, new Observer<Publication>() {
-            @Override
-            public void onChanged(Publication publicationLiveData) {
-                publication = publicationLiveData;
-                UserFirestore.getUser(publication.getAuthorId()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        User user = documentSnapshot.toObject(User.class);
-                        String res = "@" + user.getPseudo();
-                        authorUsernameTextView.setText(res);
-                        intent.putExtra("userId", user.getUserId());
-                    }
-                });
-                Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
-                titreTextView.setText(publication.getTitre());
-                likeCountTextView.setText(publication.getLikeCount().toString());
-                dislikeCountTextView.setText(publication.getDislikeCount().toString());
-            }
+        publicationViewModel.getPublicationLiveData().observe(this, publicationLiveData -> {
+            publication = publicationLiveData;
+            UserFirestore.getUser(publication.getAuthorId()).addOnSuccessListener(documentSnapshot -> {
+                User user = documentSnapshot.toObject(User.class);
+                String res = "@" + user.getPseudo();
+                authorUsernameTextView.setText(res);
+                intent.putExtra("userId", user.getUserId());
+            });
+            Picasso.get().load(publication.getMiniatureUrl()).into(miniatureImageView);
+            titreTextView.setText(publication.getTitre());
+            likeCountTextView.setText(publication.getLikeCount().toString());
+            dislikeCountTextView.setText(publication.getDislikeCount().toString());
         });
 
         authorUsernameTextView.setOnClickListener(new View.OnClickListener() {
@@ -124,30 +105,10 @@ public class PublicationActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-//        publicationViewModel.getCommentaires().observe(this, new Observer<List<Commentaire>>() {
-//            @Override
-//            public void onChanged(List<Commentaire> commentaires) {
-//                adapter = new CommentaireAdapter(commentaires);
-//                commentaireRecyclerView.setAdapter(adapter);
-//            }
-//        });
-//
-//        commenterButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String content = commentaireEditText.getText().toString();
-//                //String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-//                publicationViewModel.createCommentaire(publication.getUid(), content, pseudoU, currentUser.getCurrentUser().getUid());
-//                commentaireEditText.setText("");
-//            }
-//        });
 
-        miniatureImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentYoutube = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
-                startActivity(intentYoutube);
-            }
+        miniatureImageView.setOnClickListener(view -> {
+            Intent intentYoutube = new Intent(Intent.ACTION_VIEW, Uri.parse(publication.getVideoUrl()));
+            startActivity(intentYoutube);
         });
 
 

@@ -15,6 +15,9 @@ public class GroupeFirestore {
     public static final String NAME = "name";
     public static final String DATE_CREATED = "dateCreated";
 
+    private GroupeFirestore() {
+    }
+
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }
