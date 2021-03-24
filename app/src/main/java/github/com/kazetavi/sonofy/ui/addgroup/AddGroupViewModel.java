@@ -1,12 +1,7 @@
 package github.com.kazetavi.sonofy.ui.addgroup;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;

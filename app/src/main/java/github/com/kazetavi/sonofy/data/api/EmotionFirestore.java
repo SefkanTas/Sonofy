@@ -13,7 +13,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import github.com.kazetavi.sonofy.data.model.Emotion;
 
@@ -75,15 +74,12 @@ public class EmotionFirestore {
 
 
     public static void deleteByPublicationId(String publicationId){
-        getByPublication(publicationId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot query : Objects.requireNonNull(task.getResult())){
-                            delete(query.getId());
-                        }
+        getByPublication(publicationId).get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot query : Objects.requireNonNull(task.getResult())){
+                        delete(query.getId());
                     }
-            }
+                }
         });
     }
 
