@@ -22,7 +22,6 @@ import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.ui.addgroup.AddGroupActivity;
 import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
-import github.com.kazetavi.sonofy.ui.recommandation.RecommandationActivity;
 import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 import github.com.kazetavi.sonofy.ui.search.SearchActivity;
 
@@ -32,8 +31,7 @@ public class ListGroupActivity extends AppCompatActivity {
 
     private RecyclerView groupeRecyclerView;
     private RecyclerView.Adapter adapter;
-    private Button recommandationButton;
-
+    private final FirebaseAuth user = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +80,9 @@ public class ListGroupActivity extends AppCompatActivity {
         profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String uid = user.getUid();
                 Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
+                intent.putExtra("userID", uid);
                 startActivity(intent);
             }
         });

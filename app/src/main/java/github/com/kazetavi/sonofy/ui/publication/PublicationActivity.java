@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,11 +34,11 @@ public class PublicationActivity extends AppCompatActivity {
     private TextView dislikeCountTextView;
     private TextView authorUsernameTextView;
 
-    private EditText commentaireEditText;
+    //private EditText commentaireEditText;
 
     private Publication publication;
 
-    private RecyclerView commentaireRecyclerView;
+    //private RecyclerView commentaireRecyclerView;
     private RecyclerView emotionRecyclerView;
     private RecyclerView.Adapter adapter;
 

@@ -24,6 +24,7 @@ import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 public class HomeActivity extends AppCompatActivity {
     private RecyclerView publicationRecyclerView;
     private RecyclerView.Adapter adapter;
+    private FirebaseAuth user = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         Button profil = findViewById(R.id.profil_button1);
         Button groupes = findViewById(R.id.listeGroupe);
         Button recommandations = findViewById(R.id.recommendation1);
-
 
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView1);
 
@@ -59,9 +59,14 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent14);
         });
 
-        profil.setOnClickListener(v -> {
-            Intent intent13 = new Intent(getBaseContext(), MainProfilActivity.class);
-            startActivity(intent13);
+        profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uid = user.getUid();
+                Intent intent = new Intent(getBaseContext(), MainProfilActivity.class);
+                intent.putExtra("userID", uid);
+                startActivity(intent);
+            }
         });
 
         recommandations.setOnClickListener(v -> {

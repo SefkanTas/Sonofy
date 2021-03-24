@@ -1,5 +1,8 @@
 package github.com.kazetavi.sonofy.data.api;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -8,6 +11,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Objects;
+import java.util.function.Consumer;
 
 import github.com.kazetavi.sonofy.data.model.Emotion;
 
@@ -67,6 +73,19 @@ public class EmotionFirestore {
         return getCollection().document(uid).delete();
     }
 
+
+    public static void deleteByPublicationId(String publicationId){
+        getByPublication(publicationId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot query : Objects.requireNonNull(task.getResult())){
+                            delete(query.getId());
+                        }
+                    }
+            }
+        });
+    }
 
     /*
      * La méthode supprime toutes les émotions hormis celle qui a l'id de la nouvelle émotion
