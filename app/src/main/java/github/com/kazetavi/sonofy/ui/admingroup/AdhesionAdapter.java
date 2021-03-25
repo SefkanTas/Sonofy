@@ -9,9 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
+import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
 
 public class AdhesionAdapter extends RecyclerView.Adapter<AdhesionAdapter.AdhesionViewHolder>{
@@ -38,13 +43,26 @@ public class AdhesionAdapter extends RecyclerView.Adapter<AdhesionAdapter.Adhesi
 
         holder.username.setText("@" + user.getPseudo());
 
-        holder.accepterButton.setOnClickListener(v -> {
+        GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
+            Groupe groupe = documentSnapshot.toObject(Groupe.class);
 
+            holder.accepterButton.setOnClickListener(v -> {
+                groupe.acceptRequest(user.getUserId());
+                GroupeFirestore.getCollection().document(groupId).update("waitingApprovalUserId", groupe.getWaitingApprovalUserId());
+                GroupeFirestore.getCollection().document(groupId).update("membersId", groupe.getMembersId());
+                users.remove(user);
+                notifyDataSetChanged();
+            });
+
+            holder.refuserButton.setOnClickListener(v -> {
+                groupe.refuseRequest(user.getUserId());
+                GroupeFirestore.getCollection().document(groupId).update("waitingApprovalUserId", groupe.getWaitingApprovalUserId());
+                users.remove(user);
+                notifyDataSetChanged();
+            });
         });
 
-        holder.refuserButton.setOnClickListener(v -> {
 
-        });
     }
 
     @Override

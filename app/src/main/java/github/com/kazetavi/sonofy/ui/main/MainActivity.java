@@ -17,7 +17,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import github.com.kazetavi.sonofy.ui.adhesiongroup.AdhesionGroupActivity;
 import github.com.kazetavi.sonofy.ui.admingroup.AdminAdhesionActivity;
 import github.com.kazetavi.sonofy.ui.admingroup.GroupMemberActivity;
 import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel.getGroupeMutableLiveData().observe(this, groupe -> {
             setTitle(groupe.getName());
-            if(groupe.isAdmin(user.getCurrentUser().getUid())){
+            if(groupe.isPrivate() && groupe.isAdmin(user.getCurrentUser().getUid())){
                 adminFlow.setVisibility(View.VISIBLE);
             }
         });

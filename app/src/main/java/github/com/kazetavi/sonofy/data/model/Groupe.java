@@ -89,4 +89,13 @@ public class Groupe {
         membersId.remove(memberUid);
     }
 
+    public void acceptRequest(String userUid){
+        waitingApprovalUserId.remove(userUid);
+        membersId.add(userUid);
+    }
+
+    public void refuseRequest(String userUid){
+        waitingApprovalUserId.remove(userUid);
+    }
+
 }
