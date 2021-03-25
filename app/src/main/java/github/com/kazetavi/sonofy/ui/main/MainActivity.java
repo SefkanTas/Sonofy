@@ -17,6 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+import github.com.kazetavi.sonofy.ui.adhesiongroup.AdhesionGroupActivity;
+import github.com.kazetavi.sonofy.ui.admingroup.AdminAdhesionActivity;
 import github.com.kazetavi.sonofy.ui.admingroup.GroupMemberActivity;
 import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
 import github.com.kazetavi.sonofy.ui.login.LoginActivity;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private final FirebaseAuth user = FirebaseAuth.getInstance();
     private Flow adminFlow;
     private Button membreButton;
+    private Button demandeAdhesionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Button profil = findViewById(R.id.profil_button);
         adminFlow = findViewById(R.id.adminFlow);
         membreButton = findViewById(R.id.membresButton);
+        demandeAdhesionButton = findViewById(R.id.adhesionButton);
 
         FloatingActionButton newPublicationButton = findViewById(R.id.newPublicationButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
@@ -87,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intentMember = new Intent(getBaseContext(), GroupMemberActivity.class);
             intentMember.putExtra("GROUPE_ID", groupeId);
             startActivity(intentMember);
+        });
+
+        demandeAdhesionButton.setOnClickListener(v -> {
+            Intent intentAdhesion = new Intent(getBaseContext(), AdminAdhesionActivity.class);
+            intentAdhesion.putExtra("GROUPE_ID", groupeId);
+            startActivity(intentAdhesion);
         });
 
         newPublicationButton.setOnClickListener(view -> {

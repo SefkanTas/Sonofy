@@ -6,38 +6,51 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/groupMemberTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/adhesionMemberTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Membre"
         android:textColor="#000000"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/accepterButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/retirerMembreButton"
+        android:id="@+id/refuserMembreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#FF0000"
-        android:text="Retirer "
+        android:text="Refuser "
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/groupMemberTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/accepterButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/groupMemberTextView"
-        app:layout_constraintTop_toTopOf="@+id/groupMemberTextView" />
+        app:layout_constraintTop_toTopOf="@+id/accepterButton" />
+
+    <Button
+        android:id="@+id/accepterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#4CDA51"
+        android:text="Accepter"
+        app:layout_constraintBottom_toBottomOf="@+id/adhesionMemberTextView"
+        app:layout_constraintEnd_toStartOf="@+id/refuserMembreButton"
+        app:layout_constraintTop_toTopOf="@+id/adhesionMemberTextView"
+        app:layout_constraintVertical_bias="0.333" />
 
     <View
-        android:id="@+id/divider3"
+        android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retirerMembreButton" />
+        app:layout_constraintTop_toBottomOf="@+id/accepterButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

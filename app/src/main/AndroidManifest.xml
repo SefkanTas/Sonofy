@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.adhesiongroup.AdhesionGroupActivity"></activity>
+        <activity android:name=".ui.admingroup.AdminAdhesionActivity"></activity>
+        <activity android:name=".ui.adhesiongroup.AdhesionGroupActivity" />
         <activity android:name=".ui.admingroup.GroupMemberActivity" />
         <activity android:name=".ui.recommandation.RecommandationActivity" />
         <activity android:name=".ui.user.MainProfilActivity" />
