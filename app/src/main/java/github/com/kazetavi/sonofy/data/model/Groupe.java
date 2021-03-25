@@ -72,4 +72,8 @@ public class Groupe {
         return (!isPrivate || isMember(userId) || isAdmin(userId));
     }
 
+    public void removeMember(String memberUid){
+        membersId.remove(memberUid);
+    }
+
 }

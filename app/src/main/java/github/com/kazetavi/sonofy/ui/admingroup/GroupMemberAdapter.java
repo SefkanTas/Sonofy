@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
+import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
+import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
-import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 
 public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.GroupMemberViewHolder>{
 
@@ -39,9 +41,22 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
         User member = members.get(position);
         holder.memberUsername.setText("@" + member.getPseudo());
 
-        holder.removeButton.setOnClickListener(v -> {
-            //remove le membre
-        });
+        holder.removeButton.setOnClickListener(v -> GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
+            Groupe groupe = documentSnapshot.toObject(Groupe.class);
+
+            if(!groupe.isAdmin(member.getUserId())){
+                groupe.removeMember(member.getUserId());
+                GroupeFirestore.getCollection().document(groupId).update("membersId", groupe.getMembersId());
+                members.remove(position);
+                notifyDataSetChanged();
+            }
+            else {
+                Toast.makeText(holder.itemView.getContext(),
+                        "Vous ne pouvez pas retirer un admin du groupe",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }));
     }
 
     @Override

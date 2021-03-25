@@ -1,15 +1,9 @@
 package github.com.kazetavi.sonofy.ui.main;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +29,9 @@ public class MainViewModel extends ViewModel {
     }
 
     public void getGroupe(String uid){
-        GroupeFirestore.getGroupWithId(uid).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                groupeMutableLiveData.setValue(documentSnapshot.toObject(Groupe.class));
-            }
-        });
+        GroupeFirestore.getGroupWithId(uid).addOnSuccessListener(
+                documentSnapshot -> groupeMutableLiveData.setValue(documentSnapshot.toObject(Groupe.class))
+        );
     }
 
 
@@ -49,15 +40,12 @@ public class MainViewModel extends ViewModel {
 
 
             PublicationFirestore.getAllPublicationsCollectionTitreByGroupe(groupeId)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            publicationsList.clear();
-                            if(value != null){
-                                for (QueryDocumentSnapshot doc : value) {
-                                    publicationsList.add(doc.toObject(Publication.class));
-                                    publications.setValue(publicationsList);
-                                }
+                    .addSnapshotListener((value, error) -> {
+                        publicationsList.clear();
+                        if(value != null){
+                            for (QueryDocumentSnapshot doc : value) {
+                                publicationsList.add(doc.toObject(Publication.class));
+                                publications.setValue(publicationsList);
                             }
                         }
                     });
@@ -66,14 +54,11 @@ public class MainViewModel extends ViewModel {
     public void loadPublicationsDate(String groupId) {
         final List<Publication> publicationsList = new ArrayList<>();
         PublicationFirestore.getPublicationsByGroup(groupId)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        publicationsList.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            publicationsList.add(doc.toObject(Publication.class));
-                            publications.setValue(publicationsList);
-                        }
+                .addSnapshotListener((value, error) -> {
+                    publicationsList.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        publicationsList.add(doc.toObject(Publication.class));
+                        publications.setValue(publicationsList);
                     }
                 });
     }
@@ -81,15 +66,12 @@ public class MainViewModel extends ViewModel {
     void loadPublicationsLike(String groupId) {
         final List<Publication> publicationsList = new ArrayList<>();
         PublicationFirestore.getAllPublicationsCollectionLikeByGroup(groupId)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        publicationsList.clear();
-                        if(value != null){
-                            for (QueryDocumentSnapshot doc : value) {
-                                publicationsList.add(doc.toObject(Publication.class));
-                                publications.setValue(publicationsList);
-                            }
+                .addSnapshotListener((value, error) -> {
+                    publicationsList.clear();
+                    if(value != null){
+                        for (QueryDocumentSnapshot doc : value) {
+                            publicationsList.add(doc.toObject(Publication.class));
+                            publications.setValue(publicationsList);
                         }
                     }
                 });
