@@ -55,14 +55,19 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton search_btn = findViewById(R.id.search_activity_pub);
 
-//        adminFlow.setVisibility(View.GONE);
+        adminFlow.setVisibility(View.GONE);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         publicationRecyclerView.setLayoutManager(layoutManager);
 
         final MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        mainViewModel.getGroupeMutableLiveData().observe(this, groupe -> setTitle(groupe.getName()));
+        mainViewModel.getGroupeMutableLiveData().observe(this, groupe -> {
+            setTitle(groupe.getName());
+            if(groupe.isAdmin(user.getCurrentUser().getUid())){
+                adminFlow.setVisibility(View.VISIBLE);
+            }
+        });
 
         mainViewModel.getPublications().observe(this, publications -> {
             adapter = new PublicationAdapter(publications);
