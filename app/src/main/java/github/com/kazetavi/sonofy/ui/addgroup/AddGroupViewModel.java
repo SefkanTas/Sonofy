@@ -7,6 +7,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 
@@ -24,7 +27,6 @@ public class AddGroupViewModel extends ViewModel {
         GroupeFirestore.getGroup(nomGroupe).addOnCompleteListener(task -> {
             if (task.getResult().size() == 0){
                 createGroupe(nomGroupe, userId, isPrivate).addOnSuccessListener(documentReference -> {
-                    addAdmin(documentReference.getId(), userId);
                     isGroupCreated.setValue(true);
                 });
             }
@@ -35,11 +37,12 @@ public class AddGroupViewModel extends ViewModel {
     }
 
     private Task<DocumentReference> createGroupe(String nomGroupe, final String userId, boolean isPrivate){
-        return GroupeFirestore.create(new Groupe(nomGroupe, isPrivate));
-    }
+        List<String> adminsId = new ArrayList<>();
+        adminsId.add(userId);
 
-    private void addAdmin(String groupId, String userId){
-
+        List<String> membersId = new ArrayList<>();
+        membersId.add(userId);
+        return GroupeFirestore.create(new Groupe(nomGroupe, isPrivate, adminsId, membersId));
     }
 
 

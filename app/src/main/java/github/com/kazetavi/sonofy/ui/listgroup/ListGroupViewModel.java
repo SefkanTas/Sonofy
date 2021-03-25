@@ -26,15 +26,12 @@ public class ListGroupViewModel extends ViewModel {
         final List<Groupe> groupeList = new ArrayList<>();
 
         GroupeFirestore.getCollectionQueryDesc()
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        groupeList.clear();
-                        for(QueryDocumentSnapshot doc : value){
-                            groupeList.add(doc.toObject(Groupe.class));
-                        }
-                        groupesLiveData.setValue(groupeList);
+                .addSnapshotListener((value, error) -> {
+                    groupeList.clear();
+                    for(QueryDocumentSnapshot doc : value){
+                        groupeList.add(doc.toObject(Groupe.class));
                     }
+                    groupesLiveData.setValue(groupeList);
                 });
     }
 }
