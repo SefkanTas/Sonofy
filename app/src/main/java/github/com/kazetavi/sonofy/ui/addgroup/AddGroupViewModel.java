@@ -42,7 +42,7 @@ public class AddGroupViewModel extends ViewModel {
 
         List<String> membersId = new ArrayList<>();
         membersId.add(userId);
-        return GroupeFirestore.create(new Groupe(nomGroupe, isPrivate, adminsId, membersId));
+        return GroupeFirestore.create(new Groupe(nomGroupe, isPrivate, adminsId, membersId, new ArrayList<>()));
     }
 
 

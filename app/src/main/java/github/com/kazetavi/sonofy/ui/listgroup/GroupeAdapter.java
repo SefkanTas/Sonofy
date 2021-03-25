@@ -17,6 +17,7 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.Groupe;
+import github.com.kazetavi.sonofy.ui.adhesiongroup.AdhesionGroupActivity;
 import github.com.kazetavi.sonofy.ui.main.MainActivity;
 
 public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeViewHolder> {
@@ -63,11 +64,19 @@ public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeView
         }
         else {
             holder.groupNameTextView.setTextColor(Color.GRAY);
-            holder.itemView.setOnClickListener(view -> {
-                Toast.makeText(view.getContext(), "Vous n'êtes pas autorisé à voir ce groupe", Toast.LENGTH_SHORT).show();
-            });
+            if(groupe.getWaitingApprovalUserId().contains(currentUserId)){
+                holder.itemView.setOnClickListener(view -> {
+                    Toast.makeText(view.getContext(), "Ce groupe est privé. Vous avez déjà une demande d'adhésion en cours pour ce groupe", Toast.LENGTH_LONG).show();
+                });
+            }
+            else {
+                holder.itemView.setOnClickListener(view -> {
+                    Intent intent = new Intent(view.getContext(), AdhesionGroupActivity.class);
+                    intent.putExtra("GROUPE_ID", groupe.getUid());
+                    view.getContext().startActivity(intent);
+                });
+            }
         }
-
     }
 
 
