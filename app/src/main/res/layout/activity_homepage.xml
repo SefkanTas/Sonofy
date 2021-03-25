@@ -88,7 +88,7 @@
 
 
     <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow2"
+        android:id="@+id/bottomFlow"
         android:layout_width="411dp"
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
@@ -105,8 +105,8 @@
         android:backgroundTint="@color/colorAccent"
         android:text="Mon profil"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/flow2"
-        app:layout_constraintStart_toStartOf="@+id/flow2"
-        app:layout_constraintTop_toTopOf="@+id/flow2" />
+        app:layout_constraintEnd_toEndOf="@+id/bottomFlow"
+        app:layout_constraintStart_toStartOf="@+id/bottomFlow"
+        app:layout_constraintTop_toTopOf="@+id/bottomFlow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
