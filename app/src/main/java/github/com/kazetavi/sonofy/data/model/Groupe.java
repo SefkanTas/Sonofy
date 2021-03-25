@@ -68,4 +68,8 @@ public class Groupe {
         return membersId.contains(userId);
     }
 
+    public Boolean canAccess(String userId){
+        return (!isPrivate || isMember(userId) || isAdmin(userId));
+    }
+
 }
