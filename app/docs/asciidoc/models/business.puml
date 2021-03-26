@@ -1,0 +1,21 @@
+@startuml modelbusiness
+title <size:30><b>Diagramme de classes business</b></size>
+
+package business{
+    
+    enum EmotionEnum{
+        VERY_HAPPY, HAPPY, SAD,VERY_SAD
+
+        + getCategorie() : int 
+        + toString(): string 
+        + stringToEnum(str : string): EmotionEnum
+    }
+
+    class YoutubePublicationFactory{
+        + ressourceExists(ressourceId: string): Observable<boolean>
+        + getVideoIdFromUrl(url: string): string
+        
+    }
+}
+
+@enduml

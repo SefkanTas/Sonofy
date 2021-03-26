@@ -1,6 +1,6 @@
 = ```Sonofy``` Documentation
 TAS Sefkan, VIDA Anisoara, ZEGADI Lina, KAIS Lamia 
-2020-12-16
+2021-03-26
 :revnumber: {project-version}
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
@@ -70,6 +70,18 @@ image:modelui2.png[]
 ==== For the search page
 
 image:modelui.png[]
+
+==== For the request adhesion page
+
+image:modelui10.png[]
+
+==== For private group administration pages
+
+image:modelui11.png[]
+
+==== For private recommendation page
+
+image:modelui12.png[]
 
 
 

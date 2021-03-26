@@ -11,7 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 
 public class GroupeFirestore {
-    private static final String COLLECTION_NAME = "groups";
+    private static final String COLLECTION_NAME = "groups-privategroups";
     public static final String NAME = "name";
     public static final String DATE_CREATED = "dateCreated";
 

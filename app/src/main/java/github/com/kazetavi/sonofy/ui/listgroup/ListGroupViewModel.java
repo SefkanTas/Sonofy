@@ -1,13 +1,9 @@
 package github.com.kazetavi.sonofy.ui.listgroup;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +22,12 @@ public class ListGroupViewModel extends ViewModel {
         final List<Groupe> groupeList = new ArrayList<>();
 
         GroupeFirestore.getCollectionQueryDesc()
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        groupeList.clear();
-                        for(QueryDocumentSnapshot doc : value){
-                            groupeList.add(doc.toObject(Groupe.class));
-                        }
-                        groupesLiveData.setValue(groupeList);
+                .addSnapshotListener((value, error) -> {
+                    groupeList.clear();
+                    for(QueryDocumentSnapshot doc : value){
+                        groupeList.add(doc.toObject(Groupe.class));
                     }
+                    groupesLiveData.setValue(groupeList);
                 });
     }
 }

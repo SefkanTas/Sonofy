@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
@@ -16,6 +19,7 @@ public class AddGroupActivity extends AppCompatActivity {
 
     private EditText nomGroupEditText;
     private AddGroupViewModel addGroupViewModel;
+    private Switch privateGroupSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,7 @@ public class AddGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_group);
 
         nomGroupEditText = findViewById(R.id.groupeNameEditText);
+        privateGroupSwitch = findViewById(R.id.privateGroupSwitch);
         Button creerButton = findViewById(R.id.createGroupButton);
 
         addGroupViewModel = new ViewModelProvider(this).get(AddGroupViewModel.class);
@@ -44,8 +49,8 @@ public class AddGroupActivity extends AppCompatActivity {
                 String nomGroupe;
 
                 nomGroupe = nomGroupEditText.getText().toString().trim();
-
-                addGroupViewModel.checkGroupExistsAndCreate(nomGroupe);
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                addGroupViewModel.checkGroupExistsAndCreate(nomGroupe, currentUserId, privateGroupSwitch.isChecked());
             }
         });
 
