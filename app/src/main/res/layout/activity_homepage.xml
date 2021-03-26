@@ -26,11 +26,10 @@
         android:id="@+id/recommendation1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:text="Recommandation"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/logout1"
         app:layout_constraintTop_toBottomOf="@+id/logout1" />
 
     <Button
@@ -41,6 +40,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:text="Liste des groupes"
+        app:layout_constraintEnd_toEndOf="@+id/logout1"
         app:layout_constraintStart_toEndOf="@+id/recommendation1"
         app:layout_constraintTop_toBottomOf="@+id/logout1" />
 
@@ -53,6 +53,7 @@
         android:text="Les publications les plus récentes"
         android:textColor="#000000"
         android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listeGroupe"
         tools:ignore="MissingConstraints" />
 
@@ -71,7 +72,6 @@
         app:layout_constraintTop_toBottomOf="@+id/logout1" />
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/publicationRecyclerView1"
         android:layout_width="0dp"
@@ -79,7 +79,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomFlow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
