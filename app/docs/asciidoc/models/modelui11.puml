@@ -1,0 +1,78 @@
+@startuml modelui11
+title <size:30><b>Diagramme de classes ui pour l'administrateur de groupe privé</b></size>
+
+package app{
+    package ui{
+        package admingroup{
+            class AdhesionAdpater extends RecyclerView.Adapter{
+                - users: List<Users>
+                - groupId: string
+
+                + this(users: List<Users>, groupId: string)
+
+                + onCreateViewHolder(parent: ViewGroup, viewType: int): AdhesionViewHolder
+                + onBindViewHoler(holder: AdhesionViewHolder, position: int): void
+                + gitItemCount(): int
+            }
+            AdhesionAdpater *-- AdhesionViewHolder
+
+            
+            class AdhesionViewHolder extends RecyclerView.ViewHolder{
+                username: TextView
+                accepterButton: Button
+                refuserButton: Button
+
+                + this(itemView: View)
+            }
+
+            class AdminAdhesionActivity extends AppCompatActivity{
+                - adapter: AdhesionAdpater
+                - adhesionMemberRecyclerView: RecyclerView
+
+                # onCreate(savedInstance: Bundle): void
+            }
+            AdminAdhesionActivity *-- AdhesionAdpater
+            AdminAdhesionActivity *-- GroupMemberViewModel
+
+            class GroupMemberActivity extends AppCompatActivity{
+                - adapter: GroupMemberAdapter
+                - groupMemberRecyclerView: RecyclerView
+
+                # onCreate(savedInstance: Bundle): void
+            }
+            AdminAdhesionActivity *-- GroupMemberAdapter
+            GroupMemberActivity *-- GroupMemberViewModel
+
+            class GroupMemberAdapter extends RecyclerView.Adapter{
+                - members: List<User>
+                - groupId: string
+
+                + this(members: List<Users>, groupId: string)
+                + onCreateViewHolder(parent: ViewGroup, viewType: int): GroupMemberViewHolder
+                + onBindViewHoler(holder: GroupMemberViewHolder, position: int): void
+                + getItemCount(): int
+            }
+            GroupMemberAdapter *-- GroupMemberViewHolder
+
+            class GroupMemberViewHolder extends RecyclerView.ViewHolder{
+                memberUsername: TextView
+                removeButton: Button
+
+                + this(itemView: View)
+            }
+
+            class GroupMemberViewModel extends ViewModel {
+                - userMutableLiveData: MutableLiveData<List<User>>
+                - requestingUsersMutableLiveData: MutableLiveData<List<User>>
+
+                + getUserMutableLiveData(): MutableLiveData<List<User>>
+                + getRequestingUsersMutableLiveData(): MutableLiveData<List<User>>
+                + loadGroupMembers(groupId: string)
+                + loadAdhesionRequestMember(groupId: string)
+            }
+
+        }
+    }
+}
+
+@enduml
