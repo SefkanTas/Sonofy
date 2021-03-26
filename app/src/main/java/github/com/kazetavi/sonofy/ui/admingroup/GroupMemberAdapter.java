@@ -1,5 +1,8 @@
 package github.com.kazetavi.sonofy.ui.admingroup;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
 
 public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.GroupMemberViewHolder>{
 
@@ -38,25 +42,42 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull GroupMemberViewHolder holder, int position) {
+        holder.removeButton.setVisibility(View.INVISIBLE);
+
         User member = members.get(position);
         holder.memberUsername.setText("@" + member.getPseudo());
 
-        holder.removeButton.setOnClickListener(v -> GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
+        holder.memberUsername.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), MainProfilActivity.class);
+            intent.putExtra("userID", member.getUserId());
+            v.getContext().startActivity(intent);
+        });
+
+        GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
             Groupe groupe = documentSnapshot.toObject(Groupe.class);
 
-            if(!groupe.isAdmin(member.getUserId())){
-                groupe.removeMember(member.getUserId());
-                GroupeFirestore.getCollection().document(groupId).update("membersId", groupe.getMembersId());
-                members.remove(position);
-                notifyDataSetChanged();
+            if(groupe.isAdmin(member.getUserId())){
+                holder.memberUsername.setTypeface(null, Typeface.BOLD);
             }
             else {
-                Toast.makeText(holder.itemView.getContext(),
-                        "Vous ne pouvez pas retirer un admin du groupe",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                holder.removeButton.setVisibility(View.VISIBLE);
             }
-        }));
+
+            holder.removeButton.setOnClickListener(v -> {
+                if(!groupe.isAdmin(member.getUserId())){
+                    groupe.removeMember(member.getUserId());
+                    GroupeFirestore.getCollection().document(groupId).update("membersId", groupe.getMembersId());
+                    members.remove(position);
+                    notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(holder.itemView.getContext(),
+                            "Vous ne pouvez pas retirer un admin du groupe",
+                            Toast.LENGTH_SHORT)
+                            .show();
+                }
+            });
+        });
     }
 
     @Override

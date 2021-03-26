@@ -1,5 +1,6 @@
 package github.com.kazetavi.sonofy.ui.admingroup;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,11 @@ import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
+import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
+import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
+import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
 
 public class AdhesionAdapter extends RecyclerView.Adapter<AdhesionAdapter.AdhesionViewHolder>{
 
@@ -43,8 +47,15 @@ public class AdhesionAdapter extends RecyclerView.Adapter<AdhesionAdapter.Adhesi
 
         holder.username.setText("@" + user.getPseudo());
 
+        holder.username.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), MainProfilActivity.class);
+            intent.putExtra("userID", user.getUserId());
+            v.getContext().startActivity(intent);
+        });
+
         GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
             Groupe groupe = documentSnapshot.toObject(Groupe.class);
+
 
             holder.accepterButton.setOnClickListener(v -> {
                 groupe.acceptRequest(user.getUserId());

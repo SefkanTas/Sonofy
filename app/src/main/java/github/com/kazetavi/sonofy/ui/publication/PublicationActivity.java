@@ -1,7 +1,6 @@
 package github.com.kazetavi.sonofy.ui.publication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,6 @@ import github.com.kazetavi.sonofy.ui.user.ProfilViewModel;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -75,12 +73,9 @@ public class PublicationActivity extends AppCompatActivity {
         //Recupérer l'utilisateur courant pour mettre à jour le pseudo afficher dans les commentaires
         uservm.getUser(currentUser.getCurrentUser().getUid());
 
-        uservm.getUserMutableLiveData().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                userc = user;
-                pseudoU = userc.getPseudo();
-            }
+        uservm.getUserMutableLiveData().observe(this, user -> {
+            userc = user;
+            pseudoU = userc.getPseudo();
         });
 
         publicationViewModel.getPublicationLiveData().observe(this, publicationLiveData -> {
@@ -97,13 +92,10 @@ public class PublicationActivity extends AppCompatActivity {
             dislikeCountTextView.setText(publication.getDislikeCount().toString());
         });
 
-        authorUsernameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(getBaseContext(), MainProfilActivity.class);
-                intent2.putExtra("userID", intent.getStringExtra("userId"));
-                startActivity(intent2);
-            }
+        authorUsernameTextView.setOnClickListener(v -> {
+            Intent intent2 = new Intent(getBaseContext(), MainProfilActivity.class);
+            intent2.putExtra("userID", intent.getStringExtra("userId"));
+            startActivity(intent2);
         });
 
         miniatureImageView.setOnClickListener(view -> {
