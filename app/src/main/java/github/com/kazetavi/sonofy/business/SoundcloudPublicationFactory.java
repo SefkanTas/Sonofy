@@ -31,7 +31,16 @@ public class SoundcloudPublicationFactory {
         });
     }
     public String getVideoIdFromUrl(String url){
-        String videoId = url;
+        String[] separated;
+        String videoId;
+        if(url.contains("https://soundcloud.com/")){
+            separated = url.split("com/");
+            videoId = separated[1];
+        }
+        else {
+            videoId = url;
+        }
+
         return videoId;
     }
 

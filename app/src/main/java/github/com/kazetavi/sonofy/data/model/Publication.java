@@ -114,9 +114,9 @@ public class Publication {
     @Exclude
     public String getVideoUrl(){
         if(support.equals("youtube")) {
-            return new StringBuilder("https://www.youtube.com/watch?v=")
-                    .append(this.videoId)
-                    .toString();
+                return new StringBuilder("https://www.youtube.com/watch?v=")
+                        .append(this.videoId)
+                        .toString();
         } else {
             return new StringBuilder("https://soundcloud.com/")
                     .append(this.videoId)

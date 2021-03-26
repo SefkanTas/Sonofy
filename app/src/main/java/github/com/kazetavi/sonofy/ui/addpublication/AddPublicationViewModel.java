@@ -75,24 +75,24 @@ public class AddPublicationViewModel extends ViewModel {
 
         if (support.equals("youtube")) {
             videoId = youtubePublicationFactory.getVideoIdFromUrl(sourceUrl);
-            youtubePublicationFactory.ressourceExists(sourceUrl)
+            youtubePublicationFactory.ressourceExists(videoId)
                     .subscribeOn(Schedulers.io())
                     .subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean soundExist) throws Throwable {
-                            if (soundExist == Boolean.TRUE) savePublication(titre, videoId, groupId, authorId, support);
+                            if (soundExist) savePublication(titre, videoId, groupId, authorId, support);
                             else isPublicationSaved.postValue(false);
                             isLoading.postValue(false);
                         }
                     });
         } else {
             videoId = soundcloudPublicationFactory.getVideoIdFromUrl(sourceUrl);
-            soundcloudPublicationFactory.ressourceExists(sourceUrl)
+            soundcloudPublicationFactory.ressourceExists(videoId)
                     .subscribeOn(Schedulers.io())
                     .subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean soundExist) throws Throwable {
-                            if (soundExist == Boolean.TRUE)
+                            if (soundExist)
                                 savePublication(titre, videoId, groupId, authorId, support);
                             else isPublicationSaved.postValue(false);
                             isLoading.postValue(false);
