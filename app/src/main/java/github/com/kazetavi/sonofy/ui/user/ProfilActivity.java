@@ -59,8 +59,8 @@ public class ProfilActivity extends AppCompatActivity {
         ImageView pseudo_mod = findViewById(R.id.pseudo_button);
 
 
-        profilvm.getUserMutableLiveData().observe(this, user -> {
-            u = user;
+        profilvm.getUserMutableLiveData().observe(this, mUser -> {
+            u = mUser;
             nom.setText(u.getNom());
             prenom.setText(u.getPrenom());
             //email.setText(u.getEmail());

@@ -3,7 +3,6 @@ package github.com.kazetavi.sonofy.ui.addgroup;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 
@@ -26,9 +25,7 @@ public class AddGroupViewModel extends ViewModel {
     public void checkGroupExistsAndCreate(final String nomGroupe, final String userId, final boolean isPrivate){
         GroupeFirestore.getGroup(nomGroupe).addOnCompleteListener(task -> {
             if (task.getResult().size() == 0){
-                createGroupe(nomGroupe, userId, isPrivate).addOnSuccessListener(documentReference -> {
-                    isGroupCreated.setValue(true);
-                });
+                createGroupe(nomGroupe, userId, isPrivate).addOnSuccessListener(documentReference -> isGroupCreated.setValue(true));
             }
             else {
                 isGroupCreated.setValue(false);

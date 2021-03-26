@@ -29,16 +29,14 @@ public class GroupMemberViewModel extends ViewModel {
         GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
             Groupe groupe = documentSnapshot.toObject(Groupe.class);
             List<User> users = new ArrayList<>();
-            groupe.getMembersId().forEach(memberId -> {
-                UserFirestore.getUser(memberId).addOnSuccessListener(documentSnapshotUser ->{
-                            User u = documentSnapshotUser.toObject(User.class);
-                            users.add(u);
-                            if(users.size() == groupe.getMembersId().size()){
-                                userMutableLiveData.setValue(users);
-                            }
+            groupe.getMembersId().forEach(memberId -> UserFirestore.getUser(memberId).addOnSuccessListener(documentSnapshotUser ->{
+                        User u = documentSnapshotUser.toObject(User.class);
+                        users.add(u);
+                        if(users.size() == groupe.getMembersId().size()){
+                            userMutableLiveData.setValue(users);
                         }
-                );
-            });
+                    }
+            ));
         });
     }
 
@@ -46,16 +44,14 @@ public class GroupMemberViewModel extends ViewModel {
         GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
             Groupe groupe = documentSnapshot.toObject(Groupe.class);
             List<User> users = new ArrayList<>();
-            groupe.getWaitingApprovalUserId().forEach(memberId -> {
-                UserFirestore.getUser(memberId).addOnSuccessListener(documentSnapshotUser ->{
-                            User u = documentSnapshotUser.toObject(User.class);
-                            users.add(u);
-                            if(users.size() == groupe.getMembersId().size()){
-                                userMutableLiveData.setValue(users);
-                            }
+            groupe.getWaitingApprovalUserId().forEach(memberId -> UserFirestore.getUser(memberId).addOnSuccessListener(documentSnapshotUser ->{
+                        User u = documentSnapshotUser.toObject(User.class);
+                        users.add(u);
+                        if(users.size() == groupe.getMembersId().size()){
+                            userMutableLiveData.setValue(users);
                         }
-                );
-            });
+                    }
+            ));
         });
     }
 

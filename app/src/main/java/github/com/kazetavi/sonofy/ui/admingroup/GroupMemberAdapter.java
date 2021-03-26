@@ -1,7 +1,6 @@
 package github.com.kazetavi.sonofy.ui.admingroup;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +55,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
         GroupeFirestore.getGroupWithId(groupId).addOnSuccessListener(documentSnapshot -> {
             Groupe groupe = documentSnapshot.toObject(Groupe.class);
 
-            if(groupe.isAdmin(member.getUserId())){
+            if(groupe !=null && groupe.isAdmin(member.getUserId())){
                 holder.memberUsername.setTypeface(null, Typeface.BOLD);
             }
             else {
@@ -64,7 +63,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
             }
 
             holder.removeButton.setOnClickListener(v -> {
-                if(!groupe.isAdmin(member.getUserId())){
+                if(groupe != null && !groupe.isAdmin(member.getUserId())){
                     groupe.removeMember(member.getUserId());
                     GroupeFirestore.getCollection().document(groupId).update("membersId", groupe.getMembersId());
                     members.remove(position);

@@ -31,21 +31,17 @@ public class AdhesionGroupActivity extends AppCompatActivity {
 
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        ouiButton.setOnClickListener(v -> {
-            GroupeFirestore.getGroupWithId(groupeId).addOnSuccessListener(documentSnapshot -> {
-                Groupe groupe = documentSnapshot.toObject(Groupe.class);
-                groupe.getWaitingApprovalUserId().add(currentUserId);
-                GroupeFirestore.getCollection().document(groupeId)
-                        .update("waitingApprovalUserId", groupe.getWaitingApprovalUserId());
-                Toast.makeText(this, "Vous venez de faire une demander d'adhésion à un groupe", Toast.LENGTH_LONG)
-                        .show();
-                finish();
-            });
-        });
-
-        nonButton.setOnClickListener(v -> {
+        ouiButton.setOnClickListener(v -> GroupeFirestore.getGroupWithId(groupeId).addOnSuccessListener(documentSnapshot -> {
+            Groupe groupe = documentSnapshot.toObject(Groupe.class);
+            groupe.getWaitingApprovalUserId().add(currentUserId);
+            GroupeFirestore.getCollection().document(groupeId)
+                    .update("waitingApprovalUserId", groupe.getWaitingApprovalUserId());
+            Toast.makeText(this, "Vous venez de faire une demander d'adhésion à un groupe", Toast.LENGTH_LONG)
+                    .show();
             finish();
-        });
+        }));
+
+        nonButton.setOnClickListener(v -> finish());
 
 
     }

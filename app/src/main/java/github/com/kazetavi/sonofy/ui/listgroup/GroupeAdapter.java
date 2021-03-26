@@ -65,9 +65,7 @@ public class GroupeAdapter extends RecyclerView.Adapter<GroupeAdapter.GroupeView
         else {
             holder.groupNameTextView.setTextColor(Color.GRAY);
             if(groupe.getWaitingApprovalUserId().contains(currentUserId)){
-                holder.itemView.setOnClickListener(view -> {
-                    Toast.makeText(view.getContext(), "Ce groupe est privé. Vous avez déjà une demande d'adhésion en cours pour ce groupe", Toast.LENGTH_LONG).show();
-                });
+                holder.itemView.setOnClickListener(view -> Toast.makeText(view.getContext(), "Ce groupe est privé. Vous avez déjà une demande d'adhésion en cours pour ce groupe", Toast.LENGTH_LONG).show());
             }
             else {
                 holder.itemView.setOnClickListener(view -> {

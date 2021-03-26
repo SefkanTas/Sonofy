@@ -15,14 +15,9 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.List;
-
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.model.Emotion;
-import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
-import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 import github.com.kazetavi.sonofy.ui.publication.EmotionMainProfileAdapter;
 

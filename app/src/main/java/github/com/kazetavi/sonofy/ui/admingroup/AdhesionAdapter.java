@@ -10,18 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-
 import java.util.List;
 
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.api.GroupeFirestore;
-import github.com.kazetavi.sonofy.data.api.UserFirestore;
 import github.com.kazetavi.sonofy.data.model.Groupe;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.user.MainProfilActivity;
-import github.com.kazetavi.sonofy.ui.user.ProfilActivity;
 
 public class AdhesionAdapter extends RecyclerView.Adapter<AdhesionAdapter.AdhesionViewHolder>{
 
