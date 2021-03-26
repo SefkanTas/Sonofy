@@ -47,7 +47,7 @@ public class GroupMemberViewModel extends ViewModel {
             groupe.getWaitingApprovalUserId().forEach(memberId -> UserFirestore.getUser(memberId).addOnSuccessListener(documentSnapshotUser ->{
                         User u = documentSnapshotUser.toObject(User.class);
                         users.add(u);
-                        if(users.size() == groupe.getMembersId().size()){
+                        if(users.size() != 0){
                             userMutableLiveData.setValue(users);
                         }
                     }
