@@ -19,6 +19,7 @@ public class Publication {
     private String authorId;
     @ServerTimestamp
     private Date dateCreated;
+    private String support;
 
     @Exclude
     private List<Emotion> emotions;
@@ -35,14 +36,15 @@ public class Publication {
         this.dislikeCount = 0L;
     }
 
-    public Publication(String titre, String videoId, String groupId, String authorId) {
+    public Publication(String titre, String videoId, String groupId, String authorId, String support) {
         this(titre,videoId);
         this.groupId = groupId;
         this.authorId = authorId;
+        this.support = support;
     }
 
-    public Publication(String titre, String videoId, String groupId, String authorId, List<Emotion> emotions) {
-        this(titre,videoId, groupId, authorId);
+    public Publication(String titre, String videoId, String groupId, String authorId, List<Emotion> emotions, String support) {
+        this(titre,videoId, groupId, authorId, support);
         this.emotions = emotions;
     }
 
@@ -83,6 +85,10 @@ public class Publication {
         this.authorId = authorId;
     }
 
+    public String getSupport() { return support; }
+
+    public void setSupport(String support) { this.support = support; }
+
     @Exclude
     public List<Emotion> getEmotions() {
         return emotions;
@@ -95,17 +101,27 @@ public class Publication {
 
     @Exclude
     public String getMiniatureUrl(){
-        return new StringBuilder("https://img.youtube.com/vi/")
+        if(support.equals("youtube"))
+            return new StringBuilder("https://img.youtube.com/vi/")
                 .append(this.videoId)
                 .append("/mqdefault.jpg")
                 .toString();
+        else
+            return "https://upload.wikimedia.org/wikipedia/fr/b/bb/SoundCloud_logo.png";
     }
 
+    ////soundcloud link => image
     @Exclude
     public String getVideoUrl(){
-        return new StringBuilder("https://www.youtube.com/watch?v=")
-                .append(this.videoId)
-                .toString();
+        if(support.equals("youtube")) {
+                return new StringBuilder("https://www.youtube.com/watch?v=")
+                        .append(this.videoId)
+                        .toString();
+        } else {
+            return new StringBuilder("https://soundcloud.com/")
+                    .append(this.videoId)
+                    .toString();
+        }
     }
 
     @Override
@@ -119,4 +135,6 @@ public class Publication {
         sb.append('}');
         return sb.toString();
     }
+
+
 }

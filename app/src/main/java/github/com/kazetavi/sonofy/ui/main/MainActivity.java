@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private final FirebaseAuth user = FirebaseAuth.getInstance();
     private Flow adminFlow;
-    private Button membreButton;
-    private Button demandeAdhesionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
         Button logout = findViewById(R.id.logout);
         Button profil = findViewById(R.id.profil_button);
         adminFlow = findViewById(R.id.adminFlow);
-        membreButton = findViewById(R.id.membresButton);
-        demandeAdhesionButton = findViewById(R.id.adhesionButton);
+        Button membreButton = findViewById(R.id.membresButton);
+        Button demandeAdhesionButton = findViewById(R.id.adhesionButton);
 
-        FloatingActionButton newPublicationButton = findViewById(R.id.newPublicationButton);
+        FloatingActionButton newPublicationYoutubeButton = findViewById(R.id.newPublicationYoutubeButton);
+        FloatingActionButton newPublicationSoundcloudButton = findViewById(R.id.newPublicationSoundcloudButton);
         publicationRecyclerView = findViewById(R.id.publicationRecyclerView);
 
         FloatingActionButton search_btn = findViewById(R.id.search_activity_pub);
@@ -98,13 +97,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentAdhesion);
         });
 
-        newPublicationButton.setOnClickListener(view -> {
-            Intent intent1 = new Intent(getBaseContext(), AddPublicationActivity.class);
-            intent1.putExtra("GROUPE_ID", groupeId);
-            startActivity(intent1);
+        newPublicationYoutubeButton.setOnClickListener(v-> {
+                Intent intent4 = new Intent(getBaseContext(), AddPublicationActivity.class);
+                intent4.putExtra("GROUPE_ID", groupeId);
+                intent4.putExtra("SUPPORT", "youtube");
+                startActivity(intent4);
         });
 
-        search_btn.setOnClickListener(v -> {
+        newPublicationSoundcloudButton.setOnClickListener(v -> {
+                Intent intent2 = new Intent(getBaseContext(), AddPublicationActivity.class);
+                intent2.putExtra("GROUPE_ID", groupeId);
+                intent2.putExtra("SUPPORT", "soundcloud");
+                startActivity(intent2);
+        });
+
+
+        search_btn.setOnClickListener (v -> {
             Intent intent12 = new Intent(getBaseContext(), SearchActivityPublication.class);
             intent12.putExtra("GROUPE_ID", groupeId);
             startActivity(intent12);

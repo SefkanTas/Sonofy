@@ -29,9 +29,7 @@ public class PublicationActivity extends AppCompatActivity {
     private TextView likeCountTextView;
     private TextView dislikeCountTextView;
     private TextView authorUsernameTextView;
-
     private Publication publication;
-
     private RecyclerView emotionRecyclerView;
     private RecyclerView.Adapter adapter;
 
