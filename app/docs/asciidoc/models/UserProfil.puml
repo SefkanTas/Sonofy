@@ -1,0 +1,28 @@
+@startuml
+actor User as g
+participant "::MainProfilActivity " as act
+participant "auth::ProfilViewModel " as profilvm
+participant "::PublicationFirestore " as pubb
+participant "::EmotionFirestore " as emobb
+
+g -> act : Appuyer sur mon profil
+activate act
+activate profilvm
+act -> profilvm : loadPublicationsAuthor(id)
+act -> profilvm : loadEmotionsAuthor(id))
+activate pubb
+profilvm -> pubb : getPublicationByAuthorId(authorId)
+pubb --> profilvm : liste publication de l'user
+deactivate pubb
+activate emobb
+profilvm -> emobb : getEmotionByAuthorId(authorId)
+emobb --> profilvm : liste des emojis de l'user
+deactivate emobb
+profilvm --> act : liste publication et emojis
+deactivate profilvm
+act --> g : affichage page profil
+act --> g : onglet publication : liste publications
+act --> g : onglet emotions : liste emotions correspondante aux publications
+deactivate act
+
+@enduml
