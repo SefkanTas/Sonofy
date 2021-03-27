@@ -137,6 +137,9 @@ image:HomePage.png[]
 
 image:Recommendation.png[]
 
+=== Sequence Diagram : Adhesion Group
+
+image:AhdesionGroup.png[]
 
 == What does ```Sonofy``` do?
 
