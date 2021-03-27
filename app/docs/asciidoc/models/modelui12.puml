@@ -1,0 +1,45 @@
+@startuml modelui12
+title <size:30><b>Diagramme de classes ui pour les recommandations</b></size>
+
+package app{
+    package ui{
+        package recommandation{
+            class RecommandationActivity  extends AppCompatActivity{
+                # onCreate(savedInstanceState: Bundle): void
+            }
+            RecommandationActivity *-- RecommandationFragment
+
+            class RecommandationFragment extends Fragment{
+                - recommandationViewModel: RecommandationViewModel
+                - recommandedRecyclerView: RecyclerView 
+                - adapter: RecyclerView.Adapter
+
+                + newInstance(): RecommandationFragment
+                + onCreateView(inflater: LayoutInflater, container: ViewGroup): View
+                + onActivityCreated(savedInstanceState: Bundle): void
+                + onViewCreated(view: View, savedInstanceState: Bundle): void
+            }
+            RecommandationFragment *-- RecommandationViewModel
+
+
+            class RecommandationViewModel extends ViewModel{
+                - TAG: string
+                - userProximity: Map<string, integer>
+                - userId: string
+                - recommendedPublicationsLiveData: MutableLiveData<List<Publication>>
+                - allPublications: List<Publication>
+
+                + getRecommendedPublicationsLiveData(): MutableLiveData<List<Publication>>
+                + getRecommandation(userId: string): void
+                + getUserReactedPublication(emotions: List<Emotion>): void
+                + getEmotionsForPublications(publications: List<Publication>): void
+                + reactionComparaison(publications: List<Publication>): void
+                + getOrderedSimilarUser(similarUsers: Map<String, Integer>): void
+                + getRecommendedPublications(orderedSimilarUsers: List<string>): void
+
+            }
+        }
+    }
+}
+
+@enduml

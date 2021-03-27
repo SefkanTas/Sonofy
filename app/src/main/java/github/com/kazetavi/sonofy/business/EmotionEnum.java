@@ -2,8 +2,6 @@ package github.com.kazetavi.sonofy.business;
 
 import androidx.annotation.NonNull;
 
-import github.com.kazetavi.sonofy.data.model.Emotion;
-
 public enum EmotionEnum {
     VERY_HAPPY,
     HAPPY,

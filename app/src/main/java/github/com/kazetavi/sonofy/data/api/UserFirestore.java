@@ -19,6 +19,8 @@ public class UserFirestore {
     public static final String ROLE = "role";
     public static final String USER_ID = "userId";
 
+    private UserFirestore() {
+    }
 
     public static CollectionReference getUsersCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);

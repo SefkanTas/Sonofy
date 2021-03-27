@@ -6,20 +6,6 @@ package app{
 
         package api{
 
-            class CommentaireFirestore{
-                - COLLECTION_NAME : String
-                + CONTENT : String
-                + LIKE_COUNT : String
-                + DISLIKE_COUNT : String
-                + DATE_CREATED : String
-                + PUBLICATION_ID : String
-
-                + getCollection() : CollectionReference
-                + getCollectionQueryDesc() : Query
-                + getCollectionQueryByPublication(publicationId : String): Query
-                + create(commentaire : Commentaire) : Task<DocumentReference>
-            }
-
             class EmotionFirestore{
                 - COLLECTION_NAME : String
                 + EMOTION : String
@@ -125,34 +111,6 @@ package app{
 
         package model{
 
-            class Commentaire{
-                - uid : String
-                - publicationId : String
-                - content : String
-                - likeCount : Long
-                - dislikeCount : Long
-                - dateCreated : Date
-                - username : String
-                - userId : String
-
-                + this : ()
-                + this : (publicationId : String, content : String, username : String, userId : String)
-                + getUid() : String
-                + setUid(uid : String): void
-                + getPublicationId() : String
-                + setPublicationId(publicationId : String): void
-                + getContent() : String
-                + setContent(content : String): void
-                + getLikeCount() : Long
-                + setLikeCount(likeCount : Long) : void
-                + getDislikeCount() : Long
-                + setDislikeCount(dislikeCount : long) : void
-                + getDateCreated() : Date
-                + setDateCreated(datecreated : Date) : void
-                + getUsername() : String
-            }
-
-
             class Emotion{
                 - uid :String
                 - emotion : String
@@ -174,13 +132,30 @@ package app{
                 - uid : String
                 - name : String
                 - dateCreated : Date
+                - isPrivate: boolean
+                - adminsId: List<string>
+                - membersId: List<string>
+                - waitingApprovalUserId: List<string>
 
                 + this : ()
-                + this : (name : String)
+                + this : (name : String, isPrivate: boolean)
+                + this : (name : String, isPrivate: boolean, adminsId: List<string>, membersId: List<string>)
+                + this : (name : String, isPrivate: boolean, adminsId: List<string>, membersId: List<string>, waitingApprovalUserId: List<string>)
 
                 + getUid() : String
                 + getName() : String
                 + getDateCreated() : Date
+                + isPrivate(): boolean
+                + setPrivate(aPrivate: boolean): void
+                + getAdminsId(): List<string>
+                + getMembersId(): List<string>
+                + getWaitingApprovalUserId(): List<string>
+                + isAdmin(userId: string): boolean
+                + isMember(userId: string): boolean
+                + canAccess(userId: string): boolean
+                + removeMember(memberUid: string): void
+                + acceptRequest(memberUid: userUid): void
+                + refuseRequest(memberUid: userUid): void
             }
 
             class Publication{

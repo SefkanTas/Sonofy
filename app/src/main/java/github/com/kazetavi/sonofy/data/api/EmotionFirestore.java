@@ -1,8 +1,5 @@
 package github.com.kazetavi.sonofy.data.api;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -13,7 +10,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import github.com.kazetavi.sonofy.data.model.Emotion;
 
@@ -24,6 +20,10 @@ public class EmotionFirestore {
     public static final String PUBLICATION_ID = "publicationId";
     public static final String DATE_CREATED = "dateCreated";
 
+
+    //for sonar code smell
+    private EmotionFirestore() {
+    }
 
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -71,15 +71,12 @@ public class EmotionFirestore {
 
 
     public static void deleteByPublicationId(String publicationId){
-        getByPublication(publicationId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot query : Objects.requireNonNull(task.getResult())){
-                            delete(query.getId());
-                        }
+        getByPublication(publicationId).get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot query : Objects.requireNonNull(task.getResult())){
+                        delete(query.getId());
                     }
-            }
+                }
         });
     }
 
@@ -103,4 +100,6 @@ public class EmotionFirestore {
                     }
                 });
 
-    }}
+    }
+
+}

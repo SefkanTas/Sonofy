@@ -36,9 +36,19 @@
         android:id="@+id/createGroupButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="Créer le groupe"
         app:layout_constraintEnd_toEndOf="@+id/groupeNameEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/groupeNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/privateGroupSwitch" />
+
+    <Switch
+        android:id="@+id/privateGroupSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Groupe privé"
         app:layout_constraintStart_toStartOf="@+id/groupeNameEditText"
         app:layout_constraintTop_toBottomOf="@+id/groupeNameEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

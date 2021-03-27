@@ -9,6 +9,7 @@ package app{
           class AddGroupActivity extends AppCompatActivity{
               - nomGroupeEditText : EditText
               - addGroupViewModel: AddGroupViewModel
+              - privateGroupSwitch: Switch
 
               onCreate(savedInstanceState : Bundle) : void
           }
@@ -18,8 +19,8 @@ package app{
 
               + isGroupCreated() : MutableLiveData<Boolean>
               - chechGroupExists(nomGroupe : String) : void
-              - createGroupe(nomGroupe : String): void
-              + chechGroupExistsAndCreate(nomGroupe : String): void
+              - createGroupe(nomGroupe : String, userId: string, isPrivate: boolean): void
+              + checkGroupExistsAndCreate(nomGroupe : String, userId: string, isPrivate: boolean): void
           }
       }
     }

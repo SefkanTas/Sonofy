@@ -1,0 +1,17 @@
+@startuml modelui10
+title <size:30><b>Diagramme de classes ui pour l'adhésion de groupe privé</b></size>
+
+package app{
+  package ui{
+      package adhesiongroup{
+          class AdhesionGroupActivity extends AppCompatActivity {
+              - ouiButton: Button
+              - nonButton: Button
+
+              # onCreate(savedInstanceState: Bundle): void
+          }
+      }
+  }
+}
+
+@enduml
