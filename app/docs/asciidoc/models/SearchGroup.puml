@@ -1,0 +1,26 @@
+@startuml
+actor User as g
+participant "::SearchActivity " as act
+participant ":: SearchViewModel " as searchvm
+participant ":: GroupeFirestore " as searchb
+participant ":: FirebaseFirestore " as base
+
+
+g -> act: Appuyer sur le button recherche
+activate act
+activate searchvm
+act -> searchvm : searchViewModel.searchGroup(nameg)
+activate searchb
+searchvm -> searchb : searchByGroupe(groupe)
+activate base
+searchb -> base : getInstance().collection(COLLECTION_NAME)
+base -> searchb : return collection
+deactivate base
+searchb -> searchvm : liste des groupes
+deactivate searchb
+searchvm -> act : liste groupe recherché
+deactivate searchvm
+act --> g : Affichage de la liste des groupes recherchés
+deactivate act
+
+@enduml

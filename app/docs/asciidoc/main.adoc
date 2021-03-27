@@ -14,72 +14,120 @@ ifndef::modelsdir[:modelsdir: models]
 // :listing-caption: Listing
 
 
-=== Sequence Diagram : Main Publication
+== Sequence Diagrams 
+
+=== Main Publication
 
 image:MainPublication.png[]
 
-=== Sequence Diagram : Search Publication
+=== Search Publication
 
 image:Recherche.png[]
 
-=== Sequence Diagram : Register
+=== Register
 
 image:Register.png[]
 
-=== Sequence Diagram : Connexion
+=== Login
 
 image:Connexion.png[]
+
+=== Publication Page
+
+image:PublicationPage.png[]
+
+=== Add a group
+
+image:AjoutGroupe.png[]
+
+=== Add a publication
+
+image:AjoutPublication.png[]
+
+=== List of groups Page
+
+image:PageGroupe.png[]
+
+=== Search a group
+
+image:SearchGroup.png[]
+
+=== Delete a publication
+
+image:DeletePub.png[]
+
+=== User profile
+
+image:UserProfil.png[]
+
+=== Add an emotion
+
+image:AddEmotion.png[]
+
+=== Home page
+
+image:HomePage.png[]
+
+=== Recommendation of publications
+
+image:Recommendation.png[]
+
+=== Membership for groups
+
+image:AhdesionGroup.png[]
+
+
+
 
 == Class diagram of Sonofy
 
 === UI Diagram class
 
-==== For the main page
+==== Main page
 
 image:modelui6.png[]
 
-==== For the register page
+==== Register page
 
 image:modelui8.png[]
 
-
-==== For the signin page
+==== Signin page
 
 image:modelui5.png[]
 
-==== For the profil page
+==== Profile page
 
 image:modelui9.png[]
 
-==== For the adding publication page
+==== Adding publication page
 
 image:modelui3.png[]
 
-==== For the display publication page
+==== Display publication page
 
 image:modelui7.png[]
 
-==== For the groups list page
+==== Groups list page
 
 image:modelui4.png[]
 
-==== For the adding group page
+==== Adding group page
 
 image:modelui2.png[]
 
-==== For the search page
+==== Search page
 
 image:modelui.png[]
 
-==== For the request adhesion page
+==== Request membership page
 
 image:modelui10.png[]
 
-==== For private group administration pages
+==== Private group administration pages
 
 image:modelui11.png[]
 
-==== For private recommendation page
+==== Private recommendation page
 
 image:modelui12.png[]
 
@@ -89,23 +137,6 @@ image:modelui12.png[]
 
 image:modeldata.png[]
 
-== Sequence Diagram
-
-=== Sequence Diagram : Publication Page
-
-image:PublicationPage.png[]
-
-=== Sequence Diagram : Add Group
-
-image:AjoutGroupe.png[]
-
-=== Sequence Diagram : Add Publication
-
-image:AjoutPublication.png[]
-
-=== Sequence Diagram : Group Page
-
-image:PageGroupe.png[]
 
 
 == What does ```Sonofy``` do?
@@ -201,29 +232,22 @@ Dans cette dernière version, des corrections de bugs ont été apportées.
 Pour la version v1.1, il est possible de supprimer une publication ainsi qu'afficher le nombre de commentaires d'une publication.
 La recherche a été modifiée de manière à ce que les utilisateurs puissent rechercher une publication dans la liste des publications mais aussi de rechercher un groupe parmi la liste des groupes.
 
-== Features prévues
+=== v1.2/v1.3
 
-== v1.2/ v1.3
+Dans la version v1.3, le profil de l'utilisateur courant a été ajouté. Il est possible de changer ses propres données concernant le prénom, nom et pseudonyme. 
 
-== Affichage du nom de l'auteur d'une publication
+=== v1.4
 
-image:features/nom_utilisateurs.png[]
+Dans la version v1.4, les commentaires ont été remplacés par des émotions pour éviter tout commentaire déplacé dans les publication !
+L'auteur d'une publication est maintenant visible !
 
-== Ajouter une émotion
+=== v1.5
 
-image:features/emotion_comm.png[]
+Pour la version v1.5, Sonofy vous propose des recommandations à partir des publications que vous avez appreciées et celles de personnes ayant les mêmes préferences.
+Les fonctions "Mes publications" et "Mes émotions" ont été ajoutés et vous permettent de voir les publications que vous avez publiées et les émotions que vous avez laissées sur des publications avec le nom de leur groupe.
+Ces fonctions sont aussi disponibles pour les autres utilisateurs, il est possible de voir les publications et émotions d'un utilisateur donné en cliquant sur son pseudonyme.
 
-== Profil utilisateur
+=== v1.6
 
-image:features/profil_utilisateur.png[]
-
-== Affichage du nombre de publication par groupe
-
-image:features/nb_groupe.png[]
-
-== Intégration des recommandations youtube
-
-image:features/recommendation_youtube.png[]
-
-
-
+Dans cette dernière version de Sonofy, il est désormais possible de créer des groupes privés. L'administrateur du groupe peut accepter ou non des demandes d'adhésion à son groupe, et peut aussi supprimer des membres indésirables.
+L'ajout via une nouvelle source est disponible, les publications peuvent être ajouter avec un lien SoundCloud.

@@ -1,0 +1,26 @@
+@startuml
+actor User as g
+participant "::PublicationActivity " as act
+participant ":: PublicationViewModel " as pubvm
+participant ":: Emotion " as emo
+participant ":: EmotionFirestore " as emob
+
+g -> act: Appuyer sur une des emojis dans la liste
+activate act
+act -> pubvm : addEmotion("le type d'emoji (sad, happy, ..)");
+activate pubvm
+activate emo
+pubvm -> emo :  new Emotion(emotionName, currentUser.getUserId(), pub.getUid());
+emo --> pubvm : emotion crée
+pubvm -> emob : create(emotion)
+activate emob
+emob --> pubvm : ok
+deactivate emo
+deactivate emob
+pubvm --> act : emotion crée, count mis à jour au niveau de la classe Emotion
+deactivate pubvm
+act --> g : Afficher l'emotion dans la liste des emotion
+act --> g : Mettre à jour le compteur des emojis
+deactivate act
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+actor User as g
+participant "::HomeActivity " as act
+participant ":: HomeViewModel " as homevm
+participant ":: PublicationFirestore " as pubb
+
+
+g -> act: Appuyer sur le button home
+activate act
+act -> homevm : loadPublicationsDate()
+activate homevm
+activate pubb
+homevm -> pubb : getAllPublicationsCollectionDesc()
+pubb --> homevm : return liste publications récentes
+deactivate pubb
+homevm --> act : ok
+deactivate homevm
+act --> g : Afficher la liste des publications les plus récentes
+act --> g : Button disponibles : logout, mon profil, recommandations
+deactivate act
+
+@enduml

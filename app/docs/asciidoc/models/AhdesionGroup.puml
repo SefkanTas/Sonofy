@@ -1,0 +1,26 @@
+@startuml
+actor User as g
+participant "::AdhesionGroup " as act
+participant ":: GroupeFirestore " as groupb
+participant ":: Groupe " as group
+
+g -> act: Acceder à un groupe privée
+activate act
+act -> g : Souhaitez vous faire une demande d'adhésion pour voir le groupe?
+g -> act: Oui
+act -> groupb : getGroupWithId(groupeId)
+activate groupb
+groupb --> act : return groupeId
+deactivate groupb
+act -> group : getWaitingApprovalUserId().add(currentUserId)
+activate group
+group --> act : canAccess(String userId) or refuseRequest(String userUid)
+deactivate group
+act -> groupb : getCollection().document(groupeId).update()
+activate groupb
+groupb --> act : ok
+deactivate groupb
+act --> g : Acces permis au groupe ou acces refusé au groupe
+deactivate act
+
+@enduml

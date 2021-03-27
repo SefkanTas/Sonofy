@@ -1,0 +1,22 @@
+@startuml
+actor User as g
+participant "::PublicationAdapter " as act
+participant ":: PublicationFirestore " as pubb
+participant ":: EmotionFirestore " as emob
+
+g -> act: Appuyer sur "x" (supprimer une publication)
+activate act
+activate pubb
+activate emob
+act -> pubb : deletePublication(String uid)
+pubb -> pubb : getPublicationsCollection()
+act -> emob : deleteByPublicationId(publication.getUid())
+emob -> emob : getCollection().document(uid)
+emob --> act : ok
+pubb --> act : ok
+deactivate emob
+deactivate pubb
+act --> g : La publication a été supprimée
+deactivate act
+
+@enduml
