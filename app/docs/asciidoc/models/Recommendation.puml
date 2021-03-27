@@ -1,0 +1,30 @@
+@startuml
+actor User as g
+participant "::RecommandationFragment " as act
+participant ":: RecommandationViewModel " as recvm
+participant ":: PublicationFirestore " as pubb
+participant ":: EmotionFirestore " as emob
+
+g -> act: Appuyer sur le boutton recommendation
+activate act
+act -> recvm : getRecommendedPublicationsLiveData()
+activate recvm
+recvm -> recvm : getUserReactedPublication(List<Emotion> emotions)
+recvm -> pubb : getAllPublications()
+activate pubb
+pubb --> recvm : liste des publication avec lesquelle l'utilisateur a réagit
+deactivate pubb
+recvm -> recvm : getEmotionsForPublications(List<Publication> publications)
+recvm -> emob : getAll()
+activate emob
+emob --> recvm : all emojis
+deactivate emob
+recvm -> recvm : reactionComparaison(List<Publication> publications)
+recvm -> recvm : getOrderedSimilarUser(Map<String, Integer> similarUsers)
+recvm -> recvm : getRecommendedPublications(List<String> orderedSimilarUsers)
+recvm --> act : List<Publication> allPublications
+deactivate recvm
+act --> g : La liste des recommendations en fonction de vos préférences
+deactivate act
+
+@enduml

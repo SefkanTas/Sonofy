@@ -26,6 +26,7 @@ package app{
                 class ListGroupActivity extends AppCompatActivity {
                     - groupeRecyclerView : RecyclerView
                     - adapter : RecyclerView.Adapter
+                    - user : FirebaseAuth
 
                     # onCreate(savedInstanceState : Bundle): void
                 }

@@ -15,14 +15,9 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.List;
-
 import github.com.kazetavi.sonofy.R;
-import github.com.kazetavi.sonofy.data.model.Emotion;
-import github.com.kazetavi.sonofy.data.model.Publication;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
-import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 import github.com.kazetavi.sonofy.ui.main.PublicationAdapter;
 import github.com.kazetavi.sonofy.ui.publication.EmotionMainProfileAdapter;
 
@@ -61,7 +56,7 @@ public class MainProfilActivity extends AppCompatActivity {
         Button mesEmotions = findViewById(R.id.button_emotion_user);
 
         //On vérifie quel profil on doit afficher
-        if(res != null){
+        if(!res.equals(user.getUid()) && res != null ){
             id = res;
             String pub = "Publications";
             String emo = "Emotions";
@@ -83,20 +78,14 @@ public class MainProfilActivity extends AppCompatActivity {
 
         profilViewModel.getUser(id);
 
-        profilViewModel.getPublications().observe(this, new Observer<List<Publication>>() {
-            @Override
-            public void onChanged(List<Publication> publications) {
-                adapter = new PublicationAdapter(publications);
-                resultats.setAdapter(adapter);
-            }
+        profilViewModel.getPublications().observe(this, publications -> {
+            adapter = new PublicationAdapter(publications);
+            resultats.setAdapter(adapter);
         });
 
-        profilViewModel.getEmotionsLiveData().observe(this, new Observer<List<Emotion>>() {
-            @Override
-            public void onChanged(List<Emotion> emotions) {
-                adapter2 = new EmotionMainProfileAdapter(emotions);
-                resultats.setAdapter(adapter2);
-            }
+        profilViewModel.getEmotionsLiveData().observe(this, emotions -> {
+            adapter2 = new EmotionMainProfileAdapter(emotions);
+            resultats.setAdapter(adapter2);
         });
 
         //Permet d'afficher les publications de l'utilisateur courant directement
@@ -111,12 +100,7 @@ public class MainProfilActivity extends AppCompatActivity {
             }
         });
 
-        retour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        retour.setOnClickListener(v -> finish());
 
         //Redicrection vers la page du profil pour modifier ses données
         modification.setOnClickListener(new View.OnClickListener() {
@@ -127,18 +111,8 @@ public class MainProfilActivity extends AppCompatActivity {
             }
         });
 
-        mesPublications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profilViewModel.loadPublicationsAuthor(id);
-            }
-        });
+        mesPublications.setOnClickListener(v -> profilViewModel.loadPublicationsAuthor(id));
 
-        mesEmotions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profilViewModel.loadEmotionsAuthor(id);
-            }
-        });
+        mesEmotions.setOnClickListener(v -> profilViewModel.loadEmotionsAuthor(id));
     }
 }

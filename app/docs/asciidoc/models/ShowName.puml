@@ -1,0 +1,28 @@
+@startuml
+actor User as g
+participant "::PublicationActivity " as act
+participant ":: User " as user
+participant "::MainProfilActivity" as act2
+
+
+
+g -> act: Affichege nom de l'auteur
+activate act
+act -> user : getUser(currentUser.getCurrentUser().getUid())
+activate user
+user --> act : User
+deactivate user
+act --> g : Affichage nom de l'user
+deactivate act
+
+g -> act: Appuyer sur le nom de l'auteur
+activate act
+act --> act2 : new Intent(getBaseContext(), MainProfilActivity.class)
+activate act2
+act2 --> act : ok
+deactivate act2
+act --> g : Redirection profil utilisateur
+deactivate act
+
+
+@enduml

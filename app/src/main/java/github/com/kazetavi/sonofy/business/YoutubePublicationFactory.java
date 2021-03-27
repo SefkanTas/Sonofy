@@ -12,18 +12,12 @@ import io.reactivex.rxjava3.core.Observable;
 
 public class YoutubePublicationFactory {
 
-    /**
-     * Vérifie que la vidéo youtube existe en faisant un appel http vers la miniature
-     * de la vidéo youtube.
-     * Si le code de retour est 200 alors la miniature existe et donc la vidéo existe.
-     * @param ressourceId id de la vidéo youtube
-     * @return Observable<Boolean>
-     */
-    public Observable<Boolean> ressourceExists(String ressourceId){
+    public Observable<Boolean> ressourceExists(String id){
 
         final OkHttpClient client = new OkHttpClient();
 
-        String videoUrl = "https://i.ytimg.com/vi/" + ressourceId + "/mqdefault.jpg";
+        String videoUrl = "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg";
+
 
         final Request request = new Request.Builder()
                 .url(videoUrl)
@@ -35,7 +29,6 @@ public class YoutubePublicationFactory {
                 return client.newCall(request).execute().code() == 200;
             }
         });
-
     }
 
     public String getVideoIdFromUrl(String url){

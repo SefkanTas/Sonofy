@@ -9,6 +9,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Objects;
+
 import github.com.kazetavi.sonofy.data.model.Emotion;
 
 public class EmotionFirestore {
@@ -18,6 +20,10 @@ public class EmotionFirestore {
     public static final String PUBLICATION_ID = "publicationId";
     public static final String DATE_CREATED = "dateCreated";
 
+
+    //for sonar code smell
+    private EmotionFirestore() {
+    }
 
     public static CollectionReference getCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -64,6 +70,16 @@ public class EmotionFirestore {
     }
 
 
+    public static void deleteByPublicationId(String publicationId){
+        getByPublication(publicationId).get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot query : Objects.requireNonNull(task.getResult())){
+                        delete(query.getId());
+                    }
+                }
+        });
+    }
+
     /*
      * La méthode supprime toutes les émotions hormis celle qui a l'id de la nouvelle émotion
      * C'est moche et à refactoriser asap.
@@ -84,4 +100,6 @@ public class EmotionFirestore {
                     }
                 });
 
-    }}
+    }
+
+}

@@ -23,6 +23,9 @@ public class PublicationFirestore {
     public static final String AUTHOR_ID = "authorId";
 
 
+    private PublicationFirestore() {
+    }
+
     public static CollectionReference getPublicationsCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
     }

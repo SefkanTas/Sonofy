@@ -10,6 +10,7 @@ package app{
           class MainActivity extends AppCompatActivity{
               - publicationRecyclerView: RecyclerView
               - adapter: RecyclerView.Adapter
+              - user : FirebaseAuth
 
               + onCreate(savedInstanceState : Bundle): void
           }

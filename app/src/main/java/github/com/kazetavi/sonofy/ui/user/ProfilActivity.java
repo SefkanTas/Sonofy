@@ -2,10 +2,8 @@ package github.com.kazetavi.sonofy.ui.user;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import github.com.kazetavi.sonofy.R;
 import github.com.kazetavi.sonofy.data.model.User;
 import github.com.kazetavi.sonofy.ui.homepage.HomeActivity;
-import github.com.kazetavi.sonofy.ui.listgroup.ListGroupActivity;
 
 public class ProfilActivity extends AppCompatActivity {
 
@@ -62,33 +59,20 @@ public class ProfilActivity extends AppCompatActivity {
         ImageView pseudo_mod = findViewById(R.id.pseudo_button);
 
 
-        profilvm.getUserMutableLiveData().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                u = user;
-                nom.setText(u.getNom());
-                prenom.setText(u.getPrenom());
-                //email.setText(u.getEmail());
-                pseudo.setText(u.getPseudo());
-            }
+        profilvm.getUserMutableLiveData().observe(this, mUser -> {
+            u = mUser;
+            nom.setText(u.getNom());
+            prenom.setText(u.getPrenom());
+            //email.setText(u.getEmail());
+            pseudo.setText(u.getPseudo());
         });
 
         profilvm.getUser(user.getCurrentUser().getUid());
 
 
-        nom_mod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               boutonModNom(v);
-            }
-        });
+        nom_mod.setOnClickListener(v -> boutonModifier(v, "Nom"));
 
-        prenom_mod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boutonModPrenom(v);
-            }
-        });
+        prenom_mod.setOnClickListener(v -> boutonModifier(v, "Prénom"));
 
         /*email_mod.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,144 +81,42 @@ public class ProfilActivity extends AppCompatActivity {
             }
         });*/
 
-        pseudo_mod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boutonModPseudo(v);
-            }
+        pseudo_mod.setOnClickListener(v -> boutonModifier(v, "Pseudo"));
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back.setOnClickListener(v -> finish());
     }
 
-    public void boutonModPrenom(View view) {
+    public void boutonModifier(View view, String champ){
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.popup_modification, null);
         final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
         final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Prénom");
+        label.setText(champ);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon prénom");
+        alert.setTitle("Modifier mon "+champ);
         // this is set the view from XML inside AlertDialog
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
         alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
+        alert.setNegativeButton(ANNULER, (dialog, which) -> { });
+        alert.setPositiveButton(MODIFIER, (dialog, which) -> {
+            String name = etUsername.getText().toString();
+            if(champ.equals("Prénom")){
                 profilvm.updatePrenom(user.getUid(), name);
-                recreate();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
-    public void boutonModNom(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.popup_modification, null);
-        final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
-        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Nom");
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon nom");
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
+            }else if (champ.equals("Nom")){
                 profilvm.updateNom(user.getUid(), name);
-                recreate();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
-    public void boutonModPseudo(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.popup_modification, null);
-        final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
-        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Pseudo");
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon pseudo");
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
+            }else{
                 profilvm.updatePseudo(user.getUid(), name);
-                recreate();
             }
+            recreate();
         });
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
-    /*public void boutonModEmail(View view) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.popup_modification, null);
-        final EditText etUsername = alertLayout.findViewById(R.id.edit_field);
-        final TextView label = alertLayout.findViewById(R.id.attribut_popup);
-        label.setText("Email");
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modifier mon email");
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(ANNULER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        alert.setPositiveButton(MODIFIER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etUsername.getText().toString();
-                profilvm.updateEmail(user.getUid(), name);
-                recreate();
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }*/
-
 }
