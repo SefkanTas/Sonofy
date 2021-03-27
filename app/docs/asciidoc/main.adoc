@@ -89,6 +89,8 @@ image:modelui12.png[]
 
 image:modeldata.png[]
 
+
+
 == Sequence Diagram
 
 === Sequence Diagram : Publication Page
@@ -106,6 +108,34 @@ image:AjoutPublication.png[]
 === Sequence Diagram : Group Page
 
 image:PageGroupe.png[]
+
+=== Sequence Diagram : Search group
+
+image:SearchGroup.png[]
+
+=== Sequence Diagram : Delete publication
+
+image:DeletePub.png[]
+
+=== Sequence Diagram : User profil
+
+image:UserProfil.png[]
+
+=== Sequence Diagram : Add emotion
+
+image:AddEmotion.png[]
+
+=== Sequence Diagram : Show the name of author's publication
+
+image:ShowName.png[]
+
+=== Sequence Diagram : Home page
+
+image:HomePage.png[]
+
+=== Sequence Diagram : Publication recommendation
+
+image:Recommendation.png[]
 
 
 == What does ```Sonofy``` do?
